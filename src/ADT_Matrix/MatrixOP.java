@@ -1,8 +1,5 @@
 package ADT_Matrix;
 
-import java.io.*;
-import java.util.*;
-
 public class MatrixOP {
     int getRowEff(double[][] matrix) {
         return matrix.length;
@@ -175,6 +172,7 @@ public class MatrixOP {
             }
             return true;
         }
+        return false;
     }
 
     boolean isMatrixNotEqual(double[][] m1, double[][] m2) {
@@ -303,75 +301,80 @@ public class MatrixOP {
         /* Prekondisi: isSquare(m) */
         /* Menghitung nilai determinan m */
 
-        double[][] temp;
-        int i = 0, j = 0, k = 0, indexRowMtemp, indexColMtemp;
-        float det = 0;
+        int i, j, k;
+        double[][] m2 = new double[getRowEff(m)][getColEff(m)];
+        double det = 1, temp;
 
-        if (getRowEff(m) == 1) {
-            
-        } else if (getRowEff(m) == 2) {
-            return getElmt(m, 0, 0) * getElmt(m, 1, 1) - (getElmt(m, 0, 1) * getElmt(m, 1, 0));
-        } else {
-
-            for (k = 0; k <= getLastIdxCol(m); k++) {
-                indexRowMtemp = 0;
-                for (i = 1; i <= getLastIdxRow(m); i++) {
-                    indexColMtemp = 0;
-                    for (j = 0; j <= getLastIdxRow(m); j++) {
-                        if (j != k) {
-                            getElmt(mtemp, indexRowMtemp, indexColMtemp) = getElmt(m, i, j);
-                            indexColMtemp++;
-                        }
-                    }
-                    indexRowMtemp++;
-                }
-
-                if (k % 2 == 0) {
-                    det += getElmt(m, 0, k) * determinant(mtemp);
-                } else {
-                    det -= getElmt(m, 0, k) * determinant(mtemp);
-                }
-            }
-
-            return det;
-        }
-
-    }
-    /* Prekondisi: isSquare(m) */
-    /* Menghitung nilai determinan m */
-
-    double[][] transpose(double[][] m){
-        /* I.S. m terdefinisi dan IsSquare(m) */
-        /* F.S. menghasilkan salinan transpose dari m, yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
-        double[][] mf;
-        createMatrix(getRowEff(m), getColEff(m), &mf);
-        int i, j;
         for (i = 0; i < getRowEff(m); i++) {
             for (j = 0; j < getColEff(m); j++) {
-                getElmt(mf, i , j) = getElmt(m, j, i);
+                m2[i][j] = getElmt(m, i, j);
             }
         }
-        return mf;
-    }
-    /* I.S. m terdefinisi dan IsSquare(m) */
-    /*
-     * F.S. menghasilkan salinan transpose dari m, yaitu setiap elemen m(i,j)
-     * ditukar nilainya dengan elemen m(j,i)
-     */
 
-    void pTranspose(double[][] *m){
+        for (i = 0; i < getRowEff(m2); i++) {
+            for (j = i + 1; j < getRowEff(m2); j++) {
+                temp = getElmt(m2, j, i) / getElmt(m2, i, i);
+                for (k = 0; k < getColEff(m2); k++) {
+                    m2[j][k] = getElmt(m2, j, k) - (getElmt(m2, i, k) * temp);
+                }
+            }
+        }
+
+        for (i = 0; i < getRowEff(m2); i++) {
+            det *= getElmt(m2, i, i);
+        }
+
+        return (float) det;
+    }
+
+    double[][] transpose(double[][] m) {
+        /* I.S. m terdefinisi dan IsSquare(m) */
+        /*
+         * F.S. menghasilkan salinan transpose dari m, yaitu setiap elemen m(i,j)
+         * ditukar nilainya dengan elemen m(j,i)
+         */
+
         int i, j;
-        ElType temp;
-        if(isSquare(*m)){
-            for(i = 0; i < getRowEff(*m); i++){
-                for(j = i+1; j < getColEff(*m); j++){
-                    temp = getElmt(*m, i, j);
-                    getElmt(*m, i, j) = (getElmt(*m, j, i));
-                    getElmt(*m, j, i) = temp;
+        double temp;
+        double[][] m2 = new double[getRowEff(m)][getColEff(m)];
+
+        if (isSquare(m)) {
+            for (i = 0; i < getRowEff(m); i++) {
+                for (j = 0; j < getColEff(m); j++) {
+                    m2[i][j] = getElmt(m, i, j);
+                }
+            }
+
+            for (i = 0; i < getRowEff(m2); i++) {
+                for (j = i + 1; j < getColEff(m2); j++) {
+                    temp = getElmt(m2, i, j);
+                    m2[i][j] = (getElmt(m2, j, i));
+                    m2[j][i] = temp;
+                }
+            }
+        }
+
+        return m2;
+    }
+
+    void pTranspose(double[][] m) {
+        /* I.S. m terdefinisi dan IsSquare(m) */
+        /*
+         * F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan
+         * elemen m(j,i)
+         */
+
+        int i, j;
+        double temp;
+
+        if (isSquare(m)) {
+            for (i = 0; i < getRowEff(m); i++) {
+                for (j = i + 1; j < getColEff(m); j++) {
+                    temp = getElmt(m, i, j);
+                    m[i][j] = (getElmt(m, j, i));
+                    m[j][i] = temp;
                 }
             }
         }
     }
-    /* I.S. m terdefinisi dan IsSquare(m) */
-    /* F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
 }
