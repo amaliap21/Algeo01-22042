@@ -2,7 +2,6 @@ package ADT_Matrix;
 
 import java.io.*;
 import java.util.*;
-import menu.*;
 
 public class MatrixInput {
     public static int choose() {
@@ -67,7 +66,7 @@ public class MatrixInput {
             while (matrixScan.hasNextLine()) {
                 for (i = 0; i < row; i++) {
                     for (j = 0; j < col; j++) {
-                        matrix[i][j] = matrixScan.nextdouble();
+                        matrix[i][j] = matrixScan.nextDouble();
                     }
                 }
             }
@@ -115,7 +114,7 @@ public class MatrixInput {
             System.out.println("Input elemen-elemen matrix");
             for (i = 0; i < m; i++) {
                 for (j = 0; j < n; j++) {
-                    matrix[i][j] = scan.nextdouble();
+                    matrix[i][j] = scan.nextDouble();
                 }
             }
             return matrix;
@@ -128,17 +127,5 @@ public class MatrixInput {
                 scan.close();
             }
         }
-    }
-
-    public static int getRowEff(double[][] matrix){
-        return matrix.length;
-    }
-
-    public static int getColEff(double[][] matrix){
-        return matrix[0].length;
-    }
-
-    public static double getElmt(double[][] matrix, int i, int j) {
-        return matrix_file[i][j];
     }
 }
