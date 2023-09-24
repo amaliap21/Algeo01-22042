@@ -30,7 +30,7 @@ public class MatrixInput {
         return pilih;
     }
 
-    public static long[][] matrix_file() throws Exception {
+    public static double[][] matrix_file() throws Exception {
         Scanner scan, isiFile, matrixScan;
         String namaFile, pathFile;
         File file;
@@ -62,12 +62,12 @@ public class MatrixInput {
             System.out.println("Jumlah kolom: " + col);
 
             // Read matrix
-            long[][] matrix = new long[row][col];
+            double[][] matrix = new double[row][col];
             matrixScan = new Scanner(file);
             while (matrixScan.hasNextLine()) {
                 for (i = 0; i < row; i++) {
                     for (j = 0; j < col; j++) {
-                        matrix[i][j] = matrixScan.nextLong();
+                        matrix[i][j] = matrixScan.nextdouble();
                     }
                 }
             }
@@ -76,7 +76,7 @@ public class MatrixInput {
         }
 
         catch (FileNotFoundException e) {
-            long[][] matrix = new long[0][0];
+            double[][] matrix = new double[0][0];
             return matrix;
         }
     }
@@ -96,7 +96,7 @@ public class MatrixInput {
         return pathFile;
     }
 
-    public static long[][] matrix_user() {
+    public static double[][] matrix_user() {
         int m, n, i, j;
         Scanner scan = null;
 
@@ -109,13 +109,13 @@ public class MatrixInput {
             n = scan.nextInt();
 
             // Declare matrix
-            long[][] matrix = new long[m][n];
+            double[][] matrix = new double[m][n];
 
             // Input elemen matrix
             System.out.println("Input elemen-elemen matrix");
             for (i = 0; i < m; i++) {
                 for (j = 0; j < n; j++) {
-                    matrix[i][j] = scan.nextLong();
+                    matrix[i][j] = scan.nextdouble();
                 }
             }
             return matrix;
@@ -130,26 +130,15 @@ public class MatrixInput {
         }
     }
 
-    public static int getRowEff(long[][] matrix){
-        if(choose() == 1){
-            m = new ();
-            return matrix_user.(m);
-        }
-        else{
-            return matrix_file.(row);
-        }
+    public static int getRowEff(double[][] matrix){
+        return matrix.length;
     }
 
-    public static int getColEff(long[][] matrix){
-        if(choose() == 1){
-            return matrix_user.(n);
-        }
-        else{
-            return matrix_file.(col);
-        }
+    public static int getColEff(double[][] matrix){
+        return matrix[0].length;
     }
 
-    public static long getElmt(long[][] matrix, int i, int j) {
+    public static double getElmt(double[][] matrix, int i, int j) {
         return matrix_file[i][j];
     }
 }
