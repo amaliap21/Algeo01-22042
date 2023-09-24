@@ -3,26 +3,26 @@ import java.io.*;
 import java.util.*;
 import menu.*;
 
-public class NatrixInput{
+public class MatrixInput{
     public static int choose(){
         Scanner choice;
         int pilih;
         boolean prog = true;
-        choice = new(System.in);
+        choice = new Scanner(System.in);
 
-        while(program){
+        while(prog){
             System.out.println("===== PILIHAN READ MATRIX =====");
             System.out.println("Pilihan untuk to read matrix:");
             System.out.println("1. Input manual");
             System.out.println("2. Baca dari file .txt (Make sure file .txt sudah ada di folder yang sesuai.)");
-            System.out.println("Choose how to read matrix (ketik angkanya saja 1 atau 2): ")
+            System.out.println("Choose how to read matrix (ketik angkanya saja 1 atau 2): ");
             pilih = choice.nextInt();
 
             if(pilih == 1 || pilih == 2){
                 prog = false;
             }
             else{
-                System.out.println("Input pilihan salah, silakan input ulang.")
+                System.out.println("Input pilihan salah, silakan input ulang.");
             }
         }
         return pilih;
@@ -99,7 +99,7 @@ public class NatrixInput{
         try {
             // Input m dan m
             scan = new Scanner(System.in);
-            System.out.println("Jumlah aris matrix : ");
+            System.out.println("Jumlah baris matrix : ");
             m = scan.nextInt();
             System.out.println("Jumlah kolom matrix : ");
             n = scan.nextInt();
@@ -119,7 +119,7 @@ public class NatrixInput{
         catch (Exception e) {}
     }
 
-    public int getRowEff(long[][] matrix){
+    public static int getRowEff(long[][] matrix){
         if(choose() == 1){
             return matrix_user.(m);
         }
@@ -128,7 +128,7 @@ public class NatrixInput{
         }
     }
 
-    public int getColEff(long[][] matrix){
+    public static int getColEff(long[][] matrix){
         if(choose() == 1){
             return matrix_user.(n);
         }
@@ -137,7 +137,7 @@ public class NatrixInput{
         }
     }
 
-    public long getElmt(long[][] matrix, int i, int j){
+    public static long getElmt(long[][] matrix, int i, int j){
         return matrix_file[i][j];
     }
 }
