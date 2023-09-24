@@ -1,8 +1,9 @@
 package ADT_Matrix;
 import java.io.*;
 import java.util.*;
+import menu.*;
 
-public class matrix_input{
+public class NatrixInput{
     public static int choose(){
         Scanner choice;
         int pilih;
@@ -60,8 +61,8 @@ public class matrix_input{
             long[][] matrix = new long[row][col];
             matrixScan = new Scanner(file);
             while(matrixScan.hasNextLine()){
-                for (i = 0; i < m; i++){
-                    for (j = 0; j < n; j++){
+                for (i = 0; i < row; i++){
+                    for (j = 0; j < col; j++){
                         matrix[i][j] = matrixScan.nextLong();
                     }
                 }
@@ -92,7 +93,6 @@ public class matrix_input{
         return pathFile;
     }
 
-
     public static long[][] matrix_user(){
         int m, n, i, j;
         Scanner scan = null;
@@ -117,5 +117,27 @@ public class matrix_input{
             return matrix;
         }
         catch (Exception e) {}
+    }
+
+    public int getRowEff(long[][] matrix){
+        if(choose() == 1){
+            return matrix_user.(m);
+        }
+        else{
+            return matrix_file.(row);
+        }
+    }
+
+    public int getColEff(long[][] matrix){
+        if(choose() == 1){
+            return matrix_user.(n);
+        }
+        else{
+            return matrix_file.(col);
+        }
+    }
+
+    public long getElmt(long[][] matrix, int i, int j){
+        return matrix_file[i][j];
     }
 }
