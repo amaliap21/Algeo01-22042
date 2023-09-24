@@ -1,22 +1,34 @@
 package ADT_Matrix;
+
 import java.io.*;
 import java.util.*;
-import MatrixInput.*;
 
-public class matrixop{
-    public static int getLastIdxRow(long[][] m){
+public class MatrixOP{
+    public static int getRowEff(double[][] matrix){
+        return matrix.length;
+    }
+
+    public static int getColEff(double[][] matrix){
+        return matrix[0].length;
+    }
+
+    public static double getElmt(double[][] matrix, int i, int j) {
+        return matrix[i][j];
+    }
+
+    public static int getLastIdxRow(double[][] m){
         return getRowEff(m) - 1;
     }
 
-    public static int getLastIdxCol(long[][] m){
+    public static int getLastIdxCol(double[][] m){
         return getColEff(m) - 1;
     }
 
-    public static boolean isIdxEff(long[][] m, int i, int j){
+    public static boolean isIdxEff(double[][] m, int i, int j){
         return ((i >= 0 && i <= getLastIdxRow(m)) && (j >= 0 && j <= getLastIdxCol(m)));
     }
 
-    public static long getElmtDiagonal(long[][] m, int i){
+    public static double getElmtDiagonal(double[][] m, int i){
         if(choose() == 1){
             return getElmt(matrix_user, i, i);
         }
@@ -49,8 +61,8 @@ public class matrixop{
     */
 
     /* ********** KELOMPOK OPERASI ARITMATIKA TERHADAP TYPE ********** */
-    public long[][] addMatrix(long[][] m1, long[][] m2){
-        long[][] m3;
+    public double[][] addMatrix(double[][] m1, double[][] m2){
+        double[][] m3;
         int i, j;
         if(getColEff(m1) == getColEff(m2) && getRowEff(m1) == getRowEff(m2)){
             createMatrix(ROW_EFF(m1), COL_EFF(m1), &m3);
