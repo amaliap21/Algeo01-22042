@@ -128,16 +128,4 @@ public class MatrixInput {
             }
         }
     }
-
-    public static int getRowEff(double[][] matrix){
-        return matrix.length;
-    }
-
-    public static int getColEff(double[][] matrix){
-        return matrix[0].length;
-    }
-
-    public static double getElmt(double[][] matrix, int i, int j) {
-        return matrix[i][j];
-    }
 }
