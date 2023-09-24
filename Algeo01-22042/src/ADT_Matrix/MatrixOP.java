@@ -29,39 +29,11 @@ public class MatrixOP{
     }
 
     public static double getElmtDiagonal(double[][] m, int i){
-        if(choose() == 1){
-            return getElmt(matrix_user, i, i);
-        }
-        else{
-            return getElmt(matrix_file, i, i);
-        }
+        return getElmt(m, i, i);
     }
-
-    void displayMatrix(Matrix m){
-        int i, j;
-        for(i = 0; i < ROW_EFF(m); i++){
-            for(j = 0; j < COL_EFF(m); j++){
-                if(j == getLastIdxCol(m)){
-                    printf("%d\n", ELMT(m, i, j));
-                }
-                else{
-                    printf("%d ", ELMT(m, i, j));
-                }
-            }
-        }
-    }
-    /* I.S. m terdefinisi */
-    /* F.S. Nilai m(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
-    dipisahkan sebuah spasi. Baris terakhir tidak diakhiri dengan newline */
-    /* Proses: Menulis nilai setiap elemen m ke layar dengan traversal per baris dan per kolom */
-    /* Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-    1 2 3
-    4 5 6
-    8 9 10
-    */
 
     /* ********** KELOMPOK OPERASI ARITMATIKA TERHADAP TYPE ********** */
-    public double[][] addMatrix(double[][] m1, double[][] m2){
+    public static double[][] addMatrix(double[][] m1, double[][] m2){
         double[][] m3;
         int i, j;
         if(getColEff(m1) == getColEff(m2) && getRowEff(m1) == getRowEff(m2)){
