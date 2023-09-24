@@ -1,7 +1,7 @@
 package ADT_Matrix;
 import java.io.*;
 import java.util.*;
-import matrix_input.*;
+import MatrixInput.*;
 
 public class matrixop{
     public static int getLastIdxRow(long[][] m){
