@@ -1,7 +1,6 @@
 package ADT_Matrix;
 import java.io.*;
 import java.util.*;
-import menu.*;
 
 public class matrix_input{
     public static int choose(){
