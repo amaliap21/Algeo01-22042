@@ -1,8 +1,5 @@
 package ADT_Matrix;
 
-import java.io.*;
-import java.util.*;
-
 public class MatrixOutput{
     public static void printMatrix (double[][] matrix){
         int i,j ;
