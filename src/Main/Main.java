@@ -1,6 +1,5 @@
 package Main;
 
-
 // import ADT
 import java.util.Scanner;
 
@@ -33,10 +32,18 @@ public class Main {
             switch (pilih) {
                 case 1:
                     System.out.println("===== PENJUMLAHAN MATRIX =====");
-                    System.out.println("Matrix 1");
-                    m1 = MatrixInput.matrix_user();
-                    System.out.println("Matrix 2");
-                    m2 = MatrixInput.matrix_user();
+                    MatrixInput.choose();
+                    if (MatrixInput.choose() == 1) {
+                        System.out.println("Matrix 1");
+                        m1 = MatrixInput.matrix_user();
+                        System.out.println("Matrix 2");
+                        m2 = MatrixInput.matrix_user();
+                    } else {
+                        System.out.println("Matrix 1");
+                        m1 = MatrixInput.matrix_file();
+                        System.out.println("Matrix 2");
+                        m2 = MatrixInput.matrix_file();
+                    }
                     m3 = MatrixOP.addMatrix(m1, m2);
                     MatrixOP.displayMatrix(m3);
                     break;

@@ -29,7 +29,7 @@ public class MatrixInput {
         return pilih;
     }
 
-    public static double[][] matrix_file() throws Exception {
+    public static double[][] matrix_file()  {
         Scanner scan, isiFile, matrixScan;
         String namaFile, pathFile;
         File file;

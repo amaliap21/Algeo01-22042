@@ -343,4 +343,5 @@ public class MatrixOP {
             m[i][col] *= x;
         }
     }
+
 }
