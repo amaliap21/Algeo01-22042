@@ -1,35 +1,35 @@
 package ADT_Matrix;
 
 public class MatrixOP {
-    int getRowEff(double[][] matrix) {
+    public static int getRowEff(double[][] matrix) {
         return matrix.length;
     }
 
-    int getColEff(double[][] matrix) {
+    public static int getColEff(double[][] matrix) {
         return matrix[0].length;
     }
 
-    double getElmt(double[][] matrix, int i, int j) {
+    public static double getElmt(double[][] matrix, int i, int j) {
         return matrix[i][j];
     }
 
-    int getLastIdxRow(double[][] matrix) {
+    public static int getLastIdxRow(double[][] matrix) {
         return getRowEff(matrix) - 1;
     }
 
-    int getLastIdxCol(double[][] matrix) {
+    public static int getLastIdxCol(double[][] matrix) {
         return getColEff(matrix) - 1;
     } 
 
-    boolean isIdxEff(double[][] matrix, int i, int j) {
+    public static boolean isIdxEff(double[][] matrix, int i, int j) {
         return ((i >= 0 && i <= getLastIdxRow(matrix)) && (j >= 0 && j <= getLastIdxCol(matrix)));
     }
 
-    double getElmtDiagonal(double[][] matrix, int i) {
+    public static double getElmtDiagonal(double[][] matrix, int i) {
         return getElmt(matrix, i, i);
     }
 
-    void displayMatrix(double[][] matrix) {
+    public static void displayMatrix(double[][] matrix) {
         int i, j;
         for (i = 0; i < getRowEff(matrix); i++) {
             for (j = 0; j < getColEff(matrix); j++) {
@@ -42,7 +42,7 @@ public class MatrixOP {
         }
     }
 
-    double[][] addMatrix(double[][] m1, double[][] m2) {
+    public static double[][] addMatrix(double[][] m1, double[][] m2) {
         double[][] m3 = new double[getRowEff(m1)][getColEff(m1)];
         int i, j;
 
@@ -56,7 +56,7 @@ public class MatrixOP {
         return m3;
     }
 
-    double[][] subtractMatrix(double[][] m1, double[][] m2) {
+    public static double[][] subtractMatrix(double[][] m1, double[][] m2) {
         double[][] m3 = new double[getRowEff(m1)][getColEff(m1)];
         int i, j;
 
@@ -70,7 +70,7 @@ public class MatrixOP {
         return m3;
     }
 
-    double[][] multiplyMatrix(double[][] m1, double[][] m2) {
+    public static double[][] multiplyMatrix(double[][] m1, double[][] m2) {
         double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
         int i, j, k;
 
@@ -86,7 +86,7 @@ public class MatrixOP {
         return m3;
     }
 
-    double[][] multiplyMatrixWithMod(double[][] m1, double[][] m2, int mod) {
+    public static double[][] multiplyMatrixWithMod(double[][] m1, double[][] m2, int mod) {
         double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
         int i, j, k;
 
@@ -108,7 +108,7 @@ public class MatrixOP {
         return m3;
     }
 
-    double[][] multiplyByConst(double[][] m, double x) {
+    public static double[][] multiplyByConst(double[][] m, double x) {
         double[][] m3 = new double[getRowEff(m)][getColEff(m)];
         int i, j;
 
@@ -120,7 +120,7 @@ public class MatrixOP {
         return m3;
     }
 
-    void pMultiplyByConst(double[][] m, int x) {
+    public static void pMultiplyByConst(double[][] m, int x) {
         int i, j;
 
         for (i = 0; i < getRowEff(m); i++) {
@@ -130,7 +130,7 @@ public class MatrixOP {
         }
     }
 
-    boolean isMatrixEqual(double[][] m1, double[][] m2) {
+    public static boolean isMatrixEqual(double[][] m1, double[][] m2) {
         int i, j;
 
         if (getColEff(m1) != getColEff(m2) || getRowEff(m1) != getRowEff(m2)) {
@@ -149,23 +149,23 @@ public class MatrixOP {
         return false;
     }
 
-    boolean isMatrixNotEqual(double[][] m1, double[][] m2) {
+    public static boolean isMatrixNotEqual(double[][] m1, double[][] m2) {
         return !isMatrixEqual(m1, m2);
     }
 
-    boolean isMatrixSizeEqual(double[][] m1, double[][] m2) {
+    public static boolean isMatrixSizeEqual(double[][] m1, double[][] m2) {
         return (getColEff(m1) == getColEff(m2) && getRowEff(m1) == getRowEff(m2));
     }
 
-    int countElmt(double[][] m) {
+    public static int countElmt(double[][] m) {
         return getRowEff(m) * getColEff(m);
     }
 
-    boolean isSquare(double[][] m) {
+    public static boolean isSquare(double[][] m) {
          return getColEff(m) == getRowEff(m);
     }
 
-    boolean isSymmetric(double[][] m) {
+    public static boolean isSymmetric(double[][] m) {
         if (!isSquare(m)) {
             return false;
         } else {
@@ -181,7 +181,7 @@ public class MatrixOP {
         }
     }
 
-    boolean isIdentity(double[][] m) {
+    public static boolean isIdentity(double[][] m) {
         int i, j;
         if (!isSquare(m)) {
             return false;
@@ -203,7 +203,7 @@ public class MatrixOP {
         }
     }
 
-    boolean isSparse(double[][] m) {
+    public static boolean isSparse(double[][] m) {
         int count = 0, i, j;
         for (i = 0; i < getRowEff(m); i++) {
             for (j = 0; j < getColEff(m); j++) {
@@ -215,7 +215,7 @@ public class MatrixOP {
         return (count <= countElmt(m) * 5 / 100);
     }
 
-    double[][] negation(double[][] m) {
+    public static double[][] negation(double[][] m) {
         int i, j;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
 
@@ -227,7 +227,7 @@ public class MatrixOP {
         return m2;
     }
 
-    void pNegation(double[][] m) {
+    public static void pNegation(double[][] m) {
         int i, j;
 
         for (i = 0; i < getRowEff(m); i++) {
@@ -237,7 +237,7 @@ public class MatrixOP {
         }
     }
 
-    float determinant(double[][] m) {
+    public static float determinant(double[][] m) {
         int i, j, k;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
         double det = 1, temp;
@@ -264,7 +264,7 @@ public class MatrixOP {
         return (float) det;
     }
 
-    double[][] transpose(double[][] m) {
+    public static double[][] transpose(double[][] m) {
         int i, j;
         double temp;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
@@ -288,7 +288,7 @@ public class MatrixOP {
         return m2;
     }
 
-    void pTranspose(double[][] m) {
+    public static void pTranspose(double[][] m) {
         int i, j;
         double temp;
 
@@ -303,7 +303,7 @@ public class MatrixOP {
         }
     }
 
-    double[][] IdentityMatrix(double[][] m, int n){
+    public static double[][] IdentityMatrix(double[][] m, int n){
         int i, j;
         if (isSquare(m)) {
             for (i = 0; i < getRowEff(m); i++) {
@@ -320,7 +320,7 @@ public class MatrixOP {
         return m;
     }
 
-    boolean isFullZeroRow(double[][] m, int row){
+    public static boolean isFullZeroRow(double[][] m, int row){
         int j;
         for(j = 0; j < getColEff(m); j++){
             if(m[row][j] != 0){
@@ -330,14 +330,14 @@ public class MatrixOP {
         return true;
     }
 
-    void rowMultiplyByConst(double[][] m, double x, int row) {
+    public static void rowMultiplyByConst(double[][] m, double x, int row) {
         int j;
         for(j = 0; j < getColEff(m); j++){
             m[row][j] *= x;
         }
     }
 
-    void colMultiplyByConst(double[][] m, double x, int col) {
+    public static void colMultiplyByConst(double[][] m, double x, int col) {
         int i;
         for(i = 0; i < getColEff(m); i++){
             m[i][col] *= x;
