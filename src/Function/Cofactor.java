@@ -8,7 +8,7 @@ public class Cofactor {
     public static double[][] getCofactor(double[][] m, int row, int col){
         double[][] sub, newM;
         int i,j;
-        newM = MatrixOP.copyMatrixCofactor(m);
+        newM = MatrixOP.copyMatrix(m);
         
         if(MatrixOP.isSquare(newM)){
             sub = new double[MatrixOP.getRowEff(newM)-1][MatrixOP.getColEff(newM)-1];
@@ -69,7 +69,7 @@ public class Cofactor {
         else{
             cof = new double[MatrixOP.getRowEff(m)][MatrixOP.getRowEff(m)];
             for(i = 0; i < MatrixOP.getRowEff(m); i++){
-                for(j = 0; j < MatrixOP.getColEff(m)-1; j++){
+                for(j = 0; j < MatrixOP.getRowEff(m); j++){
                     detCof = MatrixOP.determinant(getCofactor(m, i, j));
                     if(i%2==0){
                         if(j%2!=0){

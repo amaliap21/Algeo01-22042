@@ -4,11 +4,13 @@ package Main;
 import java.util.*;
 
 import ADT_Matrix.*;
+import Function.Cofactor;
 
 public class Main{
     public static void main(String[] args) throws Exception{
         int pilih;
-        double[][] m;
+        double[][] m, cof, getcof;
+        double detcof;
         pilih = MatrixInput.choose();
         if (pilih == 1){
             m = MatrixInput.matrix_user();
@@ -17,6 +19,16 @@ public class Main{
             m = MatrixInput.matrix_file();
         }
         MatrixOutput.printMatrix(m);
+
+        getcof = Cofactor.getCofactor(m, 0, 0);
+        cof = Cofactor.createMatrixCofactor(m);
+        detcof = Cofactor.detByCofactor(cof, m, 2);
+        System.out.println();
+        MatrixOutput.printMatrix(cof);
+        System.out.println();
+        System.out.println(detcof);
+        System.out.println();
+        MatrixOutput.printMatrix(getcof);
     }
 }
 
