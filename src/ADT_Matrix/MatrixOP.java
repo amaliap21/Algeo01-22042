@@ -1,8 +1,5 @@
 package ADT_Matrix;
 
-import java.io.*;
-import java.util.*;
-
 public class MatrixOP {
     int getRowEff(double[][] matrix) {
         return matrix.length;
@@ -22,7 +19,7 @@ public class MatrixOP {
 
     int getLastIdxCol(double[][] matrix) {
         return getColEff(matrix) - 1;
-    }
+    } 
 
     boolean isIdxEff(double[][] matrix, int i, int j) {
         return ((i >= 0 && i <= getLastIdxRow(matrix)) && (j >= 0 && j <= getLastIdxCol(matrix)));
@@ -45,11 +42,7 @@ public class MatrixOP {
         }
     }
 
-    /* ********** KELOMPOK OPERASI ARITMATIKA TERHADAP TYPE ********** */
     double[][] addMatrix(double[][] m1, double[][] m2) {
-        /* Prekondisi : m1 berukuran sama dengan m2 */
-        /* Mengirim hasil penjumlahan matriks: m1 + m2 */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m1)];
         int i, j;
 
@@ -64,9 +57,6 @@ public class MatrixOP {
     }
 
     double[][] subtractMatrix(double[][] m1, double[][] m2) {
-        /* Prekondisi : m1 berukuran sama dengan m2 */
-        /* Mengirim hasil penjumlahan matriks: m1 - m2 */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m1)];
         int i, j;
 
@@ -81,9 +71,6 @@ public class MatrixOP {
     }
 
     double[][] multiplyMatrix(double[][] m1, double[][] m2) {
-        /* Prekondisi : Ukuran kolom efektif m1 = ukuran baris efektif m2 */
-        /* Mengirim hasil perkalian matriks: salinan m1 * m2 */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
         int i, j, k;
 
@@ -100,12 +87,6 @@ public class MatrixOP {
     }
 
     double[][] multiplyMatrixWithMod(double[][] m1, double[][] m2, int mod) {
-        /* Prekondisi : Ukuran kolom efektif m1 = ukuran baris efektif m2 */
-        /*
-         * Mengirim hasil perkalian matriks: salinan (m1 * m2)%mod, artinya setiap
-         * elemen matrix hasil perkalian m1 * m2 dilakukan modulo terhadap mod
-         */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
         int i, j, k;
 
@@ -128,8 +109,6 @@ public class MatrixOP {
     }
 
     double[][] multiplyByConst(double[][] m, double x) {
-        /* Mengirim hasil perkalian setiap elemen m dengan x */
-
         double[][] m3 = new double[getRowEff(m)][getColEff(m)];
         int i, j;
 
@@ -142,9 +121,6 @@ public class MatrixOP {
     }
 
     void pMultiplyByConst(double[][] m, int x) {
-        /* I.S. m terdefinisi, k terdefinisi */
-        /* F.S. Mengalikan setiap elemen m dengan k */
-
         int i, j;
 
         for (i = 0; i < getRowEff(m); i++) {
@@ -154,12 +130,7 @@ public class MatrixOP {
         }
     }
 
-    /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP Matrix ********** */
     boolean isMatrixEqual(double[][] m1, double[][] m2) {
-        /* Mengirimkan true jika m1 = m2, yaitu count(m1) = count(m2) dan */
-        /* untuk setiap i,j yang merupakan Index baris dan kolom m1(i,j) = m2(i,j) */
-        /* Juga merupakan strong eq karena getLastIdxCol(m1) = getLastIdxCol(m2) */
-
         int i, j;
 
         if (getColEff(m1) != getColEff(m2) || getRowEff(m1) != getRowEff(m2)) {
@@ -175,43 +146,26 @@ public class MatrixOP {
             }
             return true;
         }
+        return false;
     }
 
     boolean isMatrixNotEqual(double[][] m1, double[][] m2) {
-        /* Mengirimkan true jika m1 tidak sama dengan m2 */
-
         return !isMatrixEqual(m1, m2);
     }
 
     boolean isMatrixSizeEqual(double[][] m1, double[][] m2) {
-        /*
-         * Mengirimkan true jika ukuran efektif matriks m1 sama dengan ukuran efektif m2
-         */
-        /* yaitu RowEff(m1) = RowEff (m2) dan ColEff (m1) = ColEff (m2) */
-
         return (getColEff(m1) == getColEff(m2) && getRowEff(m1) == getRowEff(m2));
     }
 
-    /* ********** Operasi lain ********** */
     int countElmt(double[][] m) {
-        /* Mengirimkan banyaknya elemen m */
-
         return getRowEff(m) * getColEff(m);
     }
 
-    /* ********** KELOMPOK TEST TERHADAP Matrix ********** */
     boolean isSquare(double[][] m) {
-        /* Mengirimkan true jika m adalah matriks dg ukuran baris dan kolom sama */
-
-        return getColEff(m) == getRowEff(m);
+         return getColEff(m) == getRowEff(m);
     }
 
     boolean isSymmetric(double[][] m) {
-        /*
-         * Mengirimkan true jika m adalah matriks simetri : isSquare(m)
-         * dan untuk setiap elemen m, m(i,j)=m(j,i)
-         */
-
         if (!isSquare(m)) {
             return false;
         } else {
@@ -228,11 +182,6 @@ public class MatrixOP {
     }
 
     boolean isIdentity(double[][] m) {
-        /*
-         * Mengirimkan true jika m adalah matriks satuan: isSquare(m) dan
-         * setiap elemen diagonal m bernilai 1 dan elemen yang bukan diagonal bernilai 0
-         */
-
         int i, j;
         if (!isSquare(m)) {
             return false;
@@ -255,12 +204,6 @@ public class MatrixOP {
     }
 
     boolean isSparse(double[][] m) {
-        /*
-         * Mengirimkan true jika m adalah matriks sparse: matriks “jarang” dengan
-         * definisi:
-         * hanya maksimal 5% dari memori matriks yang efektif bukan bernilai 0
-         */
-
         int count = 0, i, j;
         for (i = 0; i < getRowEff(m); i++) {
             for (j = 0; j < getColEff(m); j++) {
@@ -273,8 +216,6 @@ public class MatrixOP {
     }
 
     double[][] negation(double[][] m) {
-        /* Menghasilkan salinan m dengan setiap elemen dinegasikan (dikalikan -1) */
-
         int i, j;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
 
@@ -287,9 +228,6 @@ public class MatrixOP {
     }
 
     void pNegation(double[][] m) {
-        /* I.S. m terdefinisi */
-        /* F.S. m di-invers, yaitu setiap elemennya dinegasikan (dikalikan -1) */
-
         int i, j;
 
         for (i = 0; i < getRowEff(m); i++) {
@@ -300,78 +238,109 @@ public class MatrixOP {
     }
 
     float determinant(double[][] m) {
-        /* Prekondisi: isSquare(m) */
-        /* Menghitung nilai determinan m */
+        int i, j, k;
+        double[][] m2 = new double[getRowEff(m)][getColEff(m)];
+        double det = 1, temp;
 
-        double[][] temp;
-        int i = 0, j = 0, k = 0, indexRowMtemp, indexColMtemp;
-        float det = 0;
-
-        if (getRowEff(m) == 1) {
-            
-        } else if (getRowEff(m) == 2) {
-            return getElmt(m, 0, 0) * getElmt(m, 1, 1) - (getElmt(m, 0, 1) * getElmt(m, 1, 0));
-        } else {
-
-            for (k = 0; k <= getLastIdxCol(m); k++) {
-                indexRowMtemp = 0;
-                for (i = 1; i <= getLastIdxRow(m); i++) {
-                    indexColMtemp = 0;
-                    for (j = 0; j <= getLastIdxRow(m); j++) {
-                        if (j != k) {
-                            getElmt(mtemp, indexRowMtemp, indexColMtemp) = getElmt(m, i, j);
-                            indexColMtemp++;
-                        }
-                    }
-                    indexRowMtemp++;
-                }
-
-                if (k % 2 == 0) {
-                    det += getElmt(m, 0, k) * determinant(mtemp);
-                } else {
-                    det -= getElmt(m, 0, k) * determinant(mtemp);
-                }
-            }
-
-            return det;
-        }
-
-    }
-    /* Prekondisi: isSquare(m) */
-    /* Menghitung nilai determinan m */
-
-    double[][] transpose(double[][] m){
-        /* I.S. m terdefinisi dan IsSquare(m) */
-        /* F.S. menghasilkan salinan transpose dari m, yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
-        double[][] mf;
-        createMatrix(getRowEff(m), getColEff(m), &mf);
-        int i, j;
         for (i = 0; i < getRowEff(m); i++) {
             for (j = 0; j < getColEff(m); j++) {
-                getElmt(mf, i , j) = getElmt(m, j, i);
+                m2[i][j] = getElmt(m, i, j);
             }
         }
-        return mf;
-    }
-    /* I.S. m terdefinisi dan IsSquare(m) */
-    /*
-     * F.S. menghasilkan salinan transpose dari m, yaitu setiap elemen m(i,j)
-     * ditukar nilainya dengan elemen m(j,i)
-     */
 
-    void pTranspose(double[][] *m){
+        for (i = 0; i < getRowEff(m2); i++) {
+            for (j = i + 1; j < getRowEff(m2); j++) {
+                temp = getElmt(m2, j, i) / getElmt(m2, i, i);
+                for (k = 0; k < getColEff(m2); k++) {
+                    m2[j][k] = getElmt(m2, j, k) - (getElmt(m2, i, k) * temp);
+                }
+            }
+        }
+
+        for (i = 0; i < getRowEff(m2); i++) {
+            det *= getElmt(m2, i, i);
+        }
+
+        return (float) det;
+    }
+
+    double[][] transpose(double[][] m) {
         int i, j;
-        ElType temp;
-        if(isSquare(*m)){
-            for(i = 0; i < getRowEff(*m); i++){
-                for(j = i+1; j < getColEff(*m); j++){
-                    temp = getElmt(*m, i, j);
-                    getElmt(*m, i, j) = (getElmt(*m, j, i));
-                    getElmt(*m, j, i) = temp;
+        double temp;
+        double[][] m2 = new double[getRowEff(m)][getColEff(m)];
+
+        if (isSquare(m)) {
+            for (i = 0; i < getRowEff(m); i++) {
+                for (j = 0; j < getColEff(m); j++) {
+                    m2[i][j] = getElmt(m, i, j);
+                }
+            }
+
+            for (i = 0; i < getRowEff(m2); i++) {
+                for (j = i + 1; j < getColEff(m2); j++) {
+                    temp = getElmt(m2, i, j);
+                    m2[i][j] = (getElmt(m2, j, i));
+                    m2[j][i] = temp;
+                }
+            }
+        }
+
+        return m2;
+    }
+
+    void pTranspose(double[][] m) {
+        int i, j;
+        double temp;
+
+        if (isSquare(m)) {
+            for (i = 0; i < getRowEff(m); i++) {
+                for (j = i + 1; j < getColEff(m); j++) {
+                    temp = getElmt(m, i, j);
+                    m[i][j] = (getElmt(m, j, i));
+                    m[j][i] = temp;
                 }
             }
         }
     }
-    /* I.S. m terdefinisi dan IsSquare(m) */
-    /* F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
+
+    double[][] IdentityMatrix(double[][] m, int n){
+        int i, j;
+        if (isSquare(m)) {
+            for (i = 0; i < getRowEff(m); i++) {
+                for (j = i + 1; j < getColEff(m); j++) {
+                    if(i == j){
+                        m[i][j] = 1;
+                    }
+                    else{
+                        m[i][j] = 0;
+                    }
+                }
+            }
+        }
+        return m;
+    }
+
+    boolean isFullZeroRow(double[][] m, int row){
+        int j;
+        for(j = 0; j < getColEff(m); j++){
+            if(m[row][j] != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void rowMultiplyByConst(double[][] m, double x, int row) {
+        int j;
+        for(j = 0; j < getColEff(m); j++){
+            m[row][j] *= x;
+        }
+    }
+
+    void colMultiplyByConst(double[][] m, double x, int col) {
+        int i;
+        for(i = 0; i < getColEff(m); i++){
+            m[i][col] *= x;
+        }
+    }
 }
