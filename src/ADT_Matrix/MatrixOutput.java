@@ -10,4 +10,7 @@ public class MatrixOutput{
             System.out.println();
         }
     }
+
+    public static void displayMatrix(double[][] m3) {
+    }
 }
