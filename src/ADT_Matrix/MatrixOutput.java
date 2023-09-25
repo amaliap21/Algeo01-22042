@@ -11,4 +11,7 @@ public class MatrixOutput{
         }
         return str;
     }
+
+    public static void displayMatrix(double[][] m3) {
+    }
 }
