@@ -25,7 +25,7 @@ public class MatrixInput {
             }
         }
 
-        choice.close();
+        // choice.close();
         return pilih;
     }
 
@@ -39,7 +39,7 @@ public class MatrixInput {
         scan = new Scanner(System.in);
         System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
         namaFile = scan.nextLine();
-        scan.close();
+        // scan.close();
 
         // Create + print path file
         pathFile = getPathInput(namaFile);
@@ -52,10 +52,10 @@ public class MatrixInput {
             row = 0;
             col = 0;
             while (isiFile.hasNextLine()) {
-                row = (isiFile.nextLine()).split("\\s+").length;
+                row = (isiFile.nextLine()).split(" ").length;
                 col++;
             }
-            isiFile.close();
+            // isiFile.close();
 
             System.out.println("Jumlah baris: " + row);
             System.out.println("Jumlah kolom: " + col);
@@ -70,7 +70,7 @@ public class MatrixInput {
                     }
                 }
             }
-            matrixScan.close();
+            // matrixScan.close();
             return matrix;
         }
 
@@ -122,10 +122,11 @@ public class MatrixInput {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } finally {
-            if (scan != null) {
-                scan.close();
-            }
-        }
+        } 
+        // finally {
+        //     if (scan != null) {
+        //         scan.close();
+        //     }
+        // }
     }
 }

@@ -1,10 +1,13 @@
-package ADT_Matrix;
+package Main;
+
 
 // import ADT
 import java.util.Scanner;
 
+import ADT_Matrix.*;
+
 // Print matrix using displayMatrix() from ADT_Matrix
-public class App {
+public class Main {
     public static void main(String[] args) throws Exception {
         double[][] m1 = new double[0][0];
         double[][] m2 = new double[0][0];
