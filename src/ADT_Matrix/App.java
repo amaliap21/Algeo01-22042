@@ -1,7 +1,7 @@
+package ADT_Matrix;
 
 // import ADT
 import java.util.Scanner;
-import ADT_Matrix.*;
 
 // Print matrix using displayMatrix() from ADT_Matrix
 public class App {
@@ -26,7 +26,6 @@ public class App {
             System.out.println("Choose menu (ketik angkanya saja 1, 2, 3, 4, 5, atau 6): ");
             scan = new Scanner(System.in);
             pilih = scan.nextInt();
-            scan.close();
 
             switch (pilih) {
                 case 1:
@@ -36,7 +35,7 @@ public class App {
                     System.out.println("Matrix 2");
                     m2 = MatrixInput.matrix_user();
                     m3 = MatrixOP.addMatrix(m1, m2);
-                    MatrixOutput.displayMatrix(m3);
+                    MatrixOP.displayMatrix(m3);
                     break;
                 case 2:
                     System.out.println("===== PENGURANGAN MATRIX =====");
@@ -45,7 +44,7 @@ public class App {
                     System.out.println("Matrix 2");
                     m2 = MatrixInput.matrix_user();
                     m3 = MatrixOP.subtractMatrix(m1, m2);
-                    MatrixOutput.displayMatrix(m3);
+                    MatrixOP.displayMatrix(m3);
                     break;
                 case 3:
                     System.out.println("===== PERKALIAN MATRIX =====");
@@ -54,7 +53,7 @@ public class App {
                     System.out.println("Matrix 2");
                     m2 = MatrixInput.matrix_user();
                     m3 = MatrixOP.multiplyMatrix(m1, m2);
-                    MatrixOutput.displayMatrix(m3);
+                    MatrixOP.displayMatrix(m3);
                     break;
                 case 4:
                     System.out.println("===== DETERMINAN MATRIX =====");
@@ -68,8 +67,8 @@ public class App {
                     ("===== INVERS MATRIX =====");
                     System.out.println("Matrix 1");
                     m1 = MatrixInput.matrix_user();
-                    m3 = MatrixOP.pNegation(m1);
-                    MatrixOutput.displayMatrix(m3);
+                    MatrixOP.pNegation(m1);
+                    MatrixOP.displayMatrix(m3);
                     break;
                 case 6:
                     program = false;
