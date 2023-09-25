@@ -1,6 +1,17 @@
 package ADT_Matrix;
 
 public class MatrixOP {
+    // final static double MARK = -999;
+
+    // public static void createMatrix(int row, int col){
+    //     int i, j;
+    //     double[][] m = new double[row][col];
+    //     for(i = 0; i < row; i++){
+    //         for(j = 0; j < col; j++){
+    //             m[i][j] = MARK;
+    //         }
+    //     }
+    // }
     public static int getRowEff(double[][] matrix) {
         return matrix.length;
     }
@@ -34,7 +45,7 @@ public class MatrixOP {
         for (i = 0; i < getRowEff(matrix); i++) {
             for (j = 0; j < getColEff(matrix); j++) {
                 if (j == getLastIdxCol(matrix)) {
-                    System.out.print(getElmt(matrix, i, j));
+                    System.out.println(getElmt(matrix, i, j));
                 } else {
                     System.out.print(getElmt(matrix, i, j) + " ");
                 }

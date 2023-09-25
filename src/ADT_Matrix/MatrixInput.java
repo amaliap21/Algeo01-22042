@@ -52,8 +52,8 @@ public class MatrixInput {
             row = 0;
             col = 0;
             while (isiFile.hasNextLine()) {
-                row = (isiFile.nextLine()).split("\\s+").length;
-                col++;
+                col = (isiFile.nextLine()).split(" ").length;
+                row++;
             }
             // isiFile.close();
 
