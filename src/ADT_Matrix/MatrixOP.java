@@ -19,7 +19,7 @@ public class MatrixOP {
 
     public static int getLastIdxCol(double[][] matrix) {
         return getColEff(matrix) - 1;
-    }
+    } 
 
     public static boolean isIdxEff(double[][] matrix, int i, int j) {
         return ((i >= 0 && i <= getLastIdxRow(matrix)) && (j >= 0 && j <= getLastIdxCol(matrix)));
@@ -42,11 +42,7 @@ public class MatrixOP {
         }
     }
 
-    /* ********** KELOMPOK OPERASI ARITMATIKA TERHADAP TYPE ********** */
     public static double[][] addMatrix(double[][] m1, double[][] m2) {
-        /* Prekondisi : m1 berukuran sama dengan m2 */
-        /* Mengirim hasil penjumlahan matriks: m1 + m2 */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m1)];
         int i, j;
 
@@ -61,9 +57,6 @@ public class MatrixOP {
     }
 
     public static double[][] subtractMatrix(double[][] m1, double[][] m2) {
-        /* Prekondisi : m1 berukuran sama dengan m2 */
-        /* Mengirim hasil penjumlahan matriks: m1 - m2 */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m1)];
         int i, j;
 
@@ -78,9 +71,6 @@ public class MatrixOP {
     }
 
     public static double[][] multiplyMatrix(double[][] m1, double[][] m2) {
-        /* Prekondisi : Ukuran kolom efektif m1 = ukuran baris efektif m2 */
-        /* Mengirim hasil perkalian matriks: salinan m1 * m2 */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
         int i, j, k;
 
@@ -97,12 +87,6 @@ public class MatrixOP {
     }
 
     public static double[][] multiplyMatrixWithMod(double[][] m1, double[][] m2, int mod) {
-        /* Prekondisi : Ukuran kolom efektif m1 = ukuran baris efektif m2 */
-        /*
-         * Mengirim hasil perkalian matriks: salinan (m1 * m2)%mod, artinya setiap
-         * elemen matrix hasil perkalian m1 * m2 dilakukan modulo terhadap mod
-         */
-
         double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
         int i, j, k;
 
@@ -125,8 +109,6 @@ public class MatrixOP {
     }
 
     public static double[][] multiplyByConst(double[][] m, double x) {
-        /* Mengirim hasil perkalian setiap elemen m dengan x */
-
         double[][] m3 = new double[getRowEff(m)][getColEff(m)];
         int i, j;
 
@@ -139,9 +121,6 @@ public class MatrixOP {
     }
 
     public static void pMultiplyByConst(double[][] m, int x) {
-        /* I.S. m terdefinisi, k terdefinisi */
-        /* F.S. Mengalikan setiap elemen m dengan k */
-
         int i, j;
 
         for (i = 0; i < getRowEff(m); i++) {
@@ -151,12 +130,7 @@ public class MatrixOP {
         }
     }
 
-    /* ********** KELOMPOK OPERASI RELASIONAL TERHADAP Matrix ********** */
     public static boolean isMatrixEqual(double[][] m1, double[][] m2) {
-        /* Mengirimkan true jika m1 = m2, yaitu count(m1) = count(m2) dan */
-        /* untuk setiap i,j yang merupakan Index baris dan kolom m1(i,j) = m2(i,j) */
-        /* Juga merupakan strong eq karena getLastIdxCol(m1) = getLastIdxCol(m2) */
-
         int i, j;
 
         if (getColEff(m1) != getColEff(m2) || getRowEff(m1) != getRowEff(m2)) {
@@ -176,40 +150,22 @@ public class MatrixOP {
     }
 
     public static boolean isMatrixNotEqual(double[][] m1, double[][] m2) {
-        /* Mengirimkan true jika m1 tidak sama dengan m2 */
-
         return !isMatrixEqual(m1, m2);
     }
 
     public static boolean isMatrixSizeEqual(double[][] m1, double[][] m2) {
-        /*
-         * Mengirimkan true jika ukuran efektif matriks m1 sama dengan ukuran efektif m2
-         */
-        /* yaitu RowEff(m1) = RowEff (m2) dan ColEff (m1) = ColEff (m2) */
-
         return (getColEff(m1) == getColEff(m2) && getRowEff(m1) == getRowEff(m2));
     }
 
-    /* ********** Operasi lain ********** */
     public static int countElmt(double[][] m) {
-        /* Mengirimkan banyaknya elemen m */
-
         return getRowEff(m) * getColEff(m);
     }
 
-    /* ********** KELOMPOK TEST TERHADAP Matrix ********** */
     public static boolean isSquare(double[][] m) {
-        /* Mengirimkan true jika m adalah matriks dg ukuran baris dan kolom sama */
-
-        return getColEff(m) == getRowEff(m);
+         return getColEff(m) == getRowEff(m);
     }
 
     public static boolean isSymmetric(double[][] m) {
-        /*
-         * Mengirimkan true jika m adalah matriks simetri : isSquare(m)
-         * dan untuk setiap elemen m, m(i,j)=m(j,i)
-         */
-
         if (!isSquare(m)) {
             return false;
         } else {
@@ -226,11 +182,6 @@ public class MatrixOP {
     }
 
     public static boolean isIdentity(double[][] m) {
-        /*
-         * Mengirimkan true jika m adalah matriks satuan: isSquare(m) dan
-         * setiap elemen diagonal m bernilai 1 dan elemen yang bukan diagonal bernilai 0
-         */
-
         int i, j;
         if (!isSquare(m)) {
             return false;
@@ -253,12 +204,6 @@ public class MatrixOP {
     }
 
     public static boolean isSparse(double[][] m) {
-        /*
-         * Mengirimkan true jika m adalah matriks sparse: matriks jarang dengan
-         * definisi:
-         * hanya maksimal 5% dari memori matriks yang efektif bukan bernilai 0
-         */
-
         int count = 0, i, j;
         for (i = 0; i < getRowEff(m); i++) {
             for (j = 0; j < getColEff(m); j++) {
@@ -271,8 +216,6 @@ public class MatrixOP {
     }
 
     public static double[][] negation(double[][] m) {
-        /* Menghasilkan salinan m dengan setiap elemen dinegasikan (dikalikan -1) */
-
         int i, j;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
 
@@ -284,10 +227,7 @@ public class MatrixOP {
         return m2;
     }
 
-    public static double[][] pNegation(double[][] m) {
-        /* I.S. m terdefinisi */
-        /* F.S. m di-invers, yaitu setiap elemennya dinegasikan (dikalikan -1) */
-
+    public static void pNegation(double[][] m) {
         int i, j;
 
         for (i = 0; i < getRowEff(m); i++) {
@@ -295,13 +235,9 @@ public class MatrixOP {
                 m[i][j] = getElmt(m, i, j) * (-1);
             }
         }
-        return m;
     }
 
     public static float determinant(double[][] m) {
-        /* Prekondisi: isSquare(m) */
-        /* Menghitung nilai determinan m */
-
         int i, j, k;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
         double det = 1, temp;
@@ -329,12 +265,6 @@ public class MatrixOP {
     }
 
     public static double[][] transpose(double[][] m) {
-        /* I.S. m terdefinisi dan IsSquare(m) */
-        /*
-         * F.S. menghasilkan salinan transpose dari m, yaitu setiap elemen m(i,j)
-         * ditukar nilainya dengan elemen m(j,i)
-         */
-
         int i, j;
         double temp;
         double[][] m2 = new double[getRowEff(m)][getColEff(m)];
@@ -359,12 +289,6 @@ public class MatrixOP {
     }
 
     public static void pTranspose(double[][] m) {
-        /* I.S. m terdefinisi dan IsSquare(m) */
-        /*
-         * F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan
-         * elemen m(j,i)
-         */
-
         int i, j;
         double temp;
 
@@ -376,6 +300,47 @@ public class MatrixOP {
                     m[j][i] = temp;
                 }
             }
+        }
+    }
+
+    public static double[][] IdentityMatrix(double[][] m, int n){
+        int i, j;
+        if (isSquare(m)) {
+            for (i = 0; i < getRowEff(m); i++) {
+                for (j = i + 1; j < getColEff(m); j++) {
+                    if(i == j){
+                        m[i][j] = 1;
+                    }
+                    else{
+                        m[i][j] = 0;
+                    }
+                }
+            }
+        }
+        return m;
+    }
+
+    public static boolean isFullZeroRow(double[][] m, int row){
+        int j;
+        for(j = 0; j < getColEff(m); j++){
+            if(m[row][j] != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void rowMultiplyByConst(double[][] m, double x, int row) {
+        int j;
+        for(j = 0; j < getColEff(m); j++){
+            m[row][j] *= x;
+        }
+    }
+
+    public static void colMultiplyByConst(double[][] m, double x, int col) {
+        int i;
+        for(i = 0; i < getColEff(m); i++){
+            m[i][col] *= x;
         }
     }
 }
