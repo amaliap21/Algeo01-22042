@@ -1,4 +1,5 @@
-package ADT_Matrix;
+package Function;
+import ADT_Matrix.*;
 
 import java.util.Scanner;
 

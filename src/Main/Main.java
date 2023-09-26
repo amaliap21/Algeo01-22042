@@ -5,15 +5,19 @@ import java.util.*;
 
 import ADT_Matrix.*;
 import Function.Cofactor;
+import Function.Cramer;
 import Function.Inverse;
 import Function.InverseSpl;
 
-public class Main {
-    public static void main(String[] args) throws Exception {
-        int pilih;
+public class Main{
+    public static void main(String[] args) throws Exception{
+        int pilih, n;
+        double[][] m, cof, getcof;
+        double detcof;
+        String[] solcram;
         // double[][] m, cof, getcof;
         // double detcof;
-        double[][] m, getInverse;
+        double[][] getInverse;
         pilih = MatrixInput.choose();
         if (pilih == 1) {
             m = MatrixInput.matrix_user();
@@ -22,7 +26,22 @@ public class Main {
         }
         System.out.println();
         MatrixOutput.printMatrix(m);
+        System.out.println();
 
+        // getcof = Cofactor.getCofactor(m, 0, 0);
+        // cof = Cofactor.createMatrixCofactor(m);
+        // Scanner input = new Scanner(System.in);
+        // System.out.print("Indeks yang diambil: ");
+        // n = input.nextInt();
+        // detcof = Cofactor.detByCofactor(cof, m, n);
+        // System.out.println();
+        // MatrixOutput.printMatrix(cof);
+        // System.out.println();
+        // System.out.println("Determinannya adalah " + detcof);
+        // System.out.println();
+        // MatrixOutput.printMatrix(getcof);
+        Cramer.solCramer(m);
+        System.out.println();
         getInverse = Inverse.inverseMatriks(m);
         // getcof = Cofactor.getCofactor(m, 0, 0);
         // cof = Cofactor.createMatrixCofactor(m);
