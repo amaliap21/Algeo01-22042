@@ -6,6 +6,7 @@ import java.util.*;
 import ADT_Matrix.*;
 import Function.Cofactor;
 import Function.Inverse;
+import Function.InverseSpl;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -31,7 +32,9 @@ public class Main {
         // System.out.println();
         // System.out.println(detcof);
         System.out.println();
-        MatrixOutput.printMatrix(getInverse);
+        InverseSpl.solusiInverse(m);
+
+        // MatrixOutput.printMatrix(getInverse);
     }
 }
 
