@@ -13,7 +13,7 @@ public class GaussJordan {
 
         // Index baris dan kolom yang efektif dari matriks m atau matrix (sama aja)
         int rowM = MatrixOP.getRowEff(matrix);
-        int colM = MatrixOP.getColEff(matrix);
+        int colM = MatrixOP.getColEff(matrix); 
 
         // Proses metode Gauss-Jordan
         for (int i = 0; i < rowM; i++) {
@@ -67,5 +67,18 @@ public class GaussJordan {
             DecimalFormat df = new DecimalFormat("0.000");
             System.out.println(df.format(matrix[i][colM - 1]));
         }
+    }
+
+    public static double[][] mxSolGaussJordan(double[][] m) {
+        double[][] matrix = GaussJordan.gaussJordan(m);
+        int rowM = MatrixOP.getRowEff(matrix);
+        int colM = MatrixOP.getColEff(matrix);
+        double[][] sol = new double[rowM][1];
+        // System.out.println("Solusi SPL:");
+        for (int i = 0; i < rowM; i++) {
+            DecimalFormat df = new DecimalFormat("0.000");
+            sol[i][0] = (matrix[i][colM - 1]);
+        }
+        return sol;
     }
 }

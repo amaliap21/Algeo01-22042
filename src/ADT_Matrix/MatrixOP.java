@@ -390,5 +390,4 @@ public class MatrixOP {
         }
         return row;
     } 
-    }
 }
