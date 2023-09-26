@@ -101,9 +101,9 @@ public class Cofactor {
         double det = 0;
         int i, j;
 
-        if (choose == 1) {
-            for (j = 0; j < MatrixOP.getColEff(m); j++) {
-                det += cof[n][j] * m[n][j];
+        if(choose == 1){
+            for(j=0; j<MatrixOP.getRowEff(m); j++){
+                det += cof[n][j]*m[n][j];
             }
         } else if (choose == 2) {
             for (i = 0; i < MatrixOP.getRowEff(m); i++) {
@@ -112,7 +112,6 @@ public class Cofactor {
         } else {
             System.out.println("Input salah, silakan ulangi.");
         }
-
         return det;
     }
 }
