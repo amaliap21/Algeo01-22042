@@ -28,14 +28,15 @@ public class Main{
         System.out.println();
         MatrixOutput.printMatrix(m);
         System.out.println();
+        System.out.println(Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, 0));
 
         // // getcof = Cofactor.getCofactor(m, 0, 0);
         // // cof = Cofactor.createMatrixCofactor(m);
         // // Scanner input = new Scanner(System.in);
         // // System.out.print("Indeks yang diambil: ");
         // // n = input.nextInt();
-        // // detcof = Cofactor.detByCofactor(cof, m, n);
-        // // System.out.println();
+        // detcof = Cofactor.detByCofactor(cof, m, n);
+        // System.out.println();
         // // MatrixOutput.printMatrix(cof);
         // // System.out.println();
         // // System.out.println("Determinannya adalah " + detcof);
