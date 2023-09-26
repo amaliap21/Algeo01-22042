@@ -1,10 +1,10 @@
-package Main;
+package Function;
 
 import ADT_Matrix.*;
 import java.io.*;
 import java.util.*;
 
-public class InversSpl {
+public class Bicubic {
     public static void fungsiF(double[][] matriksX, int i, int j, int count) {
         // f(x,y)
         int m, n;
