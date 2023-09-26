@@ -1,6 +1,17 @@
 package ADT_Matrix;
 
 public class MatrixOP {
+    // final static double MARK = -999;
+
+    // public static void createMatrix(int row, int col){
+    //     int i, j;
+    //     double[][] m = new double[row][col];
+    //     for(i = 0; i < row; i++){
+    //         for(j = 0; j < col; j++){
+    //             m[i][j] = MARK;
+    //         }
+    //     }
+    // }
     public static int getRowEff(double[][] matrix) {
         return matrix.length;
     }
@@ -34,7 +45,7 @@ public class MatrixOP {
         for (i = 0; i < getRowEff(matrix); i++) {
             for (j = 0; j < getColEff(matrix); j++) {
                 if (j == getLastIdxCol(matrix)) {
-                    System.out.print(getElmt(matrix, i, j));
+                    System.out.println(getElmt(matrix, i, j));
                 } else {
                     System.out.print(getElmt(matrix, i, j) + " ");
                 }
@@ -237,31 +248,48 @@ public class MatrixOP {
         }
     }
 
-    public static float determinant(double[][] m) {
-        int i, j, k;
-        double[][] m2 = new double[getRowEff(m)][getColEff(m)];
-        double det = 1, temp;
-
-        for (i = 0; i < getRowEff(m); i++) {
-            for (j = 0; j < getColEff(m); j++) {
-                m2[i][j] = getElmt(m, i, j);
-            }
-        }
-
-        for (i = 0; i < getRowEff(m2); i++) {
-            for (j = i + 1; j < getRowEff(m2); j++) {
-                temp = getElmt(m2, j, i) / getElmt(m2, i, i);
-                for (k = 0; k < getColEff(m2); k++) {
-                    m2[j][k] = getElmt(m2, j, k) - (getElmt(m2, i, k) * temp);
+    public static double[][] submatrix(double[][] m, int nRow, int nCol){
+        double[][] submatriks = new double[getRowEff(m)-1][getColEff(m)-1];
+        int i,j;
+    
+        for(i=0; i<getRowEff(submatriks); i++){
+            for(j=0; j<getColEff(submatriks); j++){
+                if (i<nRow && j<nCol){
+                    submatriks[i][j] = m[i][j];
+                } 
+                else if (i<nRow && j >= nCol){
+                    submatriks[i][j] = m[i][j+1];
+                } 
+                else if (i>=nRow && j<nCol){
+                    submatriks[i][j] = m[i+1][j];
+                } 
+                else if (i>=nRow&&j>=nCol){
+                    submatriks[i][j] = m[i+1][j+1];
                 }
             }
         }
-
-        for (i = 0; i < getRowEff(m2); i++) {
-            det *= getElmt(m2, i, i);
-        }
-
-        return (float) det;
+        return submatriks;
+    }
+    
+    public static double determinant(double[][] m){
+        double det;
+        int tanda, j;
+    
+        det = 0;
+        tanda = 1;
+        if (getRowEff(m)==1){
+            det = m[0][0];
+        } 
+        else if (getRowEff(m)==2){
+            det = m[0][0]*m[1][1] - m[0][1]*m[1][0];
+        } 
+        else if (getRowEff(m)>2){    
+            for (j = 0; j <getColEff(m); j++){
+                det += tanda*m[0][j]*determinant(submatrix(m, 0, j));
+                tanda = -tanda;
+            }
+        } 
+        return det;
     }
 
     public static double[][] transpose(double[][] m) {
@@ -344,4 +372,18 @@ public class MatrixOP {
         }
     }
 
+    public static void setElmt(double[][] m, int row, int col, double val){
+        m[row][col] = val;
+    }
+
+    public static double[][] copyMatrix(double[][] m){
+        double[][] newM = new double[getRowEff(m)][getColEff(m)];
+        int i, j;
+        for(i = 0; i < getRowEff(m); i++){
+            for(j = 0; j < getColEff(m); j++){
+                newM[i][j] = m[i][j];
+            }
+        }
+        return newM;
+    }
 }
