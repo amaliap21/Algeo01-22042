@@ -27,7 +27,7 @@ public class Cramer {
         // System.out.println("Input n (n adalah indeks kolom yang ingin ditukar)");
         // Scanner input = new Scanner(System.in);
         // int n = input.nextInt();
-        double det, det_pure, det_replace;
+        double det_pure, det_replace;
         int i, j;
         double[][] newM = new double[MatrixOP.getRowEff(m)][MatrixOP.getRowEff(m)];
         for(i = 0; i < MatrixOP.getRowEff(m); i++){
