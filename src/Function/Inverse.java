@@ -49,7 +49,7 @@ public class Inverse {
     }
 
     public static void matriksInverse(double[][] m) {
-        System.out.println("Matriks balikan:");
+        System.out.println("Matriks balikan (menggunakan matriks kofaktor):");
         MatrixOutput.printMatrix(inverseMatriks(m));
     }
 
