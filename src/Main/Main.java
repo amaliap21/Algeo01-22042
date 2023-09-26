@@ -6,6 +6,7 @@ import java.util.*;
 import ADT_Matrix.*;
 import Function.Cofactor;
 import Function.Cramer;
+<<<<<<< HEAD
 import Function.GaussJordan;
 import Function.Inverse;
 import Function.InverseSpl;
@@ -97,6 +98,64 @@ public class Main {
             }
 
         }
+=======
+import Function.Gauss;
+import Function.Inverse;
+import Function.InverseSpl;
+
+public class Main{
+    public static void main(String[] args) throws Exception{
+        int pilih, n;
+        double[][] m, cof, getcof;
+        double detcof;
+        String[] solcram;
+        // double[][] m, cof, getcof;
+        // double detcof;
+        double[][] getInverse;
+        pilih = MatrixInput.choose();
+        if (pilih == 1) {
+            m = MatrixInput.matrix_user();
+        } else { 
+            m = MatrixInput.matrix_file();
+        }
+        System.out.println();
+        MatrixOutput.printMatrix(m);
+        System.out.println();
+
+        // // getcof = Cofactor.getCofactor(m, 0, 0);
+        // // cof = Cofactor.createMatrixCofactor(m);
+        // // Scanner input = new Scanner(System.in);
+        // // System.out.print("Indeks yang diambil: ");
+        // // n = input.nextInt();
+        // // detcof = Cofactor.detByCofactor(cof, m, n);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(cof);
+        // // System.out.println();
+        // // System.out.println("Determinannya adalah " + detcof);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(getcof);
+        // Cramer.solCramer(m);
+        // System.out.println();
+        // getInverse = Inverse.inverseMatriks(m);
+        // // getcof = Cofactor.getCofactor(m, 0, 0);
+        // // cof = Cofactor.createMatrixCofactor(m);
+        // // detcof = Cofactor.detByCofactor(cof, m, 2);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(cof);
+        // // System.out.println();
+        // // System.out.println(detcof);
+        // System.out.println();
+        // InverseSpl.solusiInverse(m);
+        // System.out.println();
+
+        MatrixOutput.printMatrix(Gauss.swapRow(m, 1, 2));
+
+        // double [][] sol = gaussSPL
+
+
+
+        // MatrixOutput.printMatrix(getInverse);
+>>>>>>> c91417207fc36e6f7bae7ef6962ec49045515be5
     }
 }
 
