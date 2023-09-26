@@ -4,13 +4,13 @@ public class MatrixOP {
     // final static double MARK = -999;
 
     // public static void createMatrix(int row, int col){
-    //     int i, j;
-    //     double[][] m = new double[row][col];
-    //     for(i = 0; i < row; i++){
-    //         for(j = 0; j < col; j++){
-    //             m[i][j] = MARK;
-    //         }
-    //     }
+    // int i, j;
+    // double[][] m = new double[row][col];
+    // for(i = 0; i < row; i++){
+    // for(j = 0; j < col; j++){
+    // m[i][j] = MARK;
+    // }
+    // }
     // }
     public static int getRowEff(double[][] matrix) {
         return matrix.length;
@@ -30,7 +30,7 @@ public class MatrixOP {
 
     public static int getLastIdxCol(double[][] matrix) {
         return getColEff(matrix) - 1;
-    } 
+    }
 
     public static boolean isIdxEff(double[][] matrix, int i, int j) {
         return ((i >= 0 && i <= getLastIdxRow(matrix)) && (j >= 0 && j <= getLastIdxCol(matrix)));
@@ -38,19 +38,6 @@ public class MatrixOP {
 
     public static double getElmtDiagonal(double[][] matrix, int i) {
         return getElmt(matrix, i, i);
-    }
-
-    public static void displayMatrix(double[][] matrix) {
-        int i, j;
-        for (i = 0; i < getRowEff(matrix); i++) {
-            for (j = 0; j < getColEff(matrix); j++) {
-                if (j == getLastIdxCol(matrix)) {
-                    System.out.println(getElmt(matrix, i, j));
-                } else {
-                    System.out.print(getElmt(matrix, i, j) + " ");
-                }
-            }
-        }
     }
 
     public static double[][] addMatrix(double[][] m1, double[][] m2) {
@@ -173,7 +160,7 @@ public class MatrixOP {
     }
 
     public static boolean isSquare(double[][] m) {
-         return getColEff(m) == getRowEff(m);
+        return getColEff(m) == getRowEff(m);
     }
 
     public static boolean isSymmetric(double[][] m) {
@@ -248,47 +235,42 @@ public class MatrixOP {
         }
     }
 
-    public static double[][] submatrix(double[][] m, int nRow, int nCol){
-        double[][] submatriks = new double[getRowEff(m)-1][getColEff(m)-1];
-        int i,j;
-    
-        for(i=0; i<getRowEff(submatriks); i++){
-            for(j=0; j<getColEff(submatriks); j++){
-                if (i<nRow && j<nCol){
+    public static double[][] submatrix(double[][] m, int nRow, int nCol) {
+        double[][] submatriks = new double[getRowEff(m) - 1][getColEff(m) - 1];
+        int i, j;
+
+        for (i = 0; i < getRowEff(submatriks); i++) {
+            for (j = 0; j < getColEff(submatriks); j++) {
+                if (i < nRow && j < nCol) {
                     submatriks[i][j] = m[i][j];
-                } 
-                else if (i<nRow && j >= nCol){
-                    submatriks[i][j] = m[i][j+1];
-                } 
-                else if (i>=nRow && j<nCol){
-                    submatriks[i][j] = m[i+1][j];
-                } 
-                else if (i>=nRow&&j>=nCol){
-                    submatriks[i][j] = m[i+1][j+1];
+                } else if (i < nRow && j >= nCol) {
+                    submatriks[i][j] = m[i][j + 1];
+                } else if (i >= nRow && j < nCol) {
+                    submatriks[i][j] = m[i + 1][j];
+                } else if (i >= nRow && j >= nCol) {
+                    submatriks[i][j] = m[i + 1][j + 1];
                 }
             }
         }
         return submatriks;
     }
-    
-    public static double determinant(double[][] m){
+
+    public static double determinant(double[][] m) {
         double det;
         int tanda, j;
-    
+
         det = 0;
         tanda = 1;
-        if (getRowEff(m)==1){
+        if (getRowEff(m) == 1) {
             det = m[0][0];
-        } 
-        else if (getRowEff(m)==2){
-            det = m[0][0]*m[1][1] - m[0][1]*m[1][0];
-        } 
-        else if (getRowEff(m)>2){    
-            for (j = 0; j <getColEff(m); j++){
-                det += tanda*m[0][j]*determinant(submatrix(m, 0, j));
+        } else if (getRowEff(m) == 2) {
+            det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+        } else if (getRowEff(m) > 2) {
+            for (j = 0; j < getColEff(m); j++) {
+                det += tanda * m[0][j] * determinant(submatrix(m, 0, j));
                 tanda = -tanda;
             }
-        } 
+        }
         return det;
     }
 
@@ -331,15 +313,14 @@ public class MatrixOP {
         }
     }
 
-    public static double[][] IdentityMatrix(double[][] m, int n){
+    public static double[][] IdentityMatrix(double[][] m, int n) {
         int i, j;
         if (isSquare(m)) {
             for (i = 0; i < getRowEff(m); i++) {
                 for (j = i + 1; j < getColEff(m); j++) {
-                    if(i == j){
+                    if (i == j) {
                         m[i][j] = 1;
-                    }
-                    else{
+                    } else {
                         m[i][j] = 0;
                     }
                 }
@@ -348,10 +329,10 @@ public class MatrixOP {
         return m;
     }
 
-    public static boolean isFullZeroRow(double[][] m, int row){
+    public static boolean isFullZeroRow(double[][] m, int row) {
         int j;
-        for(j = 0; j < getColEff(m); j++){
-            if(m[row][j] != 0){
+        for (j = 0; j < getColEff(m); j++) {
+            if (m[row][j] != 0) {
                 return false;
             }
         }
@@ -360,27 +341,27 @@ public class MatrixOP {
 
     public static void rowMultiplyByConst(double[][] m, double x, int row) {
         int j;
-        for(j = 0; j < getColEff(m); j++){
+        for (j = 0; j < getColEff(m); j++) {
             m[row][j] *= x;
         }
     }
 
     public static void colMultiplyByConst(double[][] m, double x, int col) {
         int i;
-        for(i = 0; i < getColEff(m); i++){
+        for (i = 0; i < getColEff(m); i++) {
             m[i][col] *= x;
         }
     }
 
-    public static void setElmt(double[][] m, int row, int col, double val){
+    public static void setElmt(double[][] m, int row, int col, double val) {
         m[row][col] = val;
     }
 
-    public static double[][] copyMatrix(double[][] m){
+    public static double[][] copyMatrix(double[][] m) {
         double[][] newM = new double[getRowEff(m)][getColEff(m)];
         int i, j;
-        for(i = 0; i < getRowEff(m); i++){
-            for(j = 0; j < getColEff(m); j++){
+        for (i = 0; i < getRowEff(m); i++) {
+            for (j = 0; j < getColEff(m); j++) {
                 newM[i][j] = m[i][j];
             }
         }

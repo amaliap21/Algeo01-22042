@@ -1,6 +1,7 @@
 package Function;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 import ADT_Matrix.*;
 
@@ -54,11 +55,11 @@ public class Cramer {
     }
 
     public static void solCramer(double[][] m){
-        int j;
-        for(j = 0; j < MatrixOP.getRowEff(m); j++){
+        System.out.println("Solusi SPL:");
+        for(int j = 0; j < MatrixOP.getRowEff(m); j++){
             System.out.print("x" + (j+1) +" = ");
-            System.out.println(SPLCramer(m)[j][0]);
-
+            DecimalFormat df = new DecimalFormat("0.000");
+            System.out.println(df.format(SPLCramer(m)[j][0]));
     }
 
         // for(a = 0; a < getColEff(m)-1; a++){

@@ -12,10 +12,10 @@ public class MatrixInput {
 
         while (program) {
             System.out.println("===== PILIHAN READ MATRIX =====");
-            System.out.println("Pilihan untuk to read matrix:");
+            // System.out.println("Pilihan untuk to read matrix:");
             System.out.println("1. Input manual");
-            System.out.println("2. Baca dari file .txt (Make sure file .txt sudah ada di folder yang sesuai.)");
-            System.out.println("Choose how to read matrix (ketik angkanya saja 1 atau 2): ");
+            System.out.println("2. Baca dari file .txt (Pastikan bahwa .txt sudah ada di folder yang sesuai)");
+            System.out.print("Cara input matriks: ");
             pilih = choice.nextInt();
 
             if (pilih == 1 || pilih == 2) {
@@ -29,7 +29,7 @@ public class MatrixInput {
         return pilih;
     }
 
-    public static double[][] matrix_file()  {
+    public static double[][] matrix_file() {
         Scanner scan, isiFile, matrixScan;
         String namaFile, pathFile;
         File file;
@@ -102,16 +102,16 @@ public class MatrixInput {
         try {
             // Input m dan m
             scan = new Scanner(System.in);
-            System.out.println("Jumlah baris matrix : ");
+            System.out.print("Jumlah baris matrix: ");
             m = scan.nextInt();
-            System.out.println("Jumlah kolom matrix : ");
+            System.out.print("Jumlah kolom matrix: ");
             n = scan.nextInt();
 
             // Declare matrix
             double[][] matrix = new double[m][n];
 
             // Input elemen matrix
-            System.out.println("Input elemen-elemen matrix");
+            System.out.println("Input elemen-elemen matrix: ");
             for (i = 0; i < m; i++) {
                 for (j = 0; j < n; j++) {
                     matrix[i][j] = scan.nextDouble();
@@ -122,11 +122,11 @@ public class MatrixInput {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } 
+        }
         // finally {
-        //     if (scan != null) {
-        //         scan.close();
-        //     }
+        // if (scan != null) {
+        // scan.close();
+        // }
         // }
     }
 }
