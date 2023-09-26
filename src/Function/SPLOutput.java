@@ -6,5 +6,5 @@ public class SPLOutput {
     boolean solusiBanyak;
     boolean solusiTidakAda;
 
-    public static void solusiUnik(double[][] m)
+    public static void solusiUnik(double[][] m){}
 }

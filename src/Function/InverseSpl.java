@@ -24,14 +24,12 @@ public class InverseSpl {
         return (MatrixOP.multiplyMatrix(Inverse.inverseMatriks(matriksA), matriksB));
     }
 
-    public static void solusiInverse(double[][] m) {
-        InverseSpl.inverseSpl(m);
-        int i;
-        DecimalFormat df = new DecimalFormat("0.000");
-
-        for (i = 0; i < MatrixOP.getRowEff(m); i++) {
+    public static void solInverse(double[][] m) {
+        System.out.println("Solusi SPL:");
+        for (int i = 0; i < MatrixOP.getRowEff(m); i++) {
             System.out.print("x" + (i + 1) + " = ");
-            System.out.println(df.format(InverseSpl.inverseSpl(m)[i][0]));
+            DecimalFormat df = new DecimalFormat("0.000");
+            System.out.println(df.format(inverseSpl(m)[i][0]));
         }
     }
 }
