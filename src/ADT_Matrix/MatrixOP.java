@@ -367,4 +367,28 @@ public class MatrixOP {
         }
         return newM;
     }
+
+    public static int getIdxColEl(double [][] m, double val){
+        int i, j, col=0;
+        for(i=0; i<getRowEff(m); i++){
+            for(j=0; j<getColEff(m); j++){
+                if(getElmt(m, i, j) == val){
+                    col = j;
+                }
+            }
+        }
+        return col;
+    } 
+    public static int getIdxRowEl(double [][] m, double val){
+        int i, j, row=0;
+        for(i=0; i<getRowEff(m); i++){
+            for(j=0; j<getColEff(m); j++){
+                if(getElmt(m, i, j) == val){
+                    row = i;
+                }
+            }
+        }
+        return row;
+    } 
+    }
 }
