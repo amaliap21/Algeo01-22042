@@ -386,4 +386,11 @@ public class MatrixOP {
         }
         return newM;
     }
+
+    public static int getIdxColEl(double [][] m, double val){
+
+    } 
+    public static int getIdxColEl(double [][] m, double val){
+        
+    } 
 }

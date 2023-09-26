@@ -6,6 +6,7 @@ import java.util.*;
 import ADT_Matrix.*;
 import Function.Cofactor;
 import Function.Cramer;
+import Function.Gauss;
 import Function.Inverse;
 import Function.InverseSpl;
 
@@ -21,37 +22,44 @@ public class Main{
         pilih = MatrixInput.choose();
         if (pilih == 1) {
             m = MatrixInput.matrix_user();
-        } else {
+        } else { 
             m = MatrixInput.matrix_file();
         }
         System.out.println();
         MatrixOutput.printMatrix(m);
         System.out.println();
 
-        // getcof = Cofactor.getCofactor(m, 0, 0);
-        // cof = Cofactor.createMatrixCofactor(m);
-        // Scanner input = new Scanner(System.in);
-        // System.out.print("Indeks yang diambil: ");
-        // n = input.nextInt();
-        // detcof = Cofactor.detByCofactor(cof, m, n);
+        // // getcof = Cofactor.getCofactor(m, 0, 0);
+        // // cof = Cofactor.createMatrixCofactor(m);
+        // // Scanner input = new Scanner(System.in);
+        // // System.out.print("Indeks yang diambil: ");
+        // // n = input.nextInt();
+        // // detcof = Cofactor.detByCofactor(cof, m, n);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(cof);
+        // // System.out.println();
+        // // System.out.println("Determinannya adalah " + detcof);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(getcof);
+        // Cramer.solCramer(m);
         // System.out.println();
-        // MatrixOutput.printMatrix(cof);
+        // getInverse = Inverse.inverseMatriks(m);
+        // // getcof = Cofactor.getCofactor(m, 0, 0);
+        // // cof = Cofactor.createMatrixCofactor(m);
+        // // detcof = Cofactor.detByCofactor(cof, m, 2);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(cof);
+        // // System.out.println();
+        // // System.out.println(detcof);
         // System.out.println();
-        // System.out.println("Determinannya adalah " + detcof);
+        // InverseSpl.solusiInverse(m);
         // System.out.println();
-        // MatrixOutput.printMatrix(getcof);
-        Cramer.solCramer(m);
-        System.out.println();
-        getInverse = Inverse.inverseMatriks(m);
-        // getcof = Cofactor.getCofactor(m, 0, 0);
-        // cof = Cofactor.createMatrixCofactor(m);
-        // detcof = Cofactor.detByCofactor(cof, m, 2);
-        // System.out.println();
-        // MatrixOutput.printMatrix(cof);
-        // System.out.println();
-        // System.out.println(detcof);
-        System.out.println();
-        InverseSpl.solusiInverse(m);
+
+        MatrixOutput.printMatrix(Gauss.swapRow(m, 1, 2));
+
+        // double [][] sol = gaussSPL
+
+
 
         // MatrixOutput.printMatrix(getInverse);
     }
