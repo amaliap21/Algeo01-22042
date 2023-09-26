@@ -67,6 +67,7 @@ public class Main {
                             // Gauss.gauss(m);
                             System.out.println();
                             break;
+
                         case 2:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             GaussJordan.matriksGaussJordan(m);
@@ -74,7 +75,8 @@ public class Main {
                             GaussJordan.solGaussJordan(m);
                             System.out.println();
                             break;
-                            case 3:
+
+                        case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
                             Inverse.matriksInverseGJ(m);
                             System.out.println();
@@ -83,8 +85,9 @@ public class Main {
                             InverseSpl.solInverse(m);
                             System.out.println();
                             break;
+
                         case 4:
-                        System.out.println("===== KAIDAH CRAMER =====");
+                            System.out.println("===== KAIDAH CRAMER =====");
                             Cramer.solCramer(m);
                             System.out.println();
                             break;
