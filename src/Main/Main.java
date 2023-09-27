@@ -9,6 +9,7 @@ import Function.Cramer;
 import Function.GaussJordan;
 import Function.Inverse;
 import Function.InverseSpl;
+import Function.Gauss;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -61,7 +62,7 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            // Gauss.gauss(m);
+                            MatrixOutput.printMatrix(Gauss.forwardOBE(m));
                             System.out.println();
                             break;
                         case 2:
@@ -85,9 +86,12 @@ public class Main {
                             Cramer.solCramer(m);
                             System.out.println();
                             break;
+
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
                             break;
+                       
+                            
                     }
                     break;
             }
