@@ -368,6 +368,7 @@ public class MatrixOP {
         return newM;
     }
 
+<<<<<<< HEAD
     public static int getIdxRowEl(double [][] m, int col, double val){
         int i=0;
         boolean status = true;
@@ -424,6 +425,8 @@ public class MatrixOP {
         }
         return i;
     }
+=======
+>>>>>>> 93e1a4d8252ee98782038a4ae8b447a89ec5902c
     public static int getIdxColEl(double [][] m, double val){
         int i, j, col=0;
         for(i=0; i<getRowEff(m); i++){

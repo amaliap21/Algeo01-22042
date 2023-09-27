@@ -4,7 +4,15 @@ package Main;
 import java.util.*;
 
 import ADT_Matrix.*;
+<<<<<<< HEAD
 import Function.Gauss;
+=======
+import Function.Cofactor;
+import Function.Cramer;
+import Function.GaussJordan;
+import Function.Inverse;
+import Function.InverseSpl;
+>>>>>>> 93e1a4d8252ee98782038a4ae8b447a89ec5902c
 import Function.*;
 
 public class Main {
@@ -60,7 +68,8 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            MatrixOutput.printMatrix(Gauss.forwardOBE(m));
+                            // Gauss.gauss(m);
+                            System.out.println();
                             break;
 
                         case 2:
@@ -86,10 +95,10 @@ public class Main {
                             Cramer.solCramer(m);
                             System.out.println();
                             break;
-
                         default:
                         System.out.println("Input pilihan salah, silakan input ulang.");
                         break;
+<<<<<<< HEAD
                     }
                     break;
 
@@ -150,6 +159,8 @@ public class Main {
                        
                             
                         
+=======
+>>>>>>> 93e1a4d8252ee98782038a4ae8b447a89ec5902c
                     }
                     break;
             }
