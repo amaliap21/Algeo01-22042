@@ -98,7 +98,6 @@ public class Main {
                         default:
                         System.out.println("Input pilihan salah, silakan input ulang.");
                         break;
-<<<<<<< HEAD
                     }
                     break;
 
@@ -159,8 +158,6 @@ public class Main {
                        
                             
                         
-=======
->>>>>>> 93e1a4d8252ee98782038a4ae8b447a89ec5902c
                     }
                     break;
             }
