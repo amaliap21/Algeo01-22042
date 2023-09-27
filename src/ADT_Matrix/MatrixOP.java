@@ -368,6 +368,62 @@ public class MatrixOP {
         return newM;
     }
 
+    public static int getIdxRowEl(double [][] m, int col, double val){
+        int i=0;
+        boolean status = true;
+
+        while(i<getRowEff(m) && status){
+            if(getElmt(m, i, col) == val){
+                status = false;
+            } else {
+                i++;
+            }
+        }
+
+        return i;
+    } 
+    public static int getIdxColEl(double [][] m, int row, double val){
+        int i=0;
+        boolean status = true;
+
+        while(i<getColEff(m) && status){
+            if(getElmt(m, row, i) == val){
+                status = false;
+            } else {
+                i++;
+            }
+        }
+
+        return i;
+    } 
+
+    public static boolean foundColNotZero(double [][] m, int row){
+        boolean status = false;
+        int i=0;
+
+        while(i<getColEff(m) && !status){
+            if(getElmt(m, row, i) != 0){
+                status = true;
+            } else {
+                status = false;
+            }
+        }
+        return status;
+    }
+
+    public static int getIdxColElNotZero(double [][] m, int row){
+        int i = 0; 
+        boolean status = true;
+
+        while(i<getColEff(m) && status){
+            if(getElmt(m, row, i) != 0){
+                status = false;
+            } else {
+                i++;
+            }
+        }
+        return i;
+    }
     public static int getIdxColEl(double [][] m, double val){
         int i, j, col=0;
         for(i=0; i<getRowEff(m); i++){

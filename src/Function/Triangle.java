@@ -13,7 +13,7 @@ public class Triangle {
         for(i=0; i<row; i++){
             for(j=0; j<col; j++){
                 if(m[i][i] == 0){
-                    newM = Gauss.swapRow(m, i, i+1);
+                    // newM = Gauss.swapRow(m, i, i+1);
                 }
             }
         }

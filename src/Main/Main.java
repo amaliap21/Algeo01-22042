@@ -4,6 +4,7 @@ package Main;
 import java.util.*;
 
 import ADT_Matrix.*;
+import Function.Gauss;
 import Function.*;
 
 public class Main {
@@ -59,8 +60,7 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            // Gauss.gauss(m);
-                            System.out.println();
+                            MatrixOutput.printMatrix(Gauss.forwardOBE(m));
                             break;
 
                         case 2:
@@ -143,9 +143,13 @@ public class Main {
                             System.out.println("Determinan matriks ini adalah " + det);
                             break;
 
+
                         default:
-                        System.out.println("Input pilihan salah, silakan input ulang.");
-                        break;
+                            System.out.println("Input pilihan salah, silakan input ulang.");
+                            break;
+                       
+                            
+                        
                     }
                     break;
             }
