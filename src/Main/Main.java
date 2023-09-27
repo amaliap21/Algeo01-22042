@@ -9,7 +9,11 @@ import Function.Cramer;
 import Function.GaussJordan;
 import Function.Inverse;
 import Function.InverseSpl;
+<<<<<<< HEAD
+import Function.Gauss;
+=======
 import Function.*;
+>>>>>>> 3c98baa4206b0fa511598d8cafbc3a72318f1dd8
 
 public class Main {
     int pilih;
@@ -64,8 +68,7 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            // Gauss.gauss(m);
-                            System.out.println();
+                            MatrixOutput.printMatrix(Gauss.forwardOBE(m));
                             break;
 
                         case 2:
@@ -91,9 +94,17 @@ public class Main {
                             Cramer.solCramer(m);
                             System.out.println();
                             break;
+
                         default:
+<<<<<<< HEAD
+                            System.out.println("Input pilihan salah, silakan input ulang.");
+                            break;
+                       
+                            
+=======
                         System.out.println("Input pilihan salah, silakan input ulang.");
                         break;
+>>>>>>> 3c98baa4206b0fa511598d8cafbc3a72318f1dd8
                     }
                     break;
             }
