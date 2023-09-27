@@ -9,16 +9,22 @@ import Function.Cramer;
 import Function.GaussJordan;
 import Function.Inverse;
 import Function.InverseSpl;
+<<<<<<< HEAD
 import Function.Gauss;
+=======
+import Function.*;
+>>>>>>> 3c98baa4206b0fa511598d8cafbc3a72318f1dd8
 
 public class Main {
+    int pilih;
     public static void main(String[] args) throws Exception {
-        int pilih;
         double[][] m;
         boolean program = true;
         Scanner scan;
+        int pilih;
         scan = new Scanner(System.in);
 
+        
         while (program) {
             System.out.println("===== PILIHAN MENU =====");
             System.out.println("1. Sistem Persamaan Linear");
@@ -31,13 +37,13 @@ public class Main {
             System.out.print("Memilih menu: ");
             pilih = scan.nextInt();
             System.out.println();
-
+            
             switch (pilih) {
                 case 1:
                     System.out.println("===== SISTEM PERSAMAAN LINEAR =====");
 
                     pilih = MatrixInput.choose();
-
+                    
                     if (pilih == 1) {
                         m = MatrixInput.matrix_user();
                     } else {
@@ -48,7 +54,7 @@ public class Main {
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(m);
                     System.out.println();
-
+                    
                     System.out.println("===== PILIHAN MENU =====");
                     System.out.println("1. Metode eliminasi Gauss");
                     System.out.println("2. Metode eliminasi Gauss-Jordan");
@@ -64,6 +70,7 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
                             MatrixOutput.printMatrix(Gauss.forwardOBE(m));
                             break;
+
                         case 2:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             GaussJordan.matriksGaussJordan(m);
@@ -71,6 +78,7 @@ public class Main {
                             GaussJordan.solGaussJordan(m);
                             System.out.println();
                             break;
+
                         case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
                             Inverse.matriksInverseGJ(m);
@@ -80,6 +88,7 @@ public class Main {
                             InverseSpl.solInverse(m);
                             System.out.println();
                             break;
+
                         case 4:
                             System.out.println("===== KAIDAH CRAMER =====");
                             Cramer.solCramer(m);
@@ -87,10 +96,15 @@ public class Main {
                             break;
 
                         default:
+<<<<<<< HEAD
                             System.out.println("Input pilihan salah, silakan input ulang.");
                             break;
                        
                             
+=======
+                        System.out.println("Input pilihan salah, silakan input ulang.");
+                        break;
+>>>>>>> 3c98baa4206b0fa511598d8cafbc3a72318f1dd8
                     }
                     break;
             }
@@ -98,8 +112,46 @@ public class Main {
             if (pilih == 7) {
                 program = false;
             }
-
+            
         }
+        
+        // // getcof = Cofactor.getCofactor(m, 0, 0);
+        // // cof = Cofactor.createMatrixCofactor(m);
+        // // Scanner input = new Scanner(System.in);
+        // // System.out.print("Indeks yang diambil: ");
+        // // n = input.nextInt();
+        // detcof = Cofactor.detByCofactor(cof, m, n);
+        // System.out.println();
+        // // MatrixOutput.printMatrix(cof);
+        // // System.out.println();
+        // // System.out.println("Determinannya adalah " + detcof);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(getcof);
+        // Cramer.solCramer(m);
+        // System.out.println();
+        // getInverse = Inverse.inverseMatriks(m);
+        // // getcof = Cofactor.getCofactor(m, 0, 0);
+        // // cof = Cofactor.createMatrixCofactor(m);
+        // // detcof = Cofactor.detByCofactor(cof, m, 2);
+        // // System.out.println();
+        // // MatrixOutput.printMatrix(cof);
+        // // System.out.println();
+        // // System.out.println(detcof);
+        // System.out.println();
+        // InverseSpl.solusiInverse(m);
+        // System.out.println();
+        
+        // System.out.println();
+        // MatrixOutput.printMatrix(m);
+        // System.out.println();
+        // System.out.println(Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, 0));
+        // MatrixOutput.printMatrix(Gauss.swapRow(m, 1, 2));
+
+        // double [][] sol = gaussSPL
+        
+
+        
+        // MatrixOutput.printMatrix(getInverse);
     }
 }
 
