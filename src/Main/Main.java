@@ -4,11 +4,6 @@ package Main;
 import java.util.*;
 
 import ADT_Matrix.*;
-import Function.Cofactor;
-import Function.Cramer;
-import Function.GaussJordan;
-import Function.Inverse;
-import Function.InverseSpl;
 import Function.*;
 
 public class Main {
@@ -67,6 +62,7 @@ public class Main {
                             // Gauss.gauss(m);
                             System.out.println();
                             break;
+
                         case 2:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             GaussJordan.matriksGaussJordan(m);
@@ -74,7 +70,8 @@ public class Main {
                             GaussJordan.solGaussJordan(m);
                             System.out.println();
                             break;
-                            case 3:
+
+                        case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
                             Inverse.matriksInverseGJ(m);
                             System.out.println();
@@ -83,11 +80,69 @@ public class Main {
                             InverseSpl.solInverse(m);
                             System.out.println();
                             break;
+
                         case 4:
-                        System.out.println("===== KAIDAH CRAMER =====");
+                            System.out.println("===== KAIDAH CRAMER =====");
                             Cramer.solCramer(m);
                             System.out.println();
                             break;
+
+                        default:
+                        System.out.println("Input pilihan salah, silakan input ulang.");
+                        break;
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("===== DETERMINAN =====");
+                    
+                    pilih = MatrixInput.choose();
+
+                    if (pilih == 1) {
+                        m = MatrixInput.matrix_user();
+                    } else {
+                        m = MatrixInput.matrix_file();
+                    }
+
+                    System.out.println();
+                    System.out.println("Matrix:");
+                    MatrixOutput.printMatrix(m);
+                    System.out.println();
+                    
+                    System.out.println("===== PILIHAN MENU =====");
+                    System.out.println("1. Metode eliminasi upper-triangular");
+                    System.out.println("2. Metode eliminasi lower-triangular");
+                    // System.out.println("3. Metode matriks balikan");
+                    System.out.println("3. Metode kofaktor");
+
+                    System.out.print("Memilih metode penyelesaian: ");
+                    pilih = scan.nextInt();
+                    System.out.println();
+
+                    switch (pilih) {
+                        case 1 :
+                            System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
+                            Triangle.upperTriangular(m);
+                            // System.out.println(Triangle.detTriangular(m));
+                            break;
+
+                        case 2 :
+                            System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
+                            break;
+
+                        // case 3 :
+                        //     System.out.println("==== METODE MATRIKS BALIKAN ====");
+                            
+
+                        case 3 :
+                            System.out.println("==== METODE KOFAKTOR ====");
+                            System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
+                            int index = scan.nextInt();
+                            MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(m));
+                            double det = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, index);
+                            System.out.println("Determinan matriks ini adalah " + det);
+                            break;
+
                         default:
                         System.out.println("Input pilihan salah, silakan input ulang.");
                         break;
