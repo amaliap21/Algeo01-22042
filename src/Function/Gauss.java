@@ -68,37 +68,41 @@ public class Gauss{
     public static double[][] forwardOBE(double[][] m) {
         double[][] matrix = MatrixOP.copyMatrix(m);
         // *** SWAPPING ***
-        for(int j=0; j<MatrixOP.getColEff(matrix)-1; j++){
-            int i=0+j;
+        for(int j=0; j<MatrixOP.getRowEff(matrix); j++){
+            int i=j;
             int rowMax = i;
             
+            //Cari elemen yang bernilai maksimum dari 
             double max = getMaxfromCol(matrix, i, j);
+
+            //Cari index tempat elemen maksimum berada
             rowMax = MatrixOP.getIdxRowEl(matrix, j, max);
-            matrix = swapRow(matrix, i, rowMax);
+            if(i!=rowMax){
+                matrix = swapRow(matrix, i, rowMax);
+            }
         }
-        // Row 1 sudah dalam bentuk leading one
+
         if(matrix[0][0]!=0){
             double ratio1 = matrix[0][0];
             for (int i=0; i<MatrixOP.getColEff(matrix); i++){
                 matrix[0][i] = matrix[0][i]/ratio1;
             }
-        }
+        } // Row 1 sudah dalam bentuk leading one
 
+        //Melakukan proses pengurangan/reduksi baris
         for(int a=1; a<MatrixOP.getRowEff(matrix); a++){   
-            for(int i=a; i<matrix.length; i++){
+            for(int i=a; i<MatrixOP.getRowEff(matrix); i++){
                 if (matrix[i][a-1] != 0){
                     double ratio = matrix[i][a-1]/matrix[a-1][a-1]; 
-                    for(int j=0; j<matrix[i].length; j++){
-                        matrix[i][j]  = MatrixOP.getElmt(matrix, i, j) - (ratio*(MatrixOP.getElmt(matrix, a-i, j)));
+                    for(int j=0; j<MatrixOP.getColEff(matrix); j++){
+                        matrix[i][j]  = MatrixOP.getElmt(matrix, i, j) - (ratio*(MatrixOP.getElmt(matrix, a-1, j)));
                     }
-                } else {
-                    continue;
-                }
+                } 
             }
 
             //SWAPPING ELEMEN 0 YANG ADA DI DIAGONAL DENGAN ELEMEN DI BAWAHNYA
-            for(int j=a; j<MatrixOP.getColEff(matrix)-1; j++){
-                int i=0+j;
+            for(int j=a; j<MatrixOP.getRowEff(matrix); j++){
+                int i=j;
                 int rowMax = i;
 
                 double max = getMaxfromCol(matrix, i, j);
@@ -108,6 +112,7 @@ public class Gauss{
             }
         }
 
+        //PEMBENTUKAN LEADING ONE
         for(int i=0; i<MatrixOP.getRowEff(matrix); i++){
             if (MatrixOP.foundColNotZero(matrix, i)){
                 for(int j=MatrixOP.getIdxColElNotZero(matrix, i); j<MatrixOP.getColEff(matrix); j++){
@@ -119,10 +124,10 @@ public class Gauss{
         return matrix;
     }
 
-    public static void matriksGauss(double[][] m){
-        System.out.println("Matriks Gauss:");
-        MatrixOutput.printMatrix(forwardOBE(m));
-    }
+    // public static void matriksGauss(double[][] m){
+    //     System.out.println("Matriks Gauss:");
+    //     MatrixOutput.printMatrix(forwardOBE(m));
+    // }
 
     // public static void solGauss(double[][] m) {
     //     double[][] matrix = Gauss.forwardOBE(m);

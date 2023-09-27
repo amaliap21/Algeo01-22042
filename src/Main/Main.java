@@ -63,7 +63,6 @@ public class Main {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
                             MatrixOutput.printMatrix(Gauss.forwardOBE(m));
-                            System.out.println();
                             break;
                         case 2:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
