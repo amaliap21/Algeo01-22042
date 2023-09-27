@@ -93,7 +93,7 @@ public class Cofactor {
     }
 
     public static double detByCofactor(double[][] cof, double[][] m, int n) {
-        System.out.println("n merupakan baris/kolom?");
+        System.out.println("index merupakan baris/kolom?");
         System.out.println("Jika baris ketik '1'");
         System.out.println("Jika kolom ketik '2'");
         Scanner jenis = new Scanner(System.in);
@@ -102,12 +102,12 @@ public class Cofactor {
         int i, j;
 
         if(choose == 1){
-            for(j=0; j<MatrixOP.getRowEff(m); j++){
-                det += cof[n][j]*m[n][j];
+            for(j = 0; j < MatrixOP.getRowEff(m); j++){
+                det = det + cof[n][j]*m[n][j];
             }
         } else if (choose == 2) {
             for (i = 0; i < MatrixOP.getRowEff(m); i++) {
-                det += cof[i][n] * m[i][n];
+                det = det + cof[i][n] * m[i][n];
             }
         } else {
             System.out.println("Input salah, silakan ulangi.");
