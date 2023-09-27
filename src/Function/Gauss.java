@@ -1,18 +1,34 @@
 package Function;
+
 import ADT_Matrix.*;
 
 import java.util.*;
 import java.io.*;
 import java.text.DecimalFormat;
 
-public class Gauss{
-    public static double[][] forwardOBE(double[][] m){
+public class Gauss {
+    public static double[][] forwardOBE(double[][] m) {
         double[][] matrix = MatrixOP.copyMatrix(m);
 
         int rowM = MatrixOP.getRowEff(matrix);
         int colM = MatrixOP.getColEff(matrix);
 
         for (int i = 0; i < rowM; i++) {
+            // // // elemen -0.0 jadi 0.0
+            // for (int o = 0; o < rowM; o++) {
+            // for (int p = 0; p < colM; p++) {
+            // if (matrix[o][p] == -0) {
+            // matrix[o][p] = 0;
+            // }
+            // }
+            // }
+
+            // if (MatrixOP.solBanyak(matrix)) {
+            // break;
+            // } else if (MatrixOP.solTidakAda(matrix)) {
+            // break;
+            // }
+
             // Nyari indeks dengan elemen terbesar pada suatu kolom
             // Tujuan: buat swapping baris
             int max = i;
@@ -34,117 +50,135 @@ public class Gauss{
             }
 
             // Ngurangin baris lain dengan baris yang sudah dikurangi
-            for (int j = i+1; j < rowM; j++) {
+            for (int j = i + 1; j < rowM; j++) {
                 double multiplier = matrix[j][i];
                 for (int k = i; k < colM; k++) {
                     matrix[j][k] -= multiplier * matrix[i][k];
+                    if (matrix[j][k] == -0) {
+                        matrix[j][k] = 0;
+                    }
                 }
+            }
+
+            MatrixOutput.printMatrix(matrix);
+            System.out.println();
+
+            if (MatrixOP.solBanyak(matrix)) {
+                return matrix;
+            } else if (MatrixOP.solTidakAda(matrix)) {
+                return matrix;
             }
         }
         return matrix;
+
     }
 
-    
+    public static void matriksGauss(double[][] m) {
+        System.out.println("Matriks Gauss:");
+        MatrixOutput.printMatrix(forwardOBE(m));
+    }
+
     // public static double[][] swapRow(double[][] m, int row1, int row2){
-    //     int j;
-    //     double[][] newM = MatrixOP.copyMatrix(m);
-    //     for(j = 0; j < MatrixOP.getColEff(newM); j++){
-    //         newM[row1][j] = m[row2][j];
-    //         newM[row2][j] = m[row1][j];
-    //     }
-    //     return newM;
+    // int j;
+    // double[][] newM = MatrixOP.copyMatrix(m);
+    // for(j = 0; j < MatrixOP.getColEff(newM); j++){
+    // newM[row1][j] = m[row2][j];
+    // newM[row2][j] = m[row1][j];
+    // }
+    // return newM;
     // }
 
     // public static double getMaxfromCol(double[][] m, int row, int col){
-    //     int i;
+    // int i;
 
-    //     double max;
-    //     max = Math.abs(MatrixOP.getElmt(m, row, col));
+    // double max;
+    // max = Math.abs(MatrixOP.getElmt(m, row, col));
 
-    //     for(i = row; i<MatrixOP.getRowEff(m); i++){
-    //         if(Math.abs(MatrixOP.getElmt(m, i, col))>=max){
-    //             max = MatrixOP.getElmt(m, i, col);
-    //         }
-    //     }
-    //     return max;
+    // for(i = row; i<MatrixOP.getRowEff(m); i++){
+    // if(Math.abs(MatrixOP.getElmt(m, i, col))>=max){
+    // max = MatrixOP.getElmt(m, i, col);
+    // }
+    // }
+    // return max;
     // }
 
     // // *** MULAI OPERASI BARIS ELEMENTER ***
     // public static double[][] forwardOBE(double[][] m) {
-    //     double[][] matrix = MatrixOP.copyMatrix(m);
-    //     // *** SWAPPING ***
-    //     for(int j=0; j<MatrixOP.getRowEff(matrix); j++){
-    //         int i=j;
-    //         int rowMax = i;
-            
-    //         //Cari elemen yang bernilai maksimum dari 
-    //         double max = getMaxfromCol(matrix, i, j);
+    // double[][] matrix = MatrixOP.copyMatrix(m);
+    // // *** SWAPPING ***
+    // for(int j=0; j<MatrixOP.getRowEff(matrix); j++){
+    // int i=j;
+    // int rowMax = i;
 
-    //         //Cari index tempat elemen maksimum berada
-    //         rowMax = MatrixOP.getIdxRowEl(matrix, j, max);
-    //         if(i!=rowMax){
-    //             matrix = swapRow(matrix, i, rowMax);
-    //         }
-    //     }
+    // //Cari elemen yang bernilai maksimum dari
+    // double max = getMaxfromCol(matrix, i, j);
 
-    //     if(matrix[0][0]!=0){
-    //         double ratio1 = matrix[0][0];
-    //         for (int i=0; i<MatrixOP.getColEff(matrix); i++){
-    //             matrix[0][i] = matrix[0][i]/ratio1;
-    //         }
-    //     } // Row 1 sudah dalam bentuk leading one
+    // //Cari index tempat elemen maksimum berada
+    // rowMax = MatrixOP.getIdxRowEl(matrix, j, max);
+    // if(i!=rowMax){
+    // matrix = swapRow(matrix, i, rowMax);
+    // }
+    // }
 
-    //     //Melakukan proses pengurangan/reduksi baris
-    //     for(int a=1; a<MatrixOP.getRowEff(matrix); a++){   
-    //         for(int i=a; i<MatrixOP.getRowEff(matrix); i++){
-    //             if (matrix[i][a-1] != 0){
-    //                 double ratio = matrix[i][a-1]/matrix[a-1][a-1]; 
-    //                 for(int j=0; j<MatrixOP.getColEff(matrix); j++){
-    //                     matrix[i][j]  = MatrixOP.getElmt(matrix, i, j) - (ratio*(MatrixOP.getElmt(matrix, a-1, j)));
-    //                 }
-    //             } 
-    //         }
+    // if(matrix[0][0]!=0){
+    // double ratio1 = matrix[0][0];
+    // for (int i=0; i<MatrixOP.getColEff(matrix); i++){
+    // matrix[0][i] = matrix[0][i]/ratio1;
+    // }
+    // } // Row 1 sudah dalam bentuk leading one
 
-    //         //SWAPPING ELEMEN 0 YANG ADA DI DIAGONAL DENGAN ELEMEN DI BAWAHNYA
-    //         for(int j=a; j<MatrixOP.getRowEff(matrix); j++){
-    //             int i=j;
-    //             int rowMax = i;
+    // //Melakukan proses pengurangan/reduksi baris
+    // for(int a=1; a<MatrixOP.getRowEff(matrix); a++){
+    // for(int i=a; i<MatrixOP.getRowEff(matrix); i++){
+    // if (matrix[i][a-1] != 0){
+    // double ratio = matrix[i][a-1]/matrix[a-1][a-1];
+    // for(int j=0; j<MatrixOP.getColEff(matrix); j++){
+    // matrix[i][j] = MatrixOP.getElmt(matrix, i, j) -
+    // (ratio*(MatrixOP.getElmt(matrix, a-1, j)));
+    // }
+    // }
+    // }
 
-    //             double max = getMaxfromCol(matrix, i, j);
-    //             rowMax = MatrixOP.getIdxRowEl(matrix, j, max);
+    // //SWAPPING ELEMEN 0 YANG ADA DI DIAGONAL DENGAN ELEMEN DI BAWAHNYA
+    // for(int j=a; j<MatrixOP.getRowEff(matrix); j++){
+    // int i=j;
+    // int rowMax = i;
 
-    //             matrix = swapRow(matrix, i, rowMax);
-    //         }
-    //     }
+    // double max = getMaxfromCol(matrix, i, j);
+    // rowMax = MatrixOP.getIdxRowEl(matrix, j, max);
 
-    //     //PEMBENTUKAN LEADING ONE
-    //     for(int i=0; i<MatrixOP.getRowEff(matrix); i++){
-    //         if (MatrixOP.foundColNotZero(matrix, i)){
-    //             for(int j=MatrixOP.getIdxColElNotZero(matrix, i); j<MatrixOP.getColEff(matrix); j++){
-    //                 double divider = MatrixOP.getElmt(matrix, i, MatrixOP.getIdxColElNotZero(matrix, i));
-    //                 matrix[i][j] = MatrixOP.getElmt(matrix, i, j)/divider;
-    //             }
-    //         }
-    //     }
-    //     return matrix;
-    
+    // matrix = swapRow(matrix, i, rowMax);
+    // }
+    // }
+
+    // //PEMBENTUKAN LEADING ONE
+    // for(int i=0; i<MatrixOP.getRowEff(matrix); i++){
+    // if (MatrixOP.foundColNotZero(matrix, i)){
+    // for(int j=MatrixOP.getIdxColElNotZero(matrix, i);
+    // j<MatrixOP.getColEff(matrix); j++){
+    // double divider = MatrixOP.getElmt(matrix, i,
+    // MatrixOP.getIdxColElNotZero(matrix, i));
+    // matrix[i][j] = MatrixOP.getElmt(matrix, i, j)/divider;
+    // }
+    // }
+    // }
+    // return matrix;
 
     // public static void matriksGauss(double[][] m){
-    //     System.out.println("Matriks Gauss:");
-    //     MatrixOutput.printMatrix(forwardOBE(m));
+    // System.out.println("Matriks Gauss:");
+    // MatrixOutput.printMatrix(forwardOBE(m));
     // }
 
     // public static void solGauss(double[][] m) {
-    //     double[][] matrix = Gauss.forwardOBE(m);
-    //     int rowM = MatrixOP.getRowEff(matrix);
-    //     int colM = MatrixOP.getColEff(matrix);
+    // double[][] matrix = Gauss.forwardOBE(m);
+    // int rowM = MatrixOP.getRowEff(matrix);
+    // int colM = MatrixOP.getColEff(matrix);
 
-    //     System.out.println("Solusi SPL:");
-    //     for (int i = 0; i < rowM; i++) {
-    //         System.out.print("x" + (i + 1) + " = ");
-    //         DecimalFormat df = new DecimalFormat("0.000");
-    //         System.out.println(df.format(matrix[i][colM - 1]));
-    //     }
+    // System.out.println("Solusi SPL:");
+    // for (int i = 0; i < rowM; i++) {
+    // System.out.print("x" + (i + 1) + " = ");
+    // DecimalFormat df = new DecimalFormat("0.000");
+    // System.out.println(df.format(matrix[i][colM - 1]));
+    // }
     // }
 }
-

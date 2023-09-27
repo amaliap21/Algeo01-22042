@@ -256,22 +256,56 @@ public class MatrixOP {
     }
 
     public static double determinant(double[][] m) {
-        double det;
-        int tanda, j;
+        int p, indexRowMinor, indexColMinor;
+        double det = 0;
+        double[][] minor;
 
-        det = 0;
-        tanda = 1;
-        if (getRowEff(m) == 1) {
-            det = m[0][0];
-        } else if (getRowEff(m) == 2) {
-            det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
-        } else if (getRowEff(m) > 2) {
-            for (j = 0; j < getColEff(m); j++) {
-                det += tanda * m[0][j] * determinant(submatrix(m, 0, j));
-                tanda = -tanda;
+        if (MatrixOP.getRowEff(m) == 1) {
+            return m[0][0];
+        } else if (MatrixOP.getRowEff(m) == 2) {
+            return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
+        } else {
+            minor = new double[MatrixOP.getRowEff(m) - 1][MatrixOP.getColEff(m) - 1];
+
+            for (p = 0; p < MatrixOP.getColEff(m); p++) {
+                indexRowMinor = 0;
+                for (int i = 1; i < MatrixOP.getRowEff(m); i++) {
+                    indexColMinor = 0;
+                    for (int j = 0; j < MatrixOP.getColEff(m); j++) {
+                        if (j != p) {
+                            minor[indexRowMinor][indexColMinor] = m[i][j];
+                            indexColMinor++;
+                        }
+                    }
+                    indexRowMinor++;
+                }
+
+                if (p % 2 == 0) {
+                    det = det + (m[0][p] * determinant(minor));
+                } else {
+                    det = det - (m[0][p] * determinant(minor));
+                }
             }
+
+            return det;
         }
-        return det;
+
+        // double det;
+        // int tanda, j;
+
+        // det = 0;
+        // tanda = 1;
+        // if (getRowEff(m) == 1) {
+        // det = m[0][0];
+        // } else if (getRowEff(m) == 2) {
+        // det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+        // } else if (getRowEff(m) > 2) {
+        // for (j = 0; j < getColEff(m); j++) {
+        // det += tanda * m[0][j] * determinant(submatrix(m, 0, j));
+        // tanda = -tanda;
+        // }
+        // }
+        // return det;
     }
 
     public static double[][] transpose(double[][] m) {
@@ -368,26 +402,73 @@ public class MatrixOP {
         return newM;
     }
 
-    public static int getIdxColEl(double [][] m, double val){
-        int i, j, col=0;
-        for(i=0; i<getRowEff(m); i++){
-            for(j=0; j<getColEff(m); j++){
-                if(getElmt(m, i, j) == val){
+    public static int getIdxColEl(double[][] m, double val) {
+        int i, j, col = 0;
+        for (i = 0; i < getRowEff(m); i++) {
+            for (j = 0; j < getColEff(m); j++) {
+                if (getElmt(m, i, j) == val) {
                     col = j;
                 }
             }
         }
         return col;
-    } 
-    public static int getIdxRowEl(double [][] m, double val){
-        int i, j, row=0;
-        for(i=0; i<getRowEff(m); i++){
-            for(j=0; j<getColEff(m); j++){
-                if(getElmt(m, i, j) == val){
+    }
+
+    public static int getIdxRowEl(double[][] m, double val) {
+        int i, j, row = 0;
+        for (i = 0; i < getRowEff(m); i++) {
+            for (j = 0; j < getColEff(m); j++) {
+                if (getElmt(m, i, j) == val) {
                     row = i;
                 }
             }
         }
         return row;
-    } 
+    }
+
+    // solusi tidak ada, yakni dengan cek semua elemen di baris terakhir itu
+    // bernilai 0 kecuali di kolom terakhir
+    public static boolean solTidakAda(double[][] m) {
+        int i;
+        for (i = 0; i < getColEff(m) - 1; i++) {
+            if (m[getLastIdxRow(m)][i] != 0) {
+                return false;
+            }
+        }
+
+        return m[getLastIdxRow(m)][getLastIdxCol(m)] != 0;
+    }
+
+    // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
+    // bernilai 0
+    public static boolean solBanyak(double[][] m) {
+        return isFullZeroRow(m, getLastIdxRow(m));
+    }
+
+    // Untuk swapping gauss jordan
+    public static double[][] swapRow(double[][] m, int row1, int row2) {
+        int j;
+        double[][] newM = MatrixOP.copyMatrix(m);
+        for (j = 0; j < MatrixOP.getColEff(newM); j++) {
+            newM[row1][j] = m[row2][j];
+            newM[row2][j] = m[row1][j];
+        }
+        return newM;
+    }
+
+    // Untuk perkalian row di OBE
+    public static void kaliRow(double[][] m, int row, double x) {
+        int j;
+        for (j = 0; j < getColEff(m); j++) {
+            m[row][j] *= x;
+        }
+    }
+
+    // Untuk pengurangan row di OBE
+    public static void kurangRow(double[][] m, int row1, int row2){
+        int j;
+        for (j = 0; j < getColEff(m); j++) {
+            m[row1][j] -= m[row2][j];
+        }
+    }
 }

@@ -4,19 +4,17 @@ package Main;
 import java.util.*;
 
 import ADT_Matrix.*;
-<<<<<<< HEAD
-import Function.Gauss;
-=======
-import Function.Cofactor;
-import Function.Cramer;
-import Function.GaussJordan;
-import Function.Inverse;
-import Function.InverseSpl;
->>>>>>> 93e1a4d8252ee98782038a4ae8b447a89ec5902c
+// import Function.Gauss;
+// import Function.Cofactor;
+// import Function.Cramer;
+// import Function.GaussJordan;
+// import Function.Inverse;
+// import Function.InverseSpl;
 import Function.*;
 
 public class Main {
     int pilih;
+
     public static void main(String[] args) throws Exception {
         double[][] m;
         boolean program = true;
@@ -24,7 +22,6 @@ public class Main {
         int pilih;
         scan = new Scanner(System.in);
 
-        
         while (program) {
             System.out.println("===== PILIHAN MENU =====");
             System.out.println("1. Sistem Persamaan Linear");
@@ -37,13 +34,13 @@ public class Main {
             System.out.print("Memilih menu: ");
             pilih = scan.nextInt();
             System.out.println();
-            
+
             switch (pilih) {
                 case 1:
                     System.out.println("===== SISTEM PERSAMAAN LINEAR =====");
 
                     pilih = MatrixInput.choose();
-                    
+
                     if (pilih == 1) {
                         m = MatrixInput.matrix_user();
                     } else {
@@ -54,7 +51,7 @@ public class Main {
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(m);
                     System.out.println();
-                    
+
                     System.out.println("===== PILIHAN MENU =====");
                     System.out.println("1. Metode eliminasi Gauss");
                     System.out.println("2. Metode eliminasi Gauss-Jordan");
@@ -68,7 +65,7 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            // Gauss.gauss(m);
+                            Gauss.matriksGauss(m);
                             System.out.println();
                             break;
 
@@ -96,14 +93,14 @@ public class Main {
                             System.out.println();
                             break;
                         default:
-                        System.out.println("Input pilihan salah, silakan input ulang.");
-                        break;
+                            System.out.println("Input pilihan salah, silakan input ulang.");
+                            break;
                     }
                     break;
 
                 case 2:
                     System.out.println("===== DETERMINAN =====");
-                    
+
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
@@ -116,7 +113,7 @@ public class Main {
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(m);
                     System.out.println();
-                    
+
                     System.out.println("===== PILIHAN MENU =====");
                     System.out.println("1. Metode eliminasi upper-triangular");
                     System.out.println("2. Metode eliminasi lower-triangular");
@@ -128,21 +125,20 @@ public class Main {
                     System.out.println();
 
                     switch (pilih) {
-                        case 1 :
+                        case 1:
                             System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
                             Triangle.upperTriangular(m);
                             // System.out.println(Triangle.detTriangular(m));
                             break;
 
-                        case 2 :
+                        case 2:
                             System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
                             break;
 
                         // case 3 :
-                        //     System.out.println("==== METODE MATRIKS BALIKAN ====");
-                            
+                        // System.out.println("==== METODE MATRIKS BALIKAN ====");
 
-                        case 3 :
+                        case 3:
                             System.out.println("==== METODE KOFAKTOR ====");
                             System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                             int index = scan.nextInt();
@@ -151,13 +147,10 @@ public class Main {
                             System.out.println("Determinan matriks ini adalah " + det);
                             break;
 
-
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
                             break;
-                       
-                            
-                        
+
                     }
                     break;
             }
@@ -165,9 +158,9 @@ public class Main {
             if (pilih == 7) {
                 program = false;
             }
-            
+
         }
-        
+
         // // getcof = Cofactor.getCofactor(m, 0, 0);
         // // cof = Cofactor.createMatrixCofactor(m);
         // // Scanner input = new Scanner(System.in);
@@ -193,17 +186,16 @@ public class Main {
         // System.out.println();
         // InverseSpl.solusiInverse(m);
         // System.out.println();
-        
+
         // System.out.println();
         // MatrixOutput.printMatrix(m);
         // System.out.println();
-        // System.out.println(Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, 0));
+        // System.out.println(Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m),
+        // m, 0));
         // MatrixOutput.printMatrix(Gauss.swapRow(m, 1, 2));
 
         // double [][] sol = gaussSPL
-        
 
-        
         // MatrixOutput.printMatrix(getInverse);
     }
 }
