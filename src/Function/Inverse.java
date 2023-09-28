@@ -5,6 +5,7 @@ import java.util.*;
 import ADT_Matrix.*;
 
 public class Inverse {
+    // metode cofactor
     public static double[][] inverseMatriks(double[][] m) {
         if (MatrixOP.determinant(m) == 0) {
             System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
@@ -14,6 +15,7 @@ public class Inverse {
         return (MatrixOP.multiplyByConst(Cofactor.adj(m), (1 / MatrixOP.determinant(m))));
     }
 
+    // print matriks balikan (cofactor)
     public static void matriksInverse(double[][] m) {
         if (MatrixOP.determinant(m) == 0) {
             System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
@@ -23,8 +25,8 @@ public class Inverse {
         }
     }
 
+    // metode Gauss-Jordan ([A|I] = [I|A^-1])
     public static double[][] balikanGJ(double[][] m) {
-        // [A|I] = [I|A^-1]
         int rowM = MatrixOP.getRowEff(m);
 
         // Buat matriks identitas
@@ -65,11 +67,12 @@ public class Inverse {
         return mGabung;
     }
 
+    // print matriks balikan (Gauss-Jordan)
     public static void matriksInverseGJ(double[][] m) {
-        // if (MatrixOP.determinant(m) == 0) {
-        //     System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
-        // } else {
-        // }
+        if (MatrixOP.determinant(m) == 0) {
+            System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
+        } else {
+        }
         System.out.println("Matriks Balikan Gauss-Jordan:");
         MatrixOutput.printMatrix(balikanGJ(m));
     }
