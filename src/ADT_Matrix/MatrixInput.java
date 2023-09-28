@@ -43,7 +43,7 @@ public class MatrixInput {
 
         // Create + print path file
         pathFile = getPathInput(namaFile);
-        System.out.println(pathFile);
+        // System.out.println(pathFile);
 
         try {
             // Read file

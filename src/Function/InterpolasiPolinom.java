@@ -13,10 +13,10 @@ public class InterpolasiPolinom {
         for(i = 0; i < n; i++){
             for(j = 0; j < n+1; j++){
                 if(j == n){
-                    newM[i][j] = m[i][n];
+                    newM[i][j] = m[i][1];
                 }
                 else{
-                    newM[i][j] = Math.pow(m[i][1], j);
+                    newM[i][j] = Math.pow(m[i][0], j);
                 }
             }
         }

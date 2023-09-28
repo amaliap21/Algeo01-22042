@@ -1,5 +1,6 @@
 package Main;
 
+import java.text.DecimalFormat;
 // import ADT
 import java.util.*;
 
@@ -16,7 +17,7 @@ public class Main {
     int pilih;
 
     public static void main(String[] args) throws Exception {
-        double[][] m;
+        double[][] matrix;
         boolean program = true;
         Scanner scan;
         int pilih;
@@ -42,14 +43,14 @@ public class Main {
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
-                        m = MatrixInput.matrix_user();
+                        matrix = MatrixInput.matrix_user();
                     } else {
-                        m = MatrixInput.matrix_file();
+                        matrix = MatrixInput.matrix_file();
                     }
 
                     System.out.println();
                     System.out.println("Matrix:");
-                    MatrixOutput.printMatrix(m);
+                    MatrixOutput.printMatrix(matrix);
                     System.out.println();
 
                     System.out.println("===== PILIH METODE/KAIDAH =====");
@@ -65,31 +66,31 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            Gauss.matriksGauss(m);
+                            Gauss.matriksGauss(matrix);
                             System.out.println();
                             break;
 
                         case 2:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
-                            GaussJordan.matriksGaussJordan(m);
+                            GaussJordan.matriksGaussJordan(matrix);
                             System.out.println();
-                            GaussJordan.solGaussJordan(m);
+                            GaussJordan.solGaussJordan(matrix);
                             System.out.println();
                             break;
 
                         case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
-                            Inverse.matriksInverseGJ(m);
+                            Inverse.matriksInverseGJ(matrix);
                             System.out.println();
-                            Inverse.matriksInverse(m);
+                            Inverse.matriksInverse(matrix);
                             System.out.println();
-                            InverseSpl.solInverse(m);
+                            InverseSpl.solInverse(matrix);
                             System.out.println();
                             break;
 
                         case 4:
                             System.out.println("===== KAIDAH CRAMER =====");
-                            Cramer.solCramer(m);
+                            Cramer.solCramer(matrix);
                             System.out.println();
                             break;
                         default:
@@ -104,14 +105,14 @@ public class Main {
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
-                        m = MatrixInput.matrix_user();
+                        matrix = MatrixInput.matrix_user();
                     } else {
-                        m = MatrixInput.matrix_file();
+                        matrix = MatrixInput.matrix_file();
                     }
 
                     System.out.println();
                     System.out.println("Matrix:");
-                    MatrixOutput.printMatrix(m);
+                    MatrixOutput.printMatrix(matrix);
                     System.out.println();
 
                     System.out.println("===== PILIHAN METODE/KAIDAH =====");
@@ -128,7 +129,7 @@ public class Main {
                         case 1:
                             System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
                             // double [][] upper = Triangle.upperTriangular(m);
-                            double detU = Triangle.detUpperTriangular(m);
+                            double detU = Triangle.detUpperTriangular(matrix);
                             // MatrixOutput.printMatrix(upper);
                             System.out.println();
                             System.out.println("Determinannya adalah " + detU);
@@ -146,8 +147,8 @@ public class Main {
                             System.out.println("==== METODE KOFAKTOR ====");
                             System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                             int index = scan.nextInt();
-                            MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(m));
-                            double detC = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, index);
+                            MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(matrix));
+                            double detC = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(matrix), matrix, index);
                             System.out.println("Determinan matriks ini adalah " + detC);
                             break;
 
@@ -163,14 +164,14 @@ public class Main {
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
-                        m = MatrixInput.matrix_user();
+                        matrix = MatrixInput.matrix_user();
                     } else {
-                        m = MatrixInput.matrix_file();
+                        matrix = MatrixInput.matrix_file();
                     }
 
                     System.out.println();
                     System.out.println("Matrix:");
-                    MatrixOutput.printMatrix(m);
+                    MatrixOutput.printMatrix(matrix);
                     System.out.println();
 
                     System.out.println("===== PILIH METODE =====");
@@ -184,12 +185,12 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
-                            Inverse.matriksInverseGJ(m);
+                            Inverse.matriksInverseGJ(matrix);
                             System.out.println();
                             break;
                         case 2:
                             System.out.println("===== METODE KOFAKTOR =====");
-                            Inverse.matriksInverse(m);
+                            Inverse.matriksInverse(matrix);
                             System.out.println();
                             break;
                         default:
@@ -197,21 +198,95 @@ public class Main {
                             break;
                     }
                     break;
+
                 case 4:
                     System.out.println("===== INTERPOLASI POLINOM =====");
+                    pilih = MatrixInput.choose();
+            
+                    if (pilih == 1) {
+                        System.out.print("Jumlah sampel (n): ");
+                        int n = scan.nextInt();
+                        double[][] mx = new double[n][2];
+                        for(int i = 0; i < MatrixOP.getRowEff(mx); i++){
+                            for(int j = 0; j < MatrixOP.getColEff(mx); j++){
+                                mx[i][j] = scan.nextDouble();
+                            }
+                        }
+                        System.out.println();
+                        System.out.println("Matrix:");
+                        MatrixOutput.printMatrix(mx);
+                        System.out.println();
+                        double [][] newMx = InterpolasiPolinom.interpolasiMatrix(mx);
+                        // System.out.println();
+                        // MatrixOutput.printMatrix(newMx);
+                        System.out.println();
+                        System.out.print("x yang ingin dicari nilai fungsinya: ");
+                        double x = scan.nextDouble();
+                        double sol = InterpolasiPolinom.interpolasiFX(newMx, x);
+                        DecimalFormat df = new DecimalFormat("0.0000");
+                        System.out.println();
+                        System.out.println("f(" + x + ") = " + df.format(sol));
+                        System.out.println();
+                    } 
+                    else {
+                        matrix = MatrixInput.matrix_file();
+                        System.out.println();
+                        System.out.println("Matrix:");
+                        MatrixOutput.printMatrix(matrix);
+                        System.out.println();
+                        System.out.print("x yang ingin dicari nilai fungsinya: ");
+                        double x = scan.nextDouble();
+                        double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), x);
+                        DecimalFormat df = new DecimalFormat("0.0000");
+                        System.out.println();
+                        System.out.println("f(" + x + ") = " + df.format(sol));
+                        System.out.println();
+                    }
                     break;
+
                 case 5:
                     System.out.println("===== INTERPOLASI BICUBIC SPLINE =====");
-                    m = MatrixInput.matrix_file();
+                    matrix = MatrixInput.matrix_file();
                     System.out.println();
                     System.out.println("Matrix:");
-                    MatrixOutput.printMatrix(m);
+                    MatrixOutput.printMatrix(matrix);
                     System.out.println();
 
                     
                     break;
+
                 case 6:
-                    System.out.println("===== REGRESI LINEAR BERGANDA =====");
+                    pilih = MatrixInput.choose();
+            
+                    if (pilih == 1) {
+                        System.out.print("Jumlah peubah (n): ");
+                        int n = scan.nextInt();
+                        System.out.print("Jumlah sampel (m): ");
+                        int m = scan.nextInt();
+                        double[][] mx = new double[m][n+1];
+                        for(int i = 0; i < m; i++){
+                            for(int j = 0; j < n+1; j++){
+                                mx[i][j] = scan.nextDouble();
+                            }
+                        }
+                        System.out.println();
+                        System.out.println("Matrix:");
+                        MatrixOutput.printMatrix(mx);
+                        System.out.println();
+                        double[][] newM = Regresi.regresiMatrix(mx);
+                        Regresi.printRegresi(newM);
+                        System.out.println();
+                    } 
+                    else {
+                        matrix = MatrixInput.matrix_file();
+                        System.out.println();
+                        System.out.println("Matrix:");
+                        MatrixOutput.printMatrix(matrix);
+                        System.out.println();
+                        double[][] newM = Regresi.regresiMatrix(matrix);
+                        Regresi.printRegresi(newM);
+                        System.out.println();
+                    }
 
                     break;
             }
