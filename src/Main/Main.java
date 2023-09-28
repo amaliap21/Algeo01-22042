@@ -52,7 +52,7 @@ public class Main {
                     MatrixOutput.printMatrix(m);
                     System.out.println();
 
-                    System.out.println("===== PILIHAN MENU =====");
+                    System.out.println("===== PILIH METODE/KAIDAH =====");
                     System.out.println("1. Metode eliminasi Gauss");
                     System.out.println("2. Metode eliminasi Gauss-Jordan");
                     System.out.println("3. Metode matriks balikan");
@@ -114,7 +114,7 @@ public class Main {
                     MatrixOutput.printMatrix(m);
                     System.out.println();
 
-                    System.out.println("===== PILIHAN MENU =====");
+                    System.out.println("===== PILIHAN METODE/KAIDAH =====");
                     System.out.println("1. Metode eliminasi upper-triangular");
                     System.out.println("2. Metode eliminasi lower-triangular");
                     // System.out.println("3. Metode matriks balikan");
@@ -157,10 +157,70 @@ public class Main {
 
                     }
                     break;
+                case 3:
+                    System.out.println("===== MATRIKS BALIKAN =====");
+
+                    pilih = MatrixInput.choose();
+
+                    if (pilih == 1) {
+                        m = MatrixInput.matrix_user();
+                    } else {
+                        m = MatrixInput.matrix_file();
+                    }
+
+                    System.out.println();
+                    System.out.println("Matrix:");
+                    MatrixOutput.printMatrix(m);
+                    System.out.println();
+
+                    System.out.println("===== PILIH METODE =====");
+                    System.out.println("1. Metode eliminasi Gauss-Jordan");
+                    System.out.println("2. Metode eliminasi kofaktor");
+
+                    System.out.print("Memilih metode penyelesaian: ");
+                    pilih = scan.nextInt();
+                    System.out.println();
+
+                    switch (pilih) {
+                        case 1:
+                            System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
+                            Inverse.matriksInverseGJ(m);
+                            System.out.println();
+                            break;
+                        case 2:
+                            System.out.println("===== METODE KOFAKTOR =====");
+                            Inverse.matriksInverse(m);
+                            System.out.println();
+                            break;
+                        default:
+                            System.out.println("Input pilihan salah, silakan input ulang.");
+                            break;
+                    }
+                    break;
+                case 4:
+                    System.out.println("===== INTERPOLASI POLINOM =====");
+                    break;
+                case 5:
+                    System.out.println("===== INTERPOLASI BICUBIC SPLINE =====");
+                    m = MatrixInput.matrix_file();
+                    System.out.println();
+                    System.out.println("Matrix:");
+                    MatrixOutput.printMatrix(m);
+                    System.out.println();
+
+                    
+                    break;
+                case 6:
+                    System.out.println("===== REGRESI LINEAR BERGANDA =====");
+
+                    break;
             }
 
             if (pilih == 7) {
+                System.out.println("Keluar dari program. . .");
                 program = false;
+            } else if (pilih > 7 || pilih < 1) {
+                System.out.println("Input pilihan salah, silakan input ulang.");
             }
 
         }
