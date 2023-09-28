@@ -57,8 +57,8 @@ public class MatrixInput {
             }
             // isiFile.close();
 
-            System.out.println("Jumlah baris: " + row);
-            System.out.println("Jumlah kolom: " + col);
+            // System.out.println("Jumlah baris: " + row);
+            // System.out.println("Jumlah kolom: " + col);
 
             // Read matrix
             double[][] matrix = new double[row][col];
