@@ -4,63 +4,65 @@ import java.util.*;
 import ADT_Matrix.*;
 
 public class Triangle {
-    public static double detUpperTriangular(double[][] m) {
+    public static void detUpperTriangular(double[][] m) {
         double det = 1;
         int i, j;
         int count = 0;
         
         if(!MatrixOP.isSquare(m)){
-            int row = MatrixOP.getRowEff(m);
-            int col = row;
-            double[][] m1 = new double[row][row];
-            for(i = 0; i < row; i++){
-                for(j = 0; j < col; j ++){
-                    m1[i][j] = m[i][j];
-                }
-            }
-            MatrixOutput.printMatrix(m1);
-            System.out.println(MatrixOP.getColEff(m1));
-
-            for (i = 0; i < row; i++) {
-                int max = i;
-                
-                for (j = i + 1; j < row; j++) {
-                    if (Math.abs(m1[j][i]) > Math.abs(m1[max][i])) {
-                        max = j;
-                    }
-                    if(max != i){
-                        count ++;
-                    }
-                }
-
-                // Swapping baris
-                double[] temp = m1[i];
-                m1[i] = m1[max];
-                m1[max] = temp;
-
-                // Ngurangin baris lain dengan baris yang sudah dikurangi
-                for (j = i + 1; j < row; j++) {
-                    double multiplier = m1[j][i]/m1[j-1][i];
-                    for (int k = i; k < row; k++) {
-                        m1[j][k] -= multiplier * m1[i][k];
-                        if (m1[j][k] == -0) {
-                            m1[j][k] = 0;
-                        }
-                    }
-                }
-            } 
-            
-            MatrixOutput.printMatrix(m1);
-            double[][] newM = MatrixOP.copyMatrix(m1);
-            for(i = 0; i < row; i++){
-                for(j = 0; j < row; j++){
-                    if(i == j){
-                        det *= newM[i][j]*Math.pow(-1,count);
-                        System.out.println(det);
-                    }
-                }
-            }
+            System.out.println("Matriks ini tidak memiliki determinan karena bukan berukuran nxn");
         }
+        //     int row = MatrixOP.getRowEff(m);
+        //     int col = row;
+        //     double[][] m1 = new double[row][row];
+        //     for(i = 0; i < row; i++){
+        //         for(j = 0; j < col; j ++){
+        //             m1[i][j] = m[i][j];
+        //         }
+        //     }
+        //     MatrixOutput.printMatrix(m1);
+        //     System.out.println(MatrixOP.getColEff(m1));
+
+        //     for (i = 0; i < row; i++) {
+        //         int max = i;
+                
+        //         for (j = i + 1; j < row; j++) {
+        //             if (Math.abs(m1[j][i]) > Math.abs(m1[max][i])) {
+        //                 max = j;
+        //             }
+        //             if(max != i){
+        //                 count ++;
+        //             }
+        //         }
+
+        //         // Swapping baris
+        //         double[] temp = m1[i];
+        //         m1[i] = m1[max];
+        //         m1[max] = temp;
+
+        //         // Ngurangin baris lain dengan baris yang sudah dikurangi
+        //         for (j = i + 1; j < row; j++) {
+        //             double multiplier = m1[j][i]/m1[j-1][i];
+        //             for (int k = i; k < row; k++) {
+        //                 m1[j][k] -= multiplier * m1[i][k];
+        //                 if (m1[j][k] == -0) {
+        //                     m1[j][k] = 0;
+        //                 }
+        //             }
+        //         }
+        //     } 
+            
+        //     MatrixOutput.printMatrix(m1);
+        //     double[][] newM = MatrixOP.copyMatrix(m1);
+        //     for(i = 0; i < row; i++){
+        //         for(j = 0; j < row; j++){
+        //             if(i == j){
+        //                 det *= newM[i][j]*Math.pow(-1,count);
+        //                 System.out.println(det);
+        //             }
+        //         }
+        //     }
+        // }
 
         else{
             double[][] matrix = MatrixOP.copyMatrix(m);
@@ -106,13 +108,13 @@ public class Triangle {
                 // }
             } 
             det = det*Math.pow(-1, count);
+            if(det>0 && det<Math.pow(10, -3)){
+                det = 0;
+            } 
+            if(det<0 && det>Math.pow(-10, -3)){
+                det = 0;
+            }
+            System.out.println("Determinannya adalah " + det);
         }
-        if(det>0 && det<Math.pow(10, -3)){
-            det = 0;
-        } 
-        if(det<0 && det>Math.pow(-10, -3)){
-            det = 0;
-        }
-        return det;
     }
 }

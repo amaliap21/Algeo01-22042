@@ -116,8 +116,8 @@ public class Main {
                     System.out.println();
 
                     System.out.println("===== PILIHAN METODE/KAIDAH =====");
-                    System.out.println("1. Metode eliminasi upper-triangular");
-                    System.out.println("2. Metode eliminasi lower-triangular");
+                    System.out.println("1. Metode reduksi baris upper-triangular");
+                    System.out.println("2. Metode reduksi baris lower-triangular");
                     // System.out.println("3. Metode matriks balikan");
                     System.out.println("3. Metode kofaktor");
 
@@ -127,17 +127,16 @@ public class Main {
 
                     switch (pilih) {
                         case 1:
-                            System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
+                            System.out.println("==== METODE REDUKSI BARIS UPPER-TRIANGULAR ====");
                             // double [][] upper = Triangle.upperTriangular(m);
-                            double detU = Triangle.detUpperTriangular(matrix);
                             // MatrixOutput.printMatrix(upper);
                             System.out.println();
-                            System.out.println("Determinannya adalah " + detU);
+                            Triangle.detUpperTriangular(matrix);
                             System.out.println();
                             break;
 
                         case 2:
-                            System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
+                            System.out.println("==== METODE REDUKSI BARIS LOWER-TRIANGULAR ====");
                             break;
 
                         // case 3 :
@@ -145,11 +144,15 @@ public class Main {
 
                         case 3:
                             System.out.println("==== METODE KOFAKTOR ====");
-                            System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
-                            int index = scan.nextInt();
-                            MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(matrix));
-                            double detC = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(matrix), matrix, index);
-                            System.out.println("Determinan matriks ini adalah " + detC);
+                            if(MatrixOP.isSquare(matrix) == false){
+                                System.out.println("Matriks ini tidak memiliki determinan karena bukan berukuran nxn");
+                            }
+                            else{
+                                System.out.print("Pilih indeks baris/kolom yang ingin dihitung: ");
+                                int index = scan.nextInt();
+                                MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(matrix));
+                                Cofactor.detByCofactor(Cofactor.createMatrixCofactor(matrix), matrix, index);
+                            }
                             break;
 
                         default:
@@ -220,10 +223,12 @@ public class Main {
                         // System.out.println();
                         // MatrixOutput.printMatrix(newMx);
                         System.out.println();
-                        System.out.print("x yang ingin dicari nilai fungsinya: ");
+                        System.out.print("x yang ingin dicari nilai taksirannya: ");
                         double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(newMx, x);
                         DecimalFormat df = new DecimalFormat("0.0000");
+                        System.out.println();
+                        InterpolasiPolinom.printInterpolasi(newMx);
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
@@ -234,10 +239,12 @@ public class Main {
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
                         System.out.println();
-                        System.out.print("x yang ingin dicari nilai fungsinya: ");
+                        System.out.print("x yang ingin dicari nilai taksirannya: ");
                         double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), x);
                         DecimalFormat df = new DecimalFormat("0.0000");
+                        System.out.println();
+                        InterpolasiPolinom.printInterpolasi(matrix);
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
@@ -273,19 +280,65 @@ public class Main {
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(mx);
                         System.out.println();
-                        double[][] newM = Regresi.regresiMatrix(mx);
-                        Regresi.printRegresi(newM);
+                        System.out.println("Matriks persamaan regresi linearnya adalah");
+                        double[][] newM = Regresi.normalEquation(mx);
+                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
+                        // double x = scan.nextDouble();
+                        // double sol = Regresi.regresiFX(newM, x);
+                        // DecimalFormat df = new DecimalFormat("0.0000");
+                        // System.out.println();
+                        // System.out.println("f(" + x + ") = " + df.format(sol));
+                        // Regresi.printRegresi(newM);
+                        MatrixOutput.printMatrix(newM);
+                        double[][] regSPL = Regresi.regresiMatrix(newM);
                         System.out.println();
-                    } 
+                        MatrixOutput.printMatrix(regSPL);
+                        System.out.println();
+                        Regresi.printReg(regSPL);
+                        System.out.println();
+                        // Regresi.solRegresiFX(regSPL);
+                        int count = MatrixOP.getRowEff(regSPL)-1;
+                        double sol = regSPL[0][0];
+                        int i;
+                        double x;
+                        for(i = 0; i < count; i++){
+                            System.out.print("x" + (i+1) + ": ");
+                            x = scan.nextDouble();
+                            sol += regSPL[i+1][0]*x;
+                        }
+                        System.out.println("Hasilnya adalah " + sol);
+                    }
                     else {
                         matrix = MatrixInput.matrix_file();
                         System.out.println();
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
                         System.out.println();
-                        double[][] newM = Regresi.regresiMatrix(matrix);
-                        Regresi.printRegresi(newM);
+                        System.out.println("Matriks persamaan regresi linearnya adalah");
+                        double[][] newM = Regresi.normalEquation(matrix);
+                        MatrixOutput.printMatrix(newM);
+                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
+                        // double x = scan.nextDouble();
+                        // double sol = Regresi.regresiFX(newM, x);
+                        // DecimalFormat df = new DecimalFormat("0.0000");
+                        // System.out.println();
+                        // System.out.println("f(" + x + ") = " + df.format(sol));
+                        double[][] regSPL = Regresi.regresiMatrix(newM);
                         System.out.println();
+                        MatrixOutput.printMatrix(regSPL);
+                        System.out.println();
+                        Regresi.printReg(regSPL);
+                        System.out.println();
+                        int count = MatrixOP.getRowEff(regSPL)-1;
+                        double sol = regSPL[0][0];
+                        int i;
+                        double x;
+                        for(i = 0; i < count; i++){
+                            System.out.print("x" + (i+1) + ": ");
+                            x = scan.nextDouble();
+                            sol += regSPL[i+1][0]*x;
+                        }
+                        System.out.println("Hasilnya adalah " + sol);
                     }
 
                     break;

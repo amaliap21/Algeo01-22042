@@ -60,8 +60,8 @@ public class Gauss {
                 }
             }
 
-            MatrixOutput.printMatrix(matrix);
-            System.out.println();
+            // MatrixOutput.printMatrix(matrix);
+            // System.out.println();
 
             if (MatrixOP.solBanyak(matrix)) {
                 return matrix;

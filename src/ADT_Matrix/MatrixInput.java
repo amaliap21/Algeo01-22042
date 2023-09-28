@@ -129,4 +129,26 @@ public class MatrixInput {
         // }
         // }
     }
+
+    public static double[][] matrixHilbert(){
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Ordo matrix : ");
+        int ordo = scan.nextInt();
+        double[][] hilbert = new double[ordo][ordo+1];
+        int i, j;
+        for(i = 0; i < ordo; i++){
+            for(j = 0; j < ordo; j++){
+                hilbert[i][j] = 1/(i+j+1);
+            }
+        }
+        for(i = 0; i < ordo; i++){
+            if(i == 0){
+                hilbert[i][ordo] = 1;
+            }
+            else{
+                hilbert[i][ordo] = 0;
+            }
+        }
+        return hilbert;
+    }
 }
