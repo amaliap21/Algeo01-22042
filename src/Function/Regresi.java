@@ -8,19 +8,6 @@ public class Regresi {
     public static double[][] regresiMatrix(double[][] m){
         int rowM = MatrixOP.getRowEff(m);
         int colM = MatrixOP.getColEff(m);
-        double[][] func = new double[rowM][colM-1];
-        double[][] result = new double[rowM][1];
-        
-        int i, j;
-        for(i = 0; i < MatrixOP.getRowEff(func); i++){
-            for(j = 0; j < MatrixOP.getColEff(func); j++){
-                func[i][j] = m[i][j];
-            }
-        }
-
-        for(i = 0; i < MatrixOP.getRowEff(result); i++){
-                result[i][0] = m[i][colM-1];
-        }
 
         double[][] sol = GaussJordan.mxSolGaussJordan(m);
         return sol;
