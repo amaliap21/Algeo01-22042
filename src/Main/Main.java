@@ -17,6 +17,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         double[][] m;
+        // khusus bicubic spline
+        // double[][] mFungsi;
+        // double[][] matriksAB;
+
         boolean program = true;
         Scanner scan;
         int pilih;
@@ -202,13 +206,29 @@ public class Main {
                     break;
                 case 5:
                     System.out.println("===== INTERPOLASI BICUBIC SPLINE =====");
-                    m = MatrixInput.matrix_file();
+                    double[][] mFungsi = MatrixInput.matrix_file();
                     System.out.println();
-                    System.out.println("Matrix:");
-                    MatrixOutput.printMatrix(m);
+                    System.out.println("Matrix Fungsi:");
+                    MatrixOutput.printMatrix(mFungsi);
                     System.out.println();
 
-                    
+                    // double[][] matriksAB = MatrixInput.matrix_user();
+                    // System.out.print("(a, b): ");
+                    // MatrixOutput.printMatrix(matriksAB);
+                    // System.out.println();
+
+                    double[][] matriksBicubicX = Bicubic.matriksBicubicX();
+                    System.out.println("Matriks X:");
+                    MatrixOutput.printMatrix(matriksBicubicX);
+
+                    // double[][] matriksBicubicA = Bicubic.matriksBicubicA(mFungsi);
+                    // System.out.println("Matriks A:");
+                    // MatrixOutput.printMatrix(matriksBicubicA);
+
+                    // double value = Bicubic.hasilFungsi(matriksBicubicA, matriksAB);
+                    // System.out.println("Nilai f(a,b) = " + value);
+                    // System.out.println();
+
                     break;
                 case 6:
                     System.out.println("===== REGRESI LINEAR BERGANDA =====");
