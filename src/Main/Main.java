@@ -127,8 +127,12 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
-                            Triangle.upperTriangular(m);
-                            // System.out.println(Triangle.detTriangular(m));
+                            // double [][] upper = Triangle.upperTriangular(m);
+                            double detU = Triangle.detUpperTriangular(m);
+                            // MatrixOutput.printMatrix(upper);
+                            System.out.println();
+                            System.out.println("Determinannya adalah " + detU);
+                            System.out.println();
                             break;
 
                         case 2:
@@ -143,8 +147,8 @@ public class Main {
                             System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                             int index = scan.nextInt();
                             MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(m));
-                            double det = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, index);
-                            System.out.println("Determinan matriks ini adalah " + det);
+                            double detC = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m), m, index);
+                            System.out.println("Determinan matriks ini adalah " + detC);
                             break;
 
                         default:
