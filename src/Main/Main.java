@@ -202,13 +202,13 @@ public class Main {
                 case 4:
                     System.out.println("===== INTERPOLASI POLINOM =====");
                     pilih = MatrixInput.choose();
-            
+
                     if (pilih == 1) {
                         System.out.print("Jumlah sampel (n): ");
                         int n = scan.nextInt();
                         double[][] mx = new double[n][2];
-                        for(int i = 0; i < MatrixOP.getRowEff(mx); i++){
-                            for(int j = 0; j < MatrixOP.getColEff(mx); j++){
+                        for (int i = 0; i < MatrixOP.getRowEff(mx); i++) {
+                            for (int j = 0; j < MatrixOP.getColEff(mx); j++) {
                                 mx[i][j] = scan.nextDouble();
                             }
                         }
@@ -216,7 +216,7 @@ public class Main {
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(mx);
                         System.out.println();
-                        double [][] newMx = InterpolasiPolinom.interpolasiMatrix(mx);
+                        double[][] newMx = InterpolasiPolinom.interpolasiMatrix(mx);
                         // System.out.println();
                         // MatrixOutput.printMatrix(newMx);
                         System.out.println();
@@ -227,8 +227,7 @@ public class Main {
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
-                    } 
-                    else {
+                    } else {
                         matrix = MatrixInput.matrix_file();
                         System.out.println();
                         System.out.println("Matrix:");
@@ -246,26 +245,40 @@ public class Main {
 
                 case 5:
                     System.out.println("===== INTERPOLASI BICUBIC SPLINE =====");
-                    matrix = MatrixInput.matrix_file();
+                    double[][] mFungsi = MatrixInput.matrix_user();
                     System.out.println();
-                    System.out.println("Matrix:");
-                    MatrixOutput.printMatrix(matrix);
+                    // double[][] m2 = MatrixInput.matrix_user();
+                    // System.out.println();
+
+                    System.out.println("Matrix Fungsi:");
+                    MatrixOutput.printMatrix(mFungsi);
                     System.out.println();
 
-                    
+                    // System.out.println("Matrix Fungsi:");
+                    // MatrixOutput.printMatrix(m2);
+                    // System.out.println();
+
+                    MatrixOutput.printMatrix(Bicubic.matriksBicubicX());
+                    System.out.println();
+
+                    MatrixOutput.printMatrix(Bicubic.matriksBicubicA(mFungsi));
+                    // MatrixOutput.printMatrix(Inverse.inverseMatriks(m1));
+
+                    System.out.println();
+
                     break;
 
                 case 6:
                     pilih = MatrixInput.choose();
-            
+
                     if (pilih == 1) {
                         System.out.print("Jumlah peubah (n): ");
                         int n = scan.nextInt();
                         System.out.print("Jumlah sampel (m): ");
                         int m = scan.nextInt();
-                        double[][] mx = new double[m][n+1];
-                        for(int i = 0; i < m; i++){
-                            for(int j = 0; j < n+1; j++){
+                        double[][] mx = new double[m][n + 1];
+                        for (int i = 0; i < m; i++) {
+                            for (int j = 0; j < n + 1; j++) {
                                 mx[i][j] = scan.nextDouble();
                             }
                         }
@@ -276,8 +289,7 @@ public class Main {
                         double[][] newM = Regresi.regresiMatrix(mx);
                         Regresi.printRegresi(newM);
                         System.out.println();
-                    } 
-                    else {
+                    } else {
                         matrix = MatrixInput.matrix_file();
                         System.out.println();
                         System.out.println("Matrix:");

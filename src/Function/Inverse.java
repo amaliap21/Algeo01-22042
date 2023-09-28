@@ -8,7 +8,7 @@ public class Inverse {
     // metode cofactor
     public static double[][] inverseMatriks(double[][] m) {
         if (MatrixOP.determinant(m) == 0) {
-            System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
+            System.out.println("Determinan matriks 0 / Matriks bukan merupakan matriks persegi, tidak bisa dibalikkan");
             return null;
         }
 
@@ -18,7 +18,7 @@ public class Inverse {
     // print matriks balikan (cofactor)
     public static void matriksInverse(double[][] m) {
         if (MatrixOP.determinant(m) == 0) {
-            System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
+            System.out.println("Determinan matriks 0 / Matriks bukan merupakan matriks persegi, tidak bisa dibalikkan");
         } else {
             System.out.println("Matriks balikan (menggunakan matriks kofaktor):");
             MatrixOutput.printMatrix(inverseMatriks(m));
@@ -70,7 +70,7 @@ public class Inverse {
     // print matriks balikan (Gauss-Jordan)
     public static void matriksInverseGJ(double[][] m) {
         if (MatrixOP.determinant(m) == 0) {
-            System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
+            System.out.println("Determinan matriks / Matriks bukan merupakan matriks persegi, tidak bisa dibalikkan");
         } else {
         }
         System.out.println("Matriks Balikan Gauss-Jordan:");
