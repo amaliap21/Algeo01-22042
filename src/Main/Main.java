@@ -148,8 +148,8 @@ public class Main {
                             System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                             int index = scan.nextInt();
                             MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(matrix));
-                            double detC = Cofactor.detByCofactor(Cofactor.createMatrixCofactor(matrix), matrix, index);
-                            System.out.println("Determinan matriks ini adalah " + detC);
+                            Cofactor.detByCofactor(Cofactor.createMatrixCofactor(matrix), matrix, index);
+                            // System.out.println("Determinan matriks ini adalah " + detC);
                             break;
 
                         default:
@@ -199,7 +199,7 @@ public class Main {
                     }
                     break;
 
-                case 4:
+                    case 4:
                     System.out.println("===== INTERPOLASI POLINOM =====");
                     pilih = MatrixInput.choose();
             
@@ -220,10 +220,12 @@ public class Main {
                         // System.out.println();
                         // MatrixOutput.printMatrix(newMx);
                         System.out.println();
-                        System.out.print("x yang ingin dicari nilai fungsinya: ");
+                        System.out.print("x yang ingin dicari nilai taksirannya: ");
                         double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(newMx, x);
                         DecimalFormat df = new DecimalFormat("0.0000");
+                        System.out.println();
+                        InterpolasiPolinom.printInterpolasi(newMx);
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
@@ -234,10 +236,12 @@ public class Main {
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
                         System.out.println();
-                        System.out.print("x yang ingin dicari nilai fungsinya: ");
+                        System.out.print("x yang ingin dicari nilai taksirannya: ");
                         double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), x);
                         DecimalFormat df = new DecimalFormat("0.0000");
+                        System.out.println();
+                        InterpolasiPolinom.printInterpolasi(matrix);
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
@@ -255,7 +259,7 @@ public class Main {
                     
                     break;
 
-                case 6:
+                    case 6:
                     pilih = MatrixInput.choose();
             
                     if (pilih == 1) {
@@ -273,19 +277,65 @@ public class Main {
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(mx);
                         System.out.println();
-                        double[][] newM = Regresi.regresiMatrix(mx);
-                        Regresi.printRegresi(newM);
+                        System.out.println("Matriks persamaan regresi linearnya adalah");
+                        double[][] newM = Regresi.normalEquation(mx);
+                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
+                        // double x = scan.nextDouble();
+                        // double sol = Regresi.regresiFX(newM, x);
+                        // DecimalFormat df = new DecimalFormat("0.0000");
+                        // System.out.println();
+                        // System.out.println("f(" + x + ") = " + df.format(sol));
+                        // Regresi.printRegresi(newM);
+                        MatrixOutput.printMatrix(newM);
+                        double[][] regSPL = Regresi.regresiMatrix(newM);
                         System.out.println();
-                    } 
+                        MatrixOutput.printMatrix(regSPL);
+                        System.out.println();
+                        Regresi.printReg(regSPL);
+                        System.out.println();
+                        // Regresi.solRegresiFX(regSPL);
+                        int count = MatrixOP.getRowEff(regSPL)-1;
+                        double sol = regSPL[0][0];
+                        int i;
+                        double x;
+                        for(i = 0; i < count; i++){
+                            System.out.print("x" + (i+1) + ": ");
+                            x = scan.nextDouble();
+                            sol += regSPL[i+1][0]*x;
+                        }
+                        System.out.println("Hasilnya adalah " + sol);
+                    }
                     else {
                         matrix = MatrixInput.matrix_file();
                         System.out.println();
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
                         System.out.println();
-                        double[][] newM = Regresi.regresiMatrix(matrix);
-                        Regresi.printRegresi(newM);
+                        System.out.println("Matriks persamaan regresi linearnya adalah");
+                        double[][] newM = Regresi.normalEquation(matrix);
+                        MatrixOutput.printMatrix(newM);
+                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
+                        // double x = scan.nextDouble();
+                        // double sol = Regresi.regresiFX(newM, x);
+                        // DecimalFormat df = new DecimalFormat("0.0000");
+                        // System.out.println();
+                        // System.out.println("f(" + x + ") = " + df.format(sol));
+                        double[][] regSPL = Regresi.regresiMatrix(newM);
                         System.out.println();
+                        MatrixOutput.printMatrix(regSPL);
+                        System.out.println();
+                        Regresi.printReg(regSPL);
+                        System.out.println();
+                        int count = MatrixOP.getRowEff(regSPL)-1;
+                        double sol = regSPL[0][0];
+                        int i;
+                        double x;
+                        for(i = 0; i < count; i++){
+                            System.out.print("x" + (i+1) + ": ");
+                            x = scan.nextDouble();
+                            sol += regSPL[i+1][0]*x;
+                        }
+                        System.out.println("Hasilnya adalah " + sol);
                     }
 
                     break;

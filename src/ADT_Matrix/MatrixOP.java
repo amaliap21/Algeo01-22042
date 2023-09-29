@@ -471,4 +471,25 @@ public class MatrixOP {
             m[row1][j] -= m[row2][j];
         }
     }
+
+    public static double[][] extendMatrix(double[][] m1, double[][] m2){
+        double[][] ext;
+        int row1, row2, col1, col2;
+        row1 = getRowEff(m1);
+        row2 = getRowEff(m2);
+        col1 = getColEff(m1);
+        col2 = getColEff(m2);
+        ext = new double[row1][col1 + col2];
+        for(int i = 0; i < getRowEff(ext); i++) {
+            for(int j = 0; j < getColEff(ext); j++) {
+                if (j < col1) {
+                    ext[i][j] = m1[i][j];
+                } 
+                else {
+                    ext[i][j] = m2[i][j-col1];
+                }
+            }
+        }
+        return ext;
+    }
 }
