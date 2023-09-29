@@ -55,9 +55,6 @@ public class Gauss {
 
             }
             j++;
-            MatrixOutput.printMatrix(m);
-            System.out.println();
-
         }
 
         return m;

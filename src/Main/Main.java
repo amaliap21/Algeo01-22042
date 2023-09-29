@@ -46,22 +46,24 @@ public class Main {
                     MatrixOutput.printMatrix(mFungsi);
                     System.out.println();
 
-                    // double[][] mAb = MatrixInput.matrix_user();
-                    // System.out.println();
+                    double[][] mAb = MatrixInput.matrix_user();
+                    System.out.println();
 
-                    // System.out.println("Matrix A,B pada f(a,b):");
-                    // MatrixOutput.printMatrix(mAb);
-                    // System.out.println();
+                    System.out.println("Matrix A,B pada f(a,b):");
+                    MatrixOutput.printMatrix(mAb);
+                    System.out.println();
 
                     // MatrixOutput.printMatrix(Inverse.balikanGJReturn(mFungsi));
 
-                    // MatrixOutput.printMatrix(Bicubic.matriksBicubicX());
-                    // System.out.println();
-
-                    MatrixOutput.printMatrix(Inverse.balikanGJReturn(mFungsi));
+                    MatrixOutput.printMatrix(Bicubic.matriksBicubicX());
                     System.out.println();
 
-                    // System.out.print("f(a,b): ");
+                    MatrixOutput.printMatrix(Bicubic.matriksBicubicA(mFungsi));
+                    System.out.println();
+
+                    System.out.print("f(a,b): ");
+                    double value = Bicubic.hasilBicubic(Bicubic.matriksBicubicA(mFungsi), mAb);
+                    System.out.println(value);
                     // System.out.println(Bicubic.hasilBicubic(Bicubic.matriksBicubicA(mFungsi),
                     // mAb));
 

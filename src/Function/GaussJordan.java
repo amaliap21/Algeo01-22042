@@ -26,10 +26,56 @@ public class GaussJordan {
     }
 
     public static double[][] gaussJordan(double[][] m) {
-        Gauss.forwardOBE(m);
-        double[][] matrix = GaussJordan.backwardOBE(m);
+        // OBE matriks gauss
+        int row = MatrixOP.getRowEff(m);
+        int col = MatrixOP.getColEff(m);
 
-        return matrix;
+        int i = 0;
+        int j = 0;
+
+        while (i < row && j < col) {
+            // mencari pivot
+            int k = i;
+            while (k < row && m[k][j] == 0) {
+                k++;
+            }
+
+            if (k < row) {
+                // swap baris
+                /*
+                 * 08.24 30/09/2023
+                 */
+                MatrixOP.swapRow(m, i, k);
+
+                // membuat pivot menjadi 1
+                double pivot = m[i][j];
+                for (int l = j; l < col; l++) {
+                    /*
+                     * 20.58 29/09/2023
+                     */
+                    if (pivot == 0) {
+                        pivot = 1;
+                    } else {
+                        m[i][l] /= pivot;
+                    }
+                }
+
+                // membuat kolom menjadi 0
+                for (int l = 0; l < row; l++) {
+                    if (l != i) {
+                        double factor = m[l][j];
+                        for (int n = j; n < col; n++) {
+                            m[l][n] -= factor * m[i][n];
+                        }
+                    }
+                }
+                i++;
+
+            }
+            j++;
+        }
+
+        return m;
     }
 
     public static void matriksGaussJordan(double[][] m) {

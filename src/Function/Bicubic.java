@@ -103,45 +103,34 @@ public class Bicubic {
 
     public static double[][] matriksBicubicA(double[][] inputMatriks) {
         double[][] matriksA = MatrixOP.multiplyMatrix(Inverse.balikanGJReturn(matriksBicubicX()), inputMatriks);
+        // MatrixOutput.printMatrix(matriksA);
         return matriksA;
     }
 
     // value f(A,B) = a_ij (A)^i (B)^j
     // terdapat matriks 1x2 yang berisi nilai A dan B
+    // matriksA adalah matriks 16x1
     public static double hasilBicubic(double[][] matriksA, double[][] matriksAB) {
         double hasil = 0;
         double x = 0, y = 0;
+        int i, j;
 
-        int k = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; i++) {
-                x = Math.pow(matriksAB[0][0], i);
-                y = Math.pow(matriksAB[0][1], j);
-                
-                // 0^0 harus dibuat jadi 1
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                x = Math.pow(matriksAB[0][0], j);
+                y = Math.pow(matriksAB[0][1], i);
 
-                if (matriksAB[0][0] == 0 && i == 0) {
+                if (matriksAB[0][0] == 0 && j == 0) {
                     x = 1;
                 }
-                if (matriksAB[0][1] == 0 && j == 0) {
+                if (matriksAB[0][1] == 0 && i == 0) {
                     y = 1;
                 }
-
-                hasil += matriksA[k][0] * x * y;
-
-                k++;
+                hasil += matriksA[i * 4 + j][0] * x * y;
             }
         }
 
         return hasil;
     }
 
-    /*
-     * f(a,b) dengan a dan b merupakan input
-     * a dan b adalah nilai x dan y pada fungsi:
-     * f(x,y) = a_ij x^i y^j
-     * f_x(x,y) = a_ij i x^(i-1) y^j
-     * f_y(x,y) = a_ij j x^i j y^(j-1)
-     * f_xy(x,y) = a_ij ij x^(i-1) j y^(j-1)
-     */
 }

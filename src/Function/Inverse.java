@@ -86,10 +86,7 @@ public class Inverse {
                 }
             }
         }
-        MatrixOutput.printMatrix(mGabung);
-        System.out.println();
 
-        System.out.println("MULAI DI GAUSS-JORDAN KAN");
         mGabung = GaussJordan.gaussJordan(mGabung);
 
         // Ngambil matriks balikan dari matriks mGabung
