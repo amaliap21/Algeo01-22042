@@ -260,38 +260,35 @@ public class MatrixOP {
         double det = 0;
         double[][] minor;
 
-        if (isSquare(m)) {
-            if (MatrixOP.getRowEff(m) == 1) {
-                return m[0][0];
-            } else if (MatrixOP.getRowEff(m) == 2) {
-                return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
-            } else {
-                minor = new double[MatrixOP.getRowEff(m) - 1][MatrixOP.getColEff(m) - 1];
+        if (MatrixOP.getRowEff(m) == 1) {
+            return m[0][0];
+        } else if (MatrixOP.getRowEff(m) == 2) {
+            return (m[0][0] * m[1][1]) - (m[0][1] * m[1][0]);
+        } else {
+            minor = new double[MatrixOP.getRowEff(m) - 1][MatrixOP.getColEff(m) - 1];
 
-                for (p = 0; p < MatrixOP.getColEff(m); p++) {
-                    indexRowMinor = 0;
-                    for (int i = 1; i < MatrixOP.getRowEff(m); i++) {
-                        indexColMinor = 0;
-                        for (int j = 0; j < MatrixOP.getColEff(m); j++) {
-                            if (j != p) {
-                                minor[indexRowMinor][indexColMinor] = m[i][j];
-                                indexColMinor++;
-                            }
+            for (p = 0; p < MatrixOP.getColEff(m); p++) {
+                indexRowMinor = 0;
+                for (int i = 1; i < MatrixOP.getRowEff(m); i++) {
+                    indexColMinor = 0;
+                    for (int j = 0; j < MatrixOP.getColEff(m); j++) {
+                        if (j != p) {
+                            minor[indexRowMinor][indexColMinor] = m[i][j];
+                            indexColMinor++;
                         }
-                        indexRowMinor++;
                     }
+                    indexRowMinor++;
+                }
 
-                    if (p % 2 == 0) {
-                        det = det + (m[0][p] * determinant(minor));
-                    } else {
-                        det = det - (m[0][p] * determinant(minor));
-                    }
+                if (p % 2 == 0) {
+                    det = det + (m[0][p] * determinant(minor));
+                } else {
+                    det = det - (m[0][p] * determinant(minor));
                 }
             }
-
-            return det;
         }
-        return 0;
+
+        return det;
 
         // double det;
         // int tanda, j;

@@ -82,6 +82,7 @@ public class Main {
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
                             Inverse.matriksInverseGJ(matrix);
                             System.out.println();
+                            MatrixOutput.printMatrix(Inverse.balikanGJ(matrix));
                             Inverse.matriksInverse(matrix);
                             System.out.println();
                             InverseSpl.solInverse(matrix);
