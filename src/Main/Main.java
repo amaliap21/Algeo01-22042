@@ -234,19 +234,19 @@ public class Main {
                         System.out.println();
                     } 
                     else {
-                        matrix = MatrixInput.matrix_file();
+                        matrix = MatrixInput.polinom_matrix_file();
+                        double taksiran = MatrixInput.polinom_taksiran_file(); 
                         System.out.println();
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
                         System.out.println();
-                        System.out.print("x yang ingin dicari nilai taksirannya: ");
-                        double x = scan.nextDouble();
-                        double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), x);
+                        System.out.print("x yang ingin dicari nilai taksirannya: " + taksiran);
+                        double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), taksiran);
                         DecimalFormat df = new DecimalFormat("0.0000");
                         System.out.println();
                         InterpolasiPolinom.printInterpolasi(matrix);
                         System.out.println();
-                        System.out.println("f(" + x + ") = " + df.format(sol));
+                        System.out.println("f(" + taksiran + ") = " + df.format(sol));
                         System.out.println();
                     }
                     break;

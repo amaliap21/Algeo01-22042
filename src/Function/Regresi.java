@@ -93,14 +93,14 @@ public class Regresi {
         System.out.println(sol);
     }
 
-    public static double regresiLinear(double[][] fx){
-        double sol = fx[0];
-        int i, n = x.length;
+    // public static double regresiLinear(double[][] fx){
+    //     double sol = fx[0];
+    //     int i, n = x.length;
         
-        for(i = 0; i < n; i++){
-            sol += fx[i+1] * x[i];
-        }
-        return sol;
-    }
+    //     for(i = 0; i < n; i++){
+    //         sol += fx[i+1] * x[i];
+    //     }
+    //     return sol;
+    // }
 
 }

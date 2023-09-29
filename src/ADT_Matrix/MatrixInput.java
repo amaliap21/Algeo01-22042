@@ -151,4 +151,107 @@ public class MatrixInput {
         }
         return hilbert;
     }
+    
+    public static double[][] polinom_matrix_file() {
+        Scanner scan, isiFile, matrixScan;
+        String namaFile, pathFile;
+        File file;
+        int row, col, i, j;
+
+        // Scan nama file
+        scan = new Scanner(System.in);
+        System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+        namaFile = scan.nextLine();
+        // scan.close();
+
+        // Create + print path file
+        pathFile = getPathInput(namaFile);
+        // System.out.println(pathFile);
+        try {
+            // Read file
+            file = new File(pathFile);
+            isiFile = new Scanner(file);
+            row = 0;
+            col = 0;
+            while (isiFile.hasNextLine()) {
+                col = (isiFile.nextLine()).split(" ").length;
+                row++;
+            }
+            // isiFile.close();
+
+            // System.out.println("Jumlah baris: " + row);
+            // System.out.println("Jumlah kolom: " + col);
+
+            // Read matrix
+            double[][] matrix = new double[row-1][col];
+            matrixScan = new Scanner(file);
+            while (matrixScan.hasNextLine()) {
+                for (i = 0; i < row; i++) {
+                    for (j = 0; j < col; j++) {
+                        matrix[i][j] = matrixScan.nextDouble();
+                    }
+                }
+            }
+            // matrixScan.close();
+            return matrix;
+        }
+        catch (FileNotFoundException e) {
+            double[][] matrix = new double[0][0];
+            return matrix;
+        }
+    }
+
+    public static double polinom_taksiran_file() {
+        Scanner scan, isiFile, matrixScan;
+        String namaFile, pathFile;
+        File file;
+        int row, col, i, j;
+
+        // Scan nama file
+        scan = new Scanner(System.in);
+        System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+        namaFile = scan.nextLine();
+        // scan.close();
+
+        // Create + print path file
+        pathFile = getPathInput(namaFile);
+        // System.out.println(pathFile);
+
+        try {
+            // Read file
+            file = new File(pathFile);
+            isiFile = new Scanner(file);
+            row = 0;
+            col = 0;
+            while (isiFile.hasNextLine()) {
+                col = (isiFile.nextLine()).split(" ").length;
+                row++;
+            }
+            // isiFile.close();
+
+            // System.out.println("Jumlah baris: " + row);
+            // System.out.println("Jumlah kolom: " + col);
+
+            // Read matrix
+            double[][] matrix = new double[row-1][col];
+            matrixScan = new Scanner(file);
+            while (matrixScan.hasNextLine()) {
+                for (i = 0; i < row; i++) {
+                    for (j = 0; j < col; j++) {
+                        matrix[i][j] = matrixScan.nextDouble();
+                    }
+                }
+            }
+            isiFile.close();
+            matrixScan.close();
+            Scanner taksiranScan = new Scanner(file);
+            double x = taksiranScan.nextDouble();
+            return x;
+        }
+
+        catch (FileNotFoundException e) {
+            double x = 0;
+            return x;
+        }
+    }
 }
