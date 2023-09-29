@@ -102,8 +102,38 @@ public class Bicubic {
     }
 
     public static double[][] matriksBicubicA(double[][] inputMatriks) {
-        double[][] matriksA = MatrixOP.multiplyMatrix(Inverse.inverseMatriks(matriksBicubicX()), inputMatriks);
+        double[][] matriksA = MatrixOP.multiplyMatrix(Inverse.balikanGJReturn(matriksBicubicX()), inputMatriks);
         return matriksA;
+    }
+
+    // value f(A,B) = a_ij (A)^i (B)^j
+    // terdapat matriks 1x2 yang berisi nilai A dan B
+    public static double hasilBicubic(double[][] matriksA, double[][] matriksAB) {
+        double hasil = 0;
+        double x = 0, y = 0;
+
+        int k = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; i++) {
+                x = Math.pow(matriksAB[0][0], i);
+                y = Math.pow(matriksAB[0][1], j);
+                
+                // 0^0 harus dibuat jadi 1
+
+                if (matriksAB[0][0] == 0 && i == 0) {
+                    x = 1;
+                }
+                if (matriksAB[0][1] == 0 && j == 0) {
+                    y = 1;
+                }
+
+                hasil += matriksA[k][0] * x * y;
+
+                k++;
+            }
+        }
+
+        return hasil;
     }
 
     /*
@@ -114,17 +144,4 @@ public class Bicubic {
      * f_y(x,y) = a_ij j x^i j y^(j-1)
      * f_xy(x,y) = a_ij ij x^(i-1) j y^(j-1)
      */
-    // public static double hasilFungsi(double[][] matrix, double matriksAB) {
-    // double result = 0;
-    // int count = 0;
-    // for (int i = 0; i < 4; i++) {
-    // double temp = 0;
-    // for (int j = 0; j < 4; j++) {
-    // temp += matrix[count][0] * Math.pow(a, i) * Math.pow(b, j);
-    // count++;
-    // }
-    // result += temp;
-    // }
-    // return result;
-    // }
 }

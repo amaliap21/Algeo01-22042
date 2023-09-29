@@ -29,7 +29,14 @@ public class Gauss {
                 // membuat pivot menjadi 1
                 double pivot = m[i][j];
                 for (int l = j; l < col; l++) {
-                    m[i][l] /= pivot;
+                    /*
+                     * 20.58 29/09/2023
+                     */
+                    if (pivot == 0) {
+                        pivot = 1;
+                    } else {
+                        m[i][l] /= pivot;
+                    }
                 }
 
                 // membuat kolom menjadi 0
