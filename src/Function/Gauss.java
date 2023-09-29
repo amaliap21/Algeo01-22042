@@ -33,7 +33,7 @@ public class Gauss {
                 }
 
                 // membuat kolom menjadi 0
-                for (int l = 0; l < row; l++) {
+                for (int l = j+1; l < row; l++) {
                     if (l != i) {
                         double factor = m[l][j];
                         for (int n = j; n < col; n++) {
@@ -46,9 +46,7 @@ public class Gauss {
             }
             j++;
         }
-
         return m;
-
     }
 
     public static void matriksGauss(double[][] m) {
@@ -56,20 +54,120 @@ public class Gauss {
         MatrixOutput.printMatrix(forwardOBE(m));
     }
 
-    public static void solGauss(double[][] m) {
-        double[][] matrix = forwardOBE(m);
-        int rowM = MatrixOP.getRowEff(matrix);
-        int colM = MatrixOP.getColEff(matrix);
+    public static String[] parametrikGauss(double[][] m){
+        double[][] copyM = MatrixOP.copyMatrix(m);
 
-        System.out.println("Solusi SPL:");
-        if (MatrixOP.solTidakAda(matrix)) {
-            System.out.println("Tidak ada");
-        } else if (MatrixOP.solBanyak(matrix)) {
-            System.out.println("Banyak");
-        } else {
-            // mencari solusi SPL tunggal
+        char[] parameter = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+
+        double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
+        String[] arrayfinal = new String[MatrixOP.getColEff(m)-1];
+
+        int nRow = MatrixOP.getRowEff(copyM);
+        int nCol = MatrixOP.getColEff(copyM);
+
+        for(int a=0; a<nRow; a++){
+            arrayfinal[a] = "";
         }
+
+        for(int a=0; a<nRow; a++){
+            arrayhasil[a] = 0;
+        }
+
+        for(int j=nCol-1; j>=0; j--){
+            int i = nRow-1;
+            if((j==nCol-1)){
+                arrayhasil[i] = MatrixOP.getElmt(copyM, i, j);
+                i--;
+            } else {
+                for(int k=j-1; k>=0; k++){
+                    copyM[i][j] = copyM[i][j] - (copyM[i][k]*arrayhasil[k]);
+                }
+                arrayhasil[i] = copyM[i][j];
+                i--;
+
+                for(int a = 0; a <= nRow; a++){
+                    for (int b=0; b< nCol; b++){
+                        if (arrayhasil[b] != 0){
+                            m[a][b] = 0;
+                        } 
+                    }  
+                }
+
+                //String ant = String.valueOf(arrayhasil[i]);
+
+                for(int c =0; c<=nRow; c++){
+                    for(int d=0; d<nCol; d++){
+
+                        if(arrayhasil[d] == 0){
+                            if(m[c][d]>=0) {
+                                arrayfinal[d] += "+"+String.valueOf(m[c][d])+String.valueOf(parameter[d]);
+                            } else {
+                                arrayfinal[d] += String.valueOf(m[c][d])+String.valueOf(parameter[d]);
+                            }
+                            
+                        } else {
+                            if (arrayhasil[d]>=0){
+                                arrayfinal[d] += "+"+String.valueOf(arrayhasil[d]);
+                            } else {
+                                arrayfinal[d] += String.valueOf(arrayhasil[d]);
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }    
+        }
+        return arrayfinal;
     }
+
+
+    public static void solGauss(double[][] matriks){
+        double[] arrayhasil = new double[MatrixOP.getColEff(matriks)-1];
+
+        int nRow = MatrixOP.getRowEff(matriks);
+        int nCol = MatrixOP.getColEff(matriks);
+
+        for(int a=0; a<nRow; a++){
+            arrayhasil[a] = 0;
+        }
+
+        for(int j=nCol-1; j>=0; j--){
+            int i = nRow-1;
+            if((j==nCol-1)){
+                arrayhasil[i] = MatrixOP.getElmt(matriks, i, j);
+                i--;
+            } else {
+                for(int k=j-1; k>=0; k++){
+                    matriks[i][j] = matriks[i][j] - (matriks[i][k]*arrayhasil[k]);
+                }
+                arrayhasil[i] = matriks[i][j];
+                i--;
+            }    
+        }
+
+        for (int i = 0; i<nRow; i++) {
+            System.out.print("x" + (i + 1) + " = ");
+            DecimalFormat df = new DecimalFormat("0.000");                
+            System.out.println(df.format(arrayhasil[i]));
+        }
+
+    }
+
+    // public static void xsolGauss(double[][] m) {
+    //     double[][] matrix = forwardOBE(m);
+    //     int rowM = MatrixOP.getRowEff(matrix);
+    //     int colM = MatrixOP.getColEff(matrix);
+
+    //     System.out.println("Solusi SPL:");
+    //     if (MatrixOP.solTidakAda(matrix)) {
+    //         System.out.println("Tidak ada");
+    //     } else if (MatrixOP.solBanyak(matrix)) {
+    //         System.out.println("Banyak");
+    //     } else {
+    //         // mencari solusi SPL tunggal
+    //     }
+    // }
 
     // public static double[][] mxSolGauss(double[][] m) {
     // double[][] matrix = forwardOBE(m);

@@ -62,7 +62,7 @@ public class Bicubic {
         for (int i = 0; i < 4; i++) {
             double temp = 0;
             for (int j = 0; j < 4; j++) {
-                temp += matrix[count][0] * Math.pow(a, i) * Math.pow(b, j);
+                temp += matrix[count][0] * Math.pow(j, i) * Math.pow(j, j);
                 count++;
             }
             result += temp;

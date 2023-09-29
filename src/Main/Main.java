@@ -66,7 +66,7 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            Gauss.matriksGauss(matrix);
+                            Gauss.forwardOBE(matrix);
                             System.out.println();
                             break;
 
@@ -138,6 +138,10 @@ public class Main {
 
                         case 2:
                             System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
+                            double detL = Triangle.detLowerTriangular(matrix);
+                            System.out.println();
+                            System.out.println("Determinannya adalah " + detL);
+                            System.out.println();
                             break;
 
                         // case 3 :
