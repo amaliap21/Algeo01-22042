@@ -290,22 +290,7 @@ public class MatrixOP {
 
         return det;
 
-        // double det;
-        // int tanda, j;
-
-        // det = 0;
-        // tanda = 1;
-        // if (getRowEff(m) == 1) {
-        // det = m[0][0];
-        // } else if (getRowEff(m) == 2) {
-        // det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
-        // } else if (getRowEff(m) > 2) {
-        // for (j = 0; j < getColEff(m); j++) {
-        // det += tanda * m[0][j] * determinant(submatrix(m, 0, j));
-        // tanda = -tanda;
-        // }
-        // }
-        // return det;
+        
     }
 
     public static double[][] transpose(double[][] m) {

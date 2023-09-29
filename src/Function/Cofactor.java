@@ -5,6 +5,28 @@ import java.util.*;
 import ADT_Matrix.*;
 
 public class Cofactor {
+
+    public static double determinanCof(double[][] m) {
+        double det;
+        int tanda, j;
+        int row = MatrixOP.getRowEff(m);
+        int col = MatrixOP.getColEff(m);
+
+        det = 0;
+        tanda = 1;
+        if (row == 1) {
+            det = m[0][0];
+        } else if (row == 2) {
+            det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+        } else if (row > 2) {
+            for (j = 0; j < col; j++) {
+                det += tanda * m[0][j] * determinanCof(MatrixOP.submatrix(m, 0, j));
+                tanda = -tanda;
+            }
+        }
+        return det;
+    }
+
     public static double[][] getCofactor(double[][] m, int row, int col) {
         double[][] sub, newM;
         int i, j;
@@ -47,7 +69,7 @@ public class Cofactor {
             cof = new double[MatrixOP.getRowEff(m)][MatrixOP.getColEff(m)];
             for (i = 0; i < MatrixOP.getRowEff(m); i++) {
                 for (j = 0; j < MatrixOP.getColEff(m); j++) {
-                    detCof = MatrixOP.determinant(getCofactor(m, i, j));
+                    detCof = determinanCof(getCofactor(m, i, j));
                     if (i % 2 == 0) {
                         if (j % 2 != 0) {
                             detCof *= (-1);
@@ -67,7 +89,7 @@ public class Cofactor {
             cof = new double[MatrixOP.getRowEff(m)][MatrixOP.getRowEff(m)];
             for (i = 0; i < MatrixOP.getRowEff(m); i++) {
                 for (j = 0; j < MatrixOP.getRowEff(m); j++) {
-                    detCof = MatrixOP.determinant(getCofactor(m, i, j));
+                    detCof = determinanCof(getCofactor(m, i, j));
                     if (i % 2 == 0) {
                         if (j % 2 != 0) {
                             detCof *= (-1);
@@ -101,9 +123,9 @@ public class Cofactor {
         double det = 0;
         int i, j;
 
-        if(choose == 1){
-            for(j = 0; j < MatrixOP.getRowEff(m); j++){
-                det = det + cof[n][j]*m[n][j];
+        if (choose == 1) {
+            for (j = 0; j < MatrixOP.getRowEff(m); j++) {
+                det = det + cof[n][j] * m[n][j];
             }
         } else if (choose == 2) {
             for (i = 0; i < MatrixOP.getRowEff(m); i++) {
