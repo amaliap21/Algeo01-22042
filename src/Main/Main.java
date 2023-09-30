@@ -262,14 +262,14 @@ public class Main {
                     String pathFile = MatrixInput.getPathInput(namaFile);
                     matrix = MatrixInput.PRBMatrixFile(pathFile);
                     double[][] bic = MatrixInput.convBicubic(matrix);
+                    double[][] taksir = MatrixInput.bicubicTaksiranFile(pathFile);
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(matrix);
                     System.out.println();
                     System.out.println("Bic:");
                     MatrixOutput.printMatrix(bic);
                     System.out.println();
-
-                    
+                    MatrixOutput.printMatrix(taksir);                    
                     break;
 
                     case 6:
@@ -306,7 +306,7 @@ public class Main {
                         System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
-                        double[][] taksir = Regresi.inputTaksiran(regSPL);
+                        taksir = Regresi.inputTaksiran(regSPL);
                         /*double sol = */ Regresi.solRegresiFX(regSPL, taksir);
                         System.out.println();
 
@@ -349,7 +349,7 @@ public class Main {
                         System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
-                        double[][] taksir = MatrixInput.regresiTaksiranFile(pathFile);
+                        taksir = MatrixInput.regresiTaksiranFile(pathFile);
                         Regresi.solRegresiFX(regSPL, taksir);
                         System.out.println();
                         // double[][] x = Regresi.inputTaksiran(newM);

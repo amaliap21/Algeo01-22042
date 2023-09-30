@@ -349,6 +349,42 @@ public class MatrixInput {
         }
         return bic;
     }
+
+    public static double[][] bicubicTaksiranFile(String path){
+        try{
+            double[][] result = new double[1][2];
+            double[][] matrix = new double[lineCount(path)-1][columnCount(path)];
+            int i = 0, j;
+            File file = new File(path);
+            Scanner matrixScan = new Scanner(file);
+            while (matrixScan.hasNextLine() && i<lineCount(path)-1) {
+                for (j = 0; j < columnCount(path); j++) {
+                    matrix[i][j] = matrixScan.nextDouble();
+                }
+                i++;
+            }
+            // matrixScan.close();
+            for(i=0; i<2; i++){
+                result[0][i] = matrixScan.nextDouble();
+            }
+            return result;
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Error!");
+            System.out.println("File tidak ditemukan.");
+            exit();
+            double[][] m = new double[1][1];
+            m[0][0] = 0;
+            return m;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            exit();
+            double[][] m = new double[1][1];
+            m[0][0] = 0;
+            return m;
+        }
+    }
 }
 
 
