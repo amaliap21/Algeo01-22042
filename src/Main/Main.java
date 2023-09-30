@@ -43,9 +43,9 @@ public class Main {
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
-                        matrix = MatrixInput.matrix_user();
+                        matrix = MatrixInput.matrixUser();
                     } else {
-                        matrix = MatrixInput.matrix_file();
+                        matrix = MatrixInput.matrixFile();
                     }
 
                     System.out.println();
@@ -105,9 +105,9 @@ public class Main {
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
-                        matrix = MatrixInput.matrix_user();
+                        matrix = MatrixInput.matrixUser();
                     } else {
-                        matrix = MatrixInput.matrix_file();
+                        matrix = MatrixInput.matrixFile();
                     }
 
                     System.out.println();
@@ -164,9 +164,9 @@ public class Main {
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
-                        matrix = MatrixInput.matrix_user();
+                        matrix = MatrixInput.matrixUser();
                     } else {
-                        matrix = MatrixInput.matrix_file();
+                        matrix = MatrixInput.matrixFile();
                     }
 
                     System.out.println();
@@ -231,26 +231,32 @@ public class Main {
                         System.out.println();
                     } 
                     else {
-                        matrix = MatrixInput.polinom_matrix_file();
+                        scan = new Scanner(System.in);
+                        System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+                        String namaFile = scan.nextLine();
+                        String pathFile = MatrixInput.getPathInput(namaFile);
+                        matrix = MatrixInput.PRBMatrixFile(pathFile);
+                        double taksiran = MatrixInput.polinomTaksiranFile(pathFile);
                         System.out.println();
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
                         System.out.println();
-                        System.out.print("x yang ingin dicari nilai taksirannya: ");
-                        double x = scan.nextDouble();
-                        double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), x);
+                        System.out.println(taksiran);
+                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
+                        // double x = scan.nextDouble();
+                        double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), taksiran);
                         DecimalFormat df = new DecimalFormat("0.0000");
                         System.out.println();
                         InterpolasiPolinom.printInterpolasi(matrix);
                         System.out.println();
-                        System.out.println("f(" + x + ") = " + df.format(sol));
+                        System.out.println("f(" + taksiran + ") = " + df.format(sol));
                         System.out.println();
                     }
                     break;
 
                 case 5:
                     System.out.println("===== INTERPOLASI BICUBIC SPLINE =====");
-                    matrix = MatrixInput.matrix_file();
+                    matrix = MatrixInput.matrixFile();
                     System.out.println();
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(matrix);
@@ -293,20 +299,29 @@ public class Main {
                         System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
+                        double[][] taksir = Regresi.inputTaksiran(regSPL);
+                        /*double sol = */ Regresi.solRegresiFX(regSPL, taksir);
+
                         // Regresi.solRegresiFX(regSPL);
-                        int count = MatrixOP.getRowEff(regSPL)-1;
-                        double sol = regSPL[0][0];
-                        int i;
-                        double x;
-                        for(i = 0; i < count; i++){
-                            System.out.print("x" + (i+1) + ": ");
-                            x = scan.nextDouble();
-                            sol += regSPL[i+1][0]*x;
-                        }
-                        System.out.println("Hasilnya adalah " + sol);
+                        // double[] x = Regresi.inputTaksiran(newM);
+                        // System.out.println(x);
+                        // int count = MatrixOP.getRowEff(regSPL)-1;
+                        // double sol = regSPL[0][0];
+                        // int i;
+                        // double x;
+                        // for(i = 0; i < count; i++){
+                        //     System.out.print("x" + (i+1) + ": ");
+                        //     x = scan.nextDouble();
+                        //     sol += regSPL[i+1][0]*x;
+                        // }
+                        // System.out.println("Hasil taksiran regresi ini adalah " + sol);
                     }
                     else {
-                        matrix = MatrixInput.matrix_file();
+                        scan = new Scanner(System.in);
+                        System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+                        String namaFile = scan.nextLine();
+                        String pathFile = MatrixInput.getPathInput(namaFile);
+                        matrix = MatrixInput.PRBMatrixFile(pathFile);
                         System.out.println();
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
@@ -326,17 +341,24 @@ public class Main {
                         System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
-                        int count = MatrixOP.getRowEff(regSPL)-1;
-                        double sol = regSPL[0][0];
-                        int i;
-                        double x;
-                        for(i = 0; i < count; i++){
-                            System.out.print("x" + (i+1) + ": ");
-                            x = scan.nextDouble();
-                            sol += regSPL[i+1][0]*x;
-                        }
-                        System.out.println("Hasilnya adalah " + sol);
-                    }
+                        double[][] taksir = MatrixInput.regresiTaksiranFile(pathFile);
+                        Regresi.solRegresiFX(regSPL, taksir);
+                        // double[][] x = Regresi.inputTaksiran(newM);
+                        // // MatrixOutput.printMatrix(x);
+                        // // System.out.println();
+                        // double sol = Regresi.solRegresiFX(newM, x);
+                        // System.out.println("Hasil taksiran regresi ini adalah " + sol);
+                    //     int count = MatrixOP.getRowEff(regSPL)-1;
+                    //     double sol = regSPL[0][0];
+                    //     int i;
+                    //     double x;
+                    //     for(i = 0; i < count; i++){
+                    //         System.out.print("x" + (i+1) + ": ");
+                    //         x = scan.nextDouble();
+                    //         sol += regSPL[i+1][0]*x;
+                    //     }
+                    //     System.out.println("Hasilnya adalah " + sol);
+                    // }
 
                     break;
             }
@@ -388,6 +410,7 @@ public class Main {
         // MatrixOutput.printMatrix(getInverse);
     }
 }
+}
 
 /*
  * case 2:
@@ -395,9 +418,9 @@ public class Main {
  * pilih = MatrixInput.choose();
  * 
  * if (pilih == 1) {
- * m = MatrixInput.matrix_user();
+ * m = MatrixInput.matrixUser();
  * } else {
- * m = MatrixInput.matrix_file();
+ * m = MatrixInput.matrixFile();
  * }
  * 
  * System.out.println("Matrix:");
@@ -439,9 +462,9 @@ public class Main {
 // double detcof;
 // double[][] getInverse;
 // if (pilih == 1) {
-// m = MatrixInput.matrix_user();
+// m = MatrixInput.matrixUser();
 // } else {
-// m = MatrixInput.matrix_file();
+// m = MatrixInput.matrixFile();
 // }
 // System.out.println();
 // MatrixOutput.printMatrix(m);
