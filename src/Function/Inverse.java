@@ -55,15 +55,6 @@ public class Inverse {
 
         mGabung = GaussJordan.gaussJordan(mGabung);
 
-        // // Ngambil matriks balikan dari matriks mGabung
-        // double[][] mBalikan = new double[rowM][rowM];
-        // for (int i = 0; i < rowM; i++) {
-        // for (int j = rowM; j < rowM * 2; j++) {
-        // mBalikan[i][j - rowM] = mGabung[i][j];
-        // }
-        // }
-
-        // return mBalikan;
         return mGabung;
     }
 
@@ -94,8 +85,6 @@ public class Inverse {
                     mGabung[i][j] = mIdentitas[i][j - rowM];
                 }
             }
-            // MatrixOutput.printMatrix(mGabung);
-            // System.out.println();
         }
         MatrixOutput.printMatrix(mGabung);
         System.out.println();
@@ -110,9 +99,6 @@ public class Inverse {
             for (int j = rowM; j < rowM * 2; j++) {
                 mBalikan[i][j - rowM] = mGabung[i][j];
             }
-            MatrixOutput.printMatrix(mGabung);
-            System.out.println();
-
         }
 
         return mBalikan;

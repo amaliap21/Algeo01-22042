@@ -24,6 +24,9 @@ public class Gauss {
 
             if (k < row) {
                 // swap baris
+                /*
+                 * 08.24 30/09/2023
+                 */
                 MatrixOP.swapRow(m, i, k);
 
                 // membuat pivot menjadi 1
@@ -52,6 +55,9 @@ public class Gauss {
 
             }
             j++;
+            MatrixOutput.printMatrix(m);
+            System.out.println();
+
         }
 
         return m;

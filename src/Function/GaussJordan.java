@@ -27,7 +27,9 @@ public class GaussJordan {
 
     public static double[][] gaussJordan(double[][] m) {
         Gauss.forwardOBE(m);
-        return GaussJordan.backwardOBE(m);
+        double[][] matrix = GaussJordan.backwardOBE(m);
+
+        return matrix;
     }
 
     public static void matriksGaussJordan(double[][] m) {
