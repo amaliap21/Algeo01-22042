@@ -77,7 +77,7 @@ public class Inverse {
         // Gabungin matriks identitas dengan matriks m
         double[][] mGabung = new double[rowM][rowM * 2];
         for (int i = 0; i < rowM; i++) {
-            // MARK BEDA!!!
+            // INI BEDA BARIS KOLOM KARENA A|I -> I|A^(-1)!!!
             for (int j = 0; j < rowM * 2; j++) {
                 if (j < rowM) {
                     mGabung[i][j] = m[i][j];
