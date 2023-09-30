@@ -231,7 +231,7 @@ public class Main {
                         System.out.println();
                     } 
                     else {
-                        matrix = MatrixInput.matrix_file();
+                        matrix = MatrixInput.polinom_matrix_file();
                         System.out.println();
                         System.out.println("Matrix:");
                         MatrixOutput.printMatrix(matrix);
