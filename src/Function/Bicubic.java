@@ -12,16 +12,14 @@ public class Bicubic {
 
         for (m = 0; m < 4; m++) {
             for (n = 0; n < 4; n++) {
-                // tackle kasus 0^0
-                // double value = 1.0;
-
-                // 0^0 harus dibuat jadi 1
                 /*
-                 * f(x,y) = a_ij x^i y^j
-                 * f_x(x,y) = a_ij i x^(i-1) y^j
-                 * f_y(x,y) = a_ij j x^i j y^(j-1)
-                 * f_xy(x,y) = a_ij ij x^(i-1) j y^(j-1)
-                 */
+                * f(x,y) = a_ij x^i y^j
+                * f_x(x,y) = a_ij i x^(i-1) y^j
+                * f_y(x,y) = a_ij j x^i j y^(j-1)
+                * f_xy(x,y) = a_ij ij x^(i-1) j y^(j-1)
+                */
+
+                // tackle kasus 0^0, 0^0 harus dibuat jadi 1
                 if (count == 0) {
                     x = Math.pow(i % 2, n);
                     y = Math.pow(j % 2, m);
