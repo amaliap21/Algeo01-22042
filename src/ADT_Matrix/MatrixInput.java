@@ -333,6 +333,22 @@ public class MatrixInput {
             return m;
         }
     }
+
+    public static double[][] convBicubic(double[][] m){
+        double[][] bic = new double[16][1];
+        int row = MatrixOP.getRowEff(m);
+        int col = MatrixOP.getColEff(m);
+        int i, j, k = 0;
+        while(k < 16){
+            for(i = 0; i < row; i++){
+                for(j = 0; j < col; j++){
+                    bic[k][0] = m[i][j];
+                    k++;
+                }
+            }
+        }
+        return bic;
+    }
 }
 
 

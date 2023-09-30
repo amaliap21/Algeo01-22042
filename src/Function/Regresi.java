@@ -79,19 +79,19 @@ public class Regresi {
         }
     }
 
-    public static void solRegresiFX(double[][] m){
-        int n = MatrixOP.getRowEff(m)-1;
-        double sol = m[0][0];
-        int i;
-        double x;
-        for(i = 0; i < n; i++){
-            Scanner scan = new Scanner(System.in);
-            System.out.print("x" + (i+1) + ": ");
-            x = scan.nextDouble();
-            sol += m[i+1][0]*x;
-        }
-        System.out.println(sol);
-    }
+    // public static void solRegresiFX(double[][] m){
+    //     int n = MatrixOP.getRowEff(m)-1;
+    //     double sol = m[0][0];
+    //     int i;
+    //     double x;
+    //     for(i = 0; i < n; i++){
+    //         Scanner scan = new Scanner(System.in);
+    //         System.out.print("x" + (i+1) + ": ");
+    //         x = scan.nextDouble();
+    //         sol += m[i+1][0]*x;
+    //     }
+    //     System.out.println(sol);
+    // }
 
     public static void solRegresiFX(double[][] m, double[][] taksir){
         int n = MatrixOP.getRowEff(m)-1;
@@ -101,7 +101,7 @@ public class Regresi {
             Scanner scan = new Scanner(System.in);
             sol += taksir[i-1][0]*m[i][0];
         }
-        System.out.println(sol);
+        System.out.println("Hasil taksirannya adalah " + sol);
     }
 
     public static double[][] inputTaksiran(double[][] m){

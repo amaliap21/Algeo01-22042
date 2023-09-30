@@ -256,10 +256,17 @@ public class Main {
 
                 case 5:
                     System.out.println("===== INTERPOLASI BICUBIC SPLINE =====");
-                    matrix = MatrixInput.matrixFile();
-                    System.out.println();
+                    scan = new Scanner(System.in);
+                    System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+                    String namaFile = scan.nextLine();
+                    String pathFile = MatrixInput.getPathInput(namaFile);
+                    matrix = MatrixInput.PRBMatrixFile(pathFile);
+                    double[][] bic = MatrixInput.convBicubic(matrix);
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(matrix);
+                    System.out.println();
+                    System.out.println("Bic:");
+                    MatrixOutput.printMatrix(bic);
                     System.out.println();
 
                     
@@ -301,6 +308,7 @@ public class Main {
                         System.out.println();
                         double[][] taksir = Regresi.inputTaksiran(regSPL);
                         /*double sol = */ Regresi.solRegresiFX(regSPL, taksir);
+                        System.out.println();
 
                         // Regresi.solRegresiFX(regSPL);
                         // double[] x = Regresi.inputTaksiran(newM);
@@ -319,8 +327,8 @@ public class Main {
                     else {
                         scan = new Scanner(System.in);
                         System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
-                        String namaFile = scan.nextLine();
-                        String pathFile = MatrixInput.getPathInput(namaFile);
+                        namaFile = scan.nextLine();
+                        pathFile = MatrixInput.getPathInput(namaFile);
                         matrix = MatrixInput.PRBMatrixFile(pathFile);
                         System.out.println();
                         System.out.println("Matrix:");
@@ -343,6 +351,7 @@ public class Main {
                         System.out.println();
                         double[][] taksir = MatrixInput.regresiTaksiranFile(pathFile);
                         Regresi.solRegresiFX(regSPL, taksir);
+                        System.out.println();
                         // double[][] x = Regresi.inputTaksiran(newM);
                         // // MatrixOutput.printMatrix(x);
                         // // System.out.println();
