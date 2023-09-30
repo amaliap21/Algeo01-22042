@@ -289,23 +289,6 @@ public class MatrixOP {
 
             return det;
         }
-
-        // double det;
-        // int tanda, j;
-
-        // det = 0;
-        // tanda = 1;
-        // if (getRowEff(m) == 1) {
-        // det = m[0][0];
-        // } else if (getRowEff(m) == 2) {
-        // det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
-        // } else if (getRowEff(m) > 2) {
-        // for (j = 0; j < getColEff(m); j++) {
-        // det += tanda * m[0][j] * determinant(submatrix(m, 0, j));
-        // tanda = -tanda;
-        // }
-        // }
-        // return det;
     }
 
     public static double[][] transpose(double[][] m) {
@@ -448,10 +431,12 @@ public class MatrixOP {
     // Untuk swapping gauss jordan
     public static double[][] swapRow(double[][] m, int row1, int row2) {
         int j;
+        double temp;
         double[][] newM = MatrixOP.copyMatrix(m);
-        for (j = 0; j < MatrixOP.getColEff(newM); j++) {
-            newM[row1][j] = m[row2][j];
-            newM[row2][j] = m[row1][j];
+        for (j = 0; j < getColEff(newM); j++) {
+            temp = m[row1][j];
+            m[row1][j] = m[row2][j];
+            m[row2][j] = temp;
         }
         return newM;
     }
@@ -465,14 +450,14 @@ public class MatrixOP {
     }
 
     // Untuk pengurangan row di OBE
-    public static void kurangRow(double[][] m, int row1, int row2){
+    public static void kurangRow(double[][] m, int row1, int row2) {
         int j;
         for (j = 0; j < getColEff(m); j++) {
             m[row1][j] -= m[row2][j];
         }
     }
 
-    public static double[][] extendMatrix(double[][] m1, double[][] m2){
+    public static double[][] extendMatrix(double[][] m1, double[][] m2) {
         double[][] ext;
         int row1, row2, col1, col2;
         row1 = getRowEff(m1);
@@ -480,13 +465,12 @@ public class MatrixOP {
         col1 = getColEff(m1);
         col2 = getColEff(m2);
         ext = new double[row1][col1 + col2];
-        for(int i = 0; i < getRowEff(ext); i++) {
-            for(int j = 0; j < getColEff(ext); j++) {
+        for (int i = 0; i < getRowEff(ext); i++) {
+            for (int j = 0; j < getColEff(ext); j++) {
                 if (j < col1) {
                     ext[i][j] = m1[i][j];
-                } 
-                else {
-                    ext[i][j] = m2[i][j-col1];
+                } else {
+                    ext[i][j] = m2[i][j - col1];
                 }
             }
         }
