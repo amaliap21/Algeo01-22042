@@ -3,7 +3,10 @@ package ADT_Matrix;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class MatrixInput {
+    // public static Scanner sc;
     public static int choose() {
         Scanner choice;
         int pilih = 0;
@@ -29,6 +32,30 @@ public class MatrixInput {
         return pilih;
     }
 
+    public static void exit(){
+        System.exit(0);
+    }
+
+    public static int lineCount(String path){
+        try{
+            File file =  new File(path);
+            Scanner isiFile = new Scanner(file);
+            int row = 0, col =0;
+            while(isiFile.hasNextLine()){
+                col = (isiFile.nextLine()).split(" ").length;
+                row ++;
+            }
+            isiFile.close();
+            return row;
+        }
+        catch (FileNotFoundException e) {
+            return 0;
+        }
+        catch(Exception e){
+            return 0;
+        }        
+    }
+
     public static double[][] matrix_file() {
         Scanner scan, isiFile, matrixScan;
         String namaFile, pathFile;
@@ -42,6 +69,7 @@ public class MatrixInput {
         // scan.close();
 
         // Create + print path file
+        // pathFile = "..\\test\\" + namaFile;
         pathFile = getPathInput(namaFile);
         // System.out.println(pathFile);
 
@@ -52,31 +80,43 @@ public class MatrixInput {
             row = 0;
             col = 0;
             while (isiFile.hasNextLine()) {
-                col = (isiFile.nextLine()).split(" ").length;
-                row++;
+                row = (isiFile.nextLine()).split(" ").length;
+                col ++;
+                // col = (isiFile.nextLine()).split(" ").length;
+                // row++;
             }
-            // isiFile.close();
+            isiFile.close();
 
             // System.out.println("Jumlah baris: " + row);
             // System.out.println("Jumlah kolom: " + col);
 
             // Read matrix
-            double[][] matrix = new double[row][col];
+            double[][] matrix = new double[col][row];
             matrixScan = new Scanner(file);
             while (matrixScan.hasNextLine()) {
-                for (i = 0; i < row; i++) {
-                    for (j = 0; j < col; j++) {
+                for (i = 0; i < col; i++) {
+                    for (j = 0; j < row; j++) {
                         matrix[i][j] = matrixScan.nextDouble();
                     }
                 }
             }
-            // matrixScan.close();
+            matrixScan.close();
             return matrix;
         }
-
         catch (FileNotFoundException e) {
-            double[][] matrix = new double[0][0];
-            return matrix;
+            System.out.println("Error!");
+            System.out.println("File tidak ditemukan.");
+            exit();
+            double[][] m = new double[1][1];
+            m[0][0] = 0;
+            return m;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            exit();
+            double[][] m = new double[1][1];
+            m[0][0] = 0;
+            return m;
         }
     }
 
@@ -152,6 +192,7 @@ public class MatrixInput {
         return hilbert;
     }
     
+    
     public static double[][] polinom_matrix_file() {
         Scanner scan, isiFile, matrixScan;
         String namaFile, pathFile;
@@ -163,7 +204,6 @@ public class MatrixInput {
         System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
         namaFile = scan.nextLine();
         // scan.close();
-
         // Create + print path file
         pathFile = getPathInput(namaFile);
         // System.out.println(pathFile);
@@ -175,83 +215,166 @@ public class MatrixInput {
             col = 0;
             while (isiFile.hasNextLine()) {
                 col = (isiFile.nextLine()).split(" ").length;
-                row++;
-            }
-            // isiFile.close();
-
-            // System.out.println("Jumlah baris: " + row);
-            // System.out.println("Jumlah kolom: " + col);
-
-            // Read matrix
-            double[][] matrix = new double[row-1][col];
-            matrixScan = new Scanner(file);
-            while (matrixScan.hasNextLine()) {
-                for (i = 0; i < row; i++) {
-                    for (j = 0; j < col; j++) {
-                        matrix[i][j] = matrixScan.nextDouble();
-                    }
-                }
-            }
-            // matrixScan.close();
-            return matrix;
-        }
-        catch (FileNotFoundException e) {
-            double[][] matrix = new double[0][0];
-            return matrix;
-        }
-    }
-
-    public static double polinom_taksiran_file() {
-        Scanner scan, isiFile, matrixScan;
-        String namaFile, pathFile;
-        File file;
-        int row, col, i, j;
-
-        // Scan nama file
-        scan = new Scanner(System.in);
-        System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
-        namaFile = scan.nextLine();
-        // scan.close();
-
-        // Create + print path file
-        pathFile = getPathInput(namaFile);
-        // System.out.println(pathFile);
-
-        try {
-            // Read file
-            file = new File(pathFile);
-            isiFile = new Scanner(file);
-            row = 0;
-            col = 0;
-            while (isiFile.hasNextLine()) {
-                col = (isiFile.nextLine()).split(" ").length;
-                row++;
-            }
-            // isiFile.close();
-
-            // System.out.println("Jumlah baris: " + row);
-            // System.out.println("Jumlah kolom: " + col);
-
-            // Read matrix
-            double[][] matrix = new double[row-1][col];
-            matrixScan = new Scanner(file);
-            while (matrixScan.hasNextLine()) {
-                for (i = 0; i < row; i++) {
-                    for (j = 0; j < col; j++) {
-                        matrix[i][j] = matrixScan.nextDouble();
-                    }
-                }
             }
             isiFile.close();
-            matrixScan.close();
-            Scanner taksiranScan = new Scanner(file);
-            double x = taksiranScan.nextDouble();
-            return x;
-        }
 
+            // System.out.println("Jumlah baris: " + row);
+            // System.out.println("Jumlah kolom: " + col);
+
+            // Read matrix
+            double[][] matrix = new double[lineCount(pathFile)-1][col];
+            matrixScan = new Scanner(file);
+            while (matrixScan.hasNextLine()) {
+                for (i = 0; i < lineCount(pathFile)-2; i++) {
+                    for (j = 0; j < col; j++) {
+                        matrix[i][j] = matrixScan.nextDouble();
+                    }
+                }
+            }
+            matrixScan.close();
+            return matrix;
+        }
         catch (FileNotFoundException e) {
-            double x = 0;
-            return x;
+            System.out.println("Error!");
+            System.out.println("File tidak ditemukan.");
+            exit();
+            double[][] m = new double[1][1];
+            m[0][0] = 0;
+            return m;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            exit();
+            double[][] m = new double[1][1];
+            m[0][0] = 0;
+            return m;
         }
     }
+
+
+
+    // public static double polinom_taksiran_file(String pathFile) {
+    //     Scanner scan, isiFile, matrixScan;
+    //     String namaFile;
+    //     File file;
+    //     int row, col, i, j;
+
+    //     // // Scan nama file
+    //     // scan = new Scanner(System.in);
+    //     // System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+    //     // namaFile = scan.nextLine();
+    //     // // scan.close();
+
+    //     // // Create + print path file
+    //     // pathFile = getPathInput(namaFile);
+    //     // // System.out.println(pathFile);
+
+    //     try {
+    //         // Read file
+    //         file = new File(pathFile);
+    //         isiFile = new Scanner(file);
+    //         row = 0;
+    //         int curRow = 0;
+    //         col = 0;
+    //         while (isiFile.hasNextLine()) {
+    //             col = (isiFile.nextLine()).split(" ").length;
+    //             row++;
+    //         }
+    //         while (isiFile.hasNextLine()) {
+    //             curRow++;
+    //             if (curRow == row-1){
+    //                 String temp = new Scanner
+    //             }
+    //         }
+    //         // isiFile.close();
+
+    //         // System.out.println("Jumlah baris: " + row);
+    //         // System.out.println("Jumlah kolom: " + col);
+
+    //         // Read matrix
+    //         double[][] matrix = new double[row-1][col];
+    //         matrixScan = new Scanner(file);
+    //         while (matrixScan.hasNextLine()) {
+    //             for (i = 0; i < row; i++) {
+    //                 for (j = 0; j < col; j++) {
+    //                     matrix[i][j] = matrixScan.nextDouble();
+    //                 }
+    //             }
+    //         }
+    //         isiFile.close();
+    //         matrixScan.close();
+    //         Scanner taksiranScan = new Scanner(file);
+    //         double x = taksiranScan.nextDouble();
+    //         return x;
+    //     }
+
+    //     catch (FileNotFoundException e) {
+    //         double x = 0;
+    //         return x;
+    //     }
+    // }
+    
+    // public static double[][] polinom_matrix_file() {
+    //     // String fileName = "matrix.txt";
+    //     Scanner scan = new Scanner(System.in);
+    //     System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
+    //     String namaFile = scan.nextLine();
+    //     // scan.close();
+
+    //     // Create + print path file
+    //     String pathFile = getPathInput(namaFile);
+    //     try {
+    //         // Open the file for reading
+    //         FileReader fileReader = new FileReader(namaFile);
+    //         BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+    //         // Initialize variables for matrix dimensions and data
+    //         int numRows = 0;
+    //         int numCols = 0;
+
+    //         // First, count the number of rows and columns in the matrix
+    //         String line;
+    //         while ((line = bufferedReader.readLine()) != null) {
+    //             numRows++;
+    //             String[] values = line.trim().split("\\s+");
+    //             numCols = values.length;
+    //         }
+
+    //         // Create a two-dimensional array to store the matrix
+    //         double[][] matrix = new double[lineCount(pathFile) - 1][numCols];
+
+    //         // Reset the reader to the beginning of the file
+    //         bufferedReader.close();
+    //         fileReader = new FileReader(namaFile);
+    //         bufferedReader = new BufferedReader(fileReader);
+
+    //         // Populate the matrix with data from the file
+    //         while ((line = bufferedReader.readLine()) != null) {
+    //             String[] values = line.trim().split("\\s+");
+    //             for(int row = 0; row < lineCount(pathFile)-1; row++){
+    //                 for (int col = 0; col < numCols; col++) {
+    //                     matrix[row][col] = Integer.parseInt(values[col]);
+    //                 }
+    //             }
+    //         }
+    //         return matrix;
+
+    //         // Close the BufferedReader
+    //         // bufferedReader.close();
+
+    //         // // Print the matrix
+    //         // for (int i = 0; i < numRows - 1; i++) {
+    //         //     for (int j = 0; j < numCols; j++) {
+    //         //         System.out.print(matrix[i][j] + " ");
+    //         //     }
+    //         //     System.out.println();
+    //         // }
+    //     } catch (IOException e) {
+    //         System.err.println("Error reading the file: " + e.getMessage());
+    //         exit();
+    //         double[][] m = new double[1][1];
+    //         m[0][0] = 0;
+    //         return m;
+    //     }
+    // }
 }
