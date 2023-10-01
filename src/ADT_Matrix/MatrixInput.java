@@ -172,7 +172,7 @@ public class MatrixInput {
             for (i = 0; i < m; i++) {
                 for (j = 0; j < n; j++) {
                     matrix[i][j] = scan.nextDouble();
-                    scan.nextLine();
+                    // scan.nextLine();
                 }
             }
             return matrix;

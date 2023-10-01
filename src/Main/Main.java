@@ -90,11 +90,12 @@ public class Main {
 
                         case 4:
                             System.out.println("===== KAIDAH CRAMER =====");
-                            Cramer.solCramer(matrix);
+                            Cramer.SPLCramer(matrix);
                             System.out.println();
                             break;
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
+                            System.out.println();
                             break;
                     }
                     break;
@@ -118,7 +119,6 @@ public class Main {
                     System.out.println("===== PILIHAN METODE/KAIDAH =====");
                     System.out.println("1. Metode eliminasi upper-triangular");
                     System.out.println("2. Metode eliminasi lower-triangular");
-                    // System.out.println("3. Metode matriks balikan");
                     System.out.println("3. Metode kofaktor");
 
                     System.out.print("Memilih metode penyelesaian: ");
@@ -138,6 +138,11 @@ public class Main {
 
                         case 2:
                             System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
+                            double detL = Triangle.detLowerTriangular(matrix);
+                            // MatrixOutput.printMatrix(upper);
+                            System.out.println();
+                            System.out.println("Determinannya adalah " + detL);
+                            System.out.println();
                             break;
 
                         // case 3 :
@@ -147,17 +152,22 @@ public class Main {
                             System.out.println("==== METODE KOFAKTOR ====");
                             System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                             int index = scan.nextInt();
-                            MatrixOutput.printMatrix(Cofactor.createMatrixCofactor(matrix));
-                            Cofactor.detByCofactor(Cofactor.createMatrixCofactor(matrix), matrix, index);
+                            double[][] cof = Cofactor.createMatrixCofactor(matrix);
+                            MatrixOutput.printMatrix(cof);
+                            Cofactor.detByCofactor(cof, matrix, index);
+                            // double detC = Cofactor.valDetCofactor(cof, matrix, 2);
                             // System.out.println("Determinan matriks ini adalah " + detC);
+                            System.out.println();
                             break;
 
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
+                            System.out.println();
                             break;
 
                     }
                     break;
+
                 case 3:
                     System.out.println("===== MATRIKS BALIKAN =====");
 
@@ -195,11 +205,12 @@ public class Main {
                             break;
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
+                            System.out.println();
                             break;
                     }
                     break;
 
-                    case 4:
+                case 4:
                     System.out.println("===== INTERPOLASI POLINOM =====");
                     pilih = MatrixInput.choose();
             
@@ -266,13 +277,21 @@ public class Main {
                     System.out.println("Matrix:");
                     MatrixOutput.printMatrix(matrix);
                     System.out.println();
+                    System.out.println("Taksiran: ");
+                    MatrixOutput.printMatrix(taksir);
+                    System.out.println();                    
                     System.out.println("Bic:");
                     MatrixOutput.printMatrix(bic);
+                    double[][] bicA = Bicubic.matriksBicubicA(bic);
                     System.out.println();
-                    MatrixOutput.printMatrix(taksir);                    
+                    System.out.println("Bic A:");
+                    MatrixOutput.printMatrix(bicA);
+                    System.out.println();
+                    double result = Bicubic.hasilBicubic(bicA, taksir);
+                    System.out.println("f(" + taksir[0][0] + " , " + taksir[0][1] + ") = " + result);
                     break;
 
-                    case 6:
+                case 6:
                     pilih = MatrixInput.choose();
             
                     if (pilih == 1) {
@@ -374,9 +393,11 @@ public class Main {
 
             if (pilih == 7) {
                 System.out.println("Keluar dari program. . .");
+                System.out.println();
                 program = false;
             } else if (pilih > 7 || pilih < 1) {
                 System.out.println("Input pilihan salah, silakan input ulang.");
+                System.out.println();
             }
 
         }

@@ -448,10 +448,12 @@ public class MatrixOP {
     // Untuk swapping gauss jordan
     public static double[][] swapRow(double[][] m, int row1, int row2) {
         int j;
+        double temp;
         double[][] newM = MatrixOP.copyMatrix(m);
-        for (j = 0; j < MatrixOP.getColEff(newM); j++) {
-            newM[row1][j] = m[row2][j];
-            newM[row2][j] = m[row1][j];
+        for (j = 0; j < getColEff(newM); j++) {
+            temp = m[row1][j];
+            m[row1][j] = m[row2][j];
+            m[row2][j] = temp;
         }
         return newM;
     }

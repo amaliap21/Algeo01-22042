@@ -24,11 +24,11 @@ public class Cramer {
         return square;
     }
 
-    public static double[][] SPLCramer(double[][] m){
+    public static void SPLCramer(double[][] m){
         // System.out.println("Input n (n adalah indeks kolom yang ingin ditukar)");
         // Scanner input = new Scanner(System.in);
         // int n = input.nextInt();
-        double det_pure, det_replace;
+        double det_pure, det_replace = 0;
         int i, j;
         double[][] newM = new double[MatrixOP.getRowEff(m)][MatrixOP.getRowEff(m)];
         for(i = 0; i < MatrixOP.getRowEff(m); i++){
@@ -41,38 +41,52 @@ public class Cramer {
         det_pure = MatrixOP.determinant(newM);
         for(j = 0; j < MatrixOP.getColEff(newM); j++){
             det_replace = MatrixOP.determinant(replace(m, j));
-            if(det_pure == 0.0){
-                if (det_replace == 0.0){
-                    MatrixOP.setElmt(sol, j, 0, 0.0);
-                }
-                MatrixOP.setElmt(sol, j, 0, -999);
-            } 
+            if(det_pure == 0.0 && det_replace == 0.0){
+                MatrixOP.setElmt(sol, j, 0, 0.0);
+            }
             else{
                 MatrixOP.setElmt(sol, j, 0, det_replace/det_pure);
             }
         }
-        return sol;
-    }
-
-    public static void solCramer(double[][] m){
         System.out.println("Solusi SPL:");
-        for(int j = 0; j < MatrixOP.getRowEff(m); j++){
-            System.out.print("x" + (j+1) +" = ");
-            DecimalFormat df = new DecimalFormat("0.000");
-            System.out.println(df.format(SPLCramer(m)[j][0]));
+        if(MatrixOP.getColEff(m) != MatrixOP.getRowEff(m) + 1){
+            System.out.println("Solusi tidak ada.");
+        }
+        else if (det_pure == 0 && det_replace != 0){
+            System.out.println("Solusi tidak ada.");
+        }
+        else if (MatrixOP.solTidakAda(m)){
+            System.out.println("Solusi tidak ada.");
+        }
+        else if (MatrixOP.solBanyak(m)){
+            System.out.println("Solusi banyak.");
+        }
+        else{
+            for(j = 0; j < MatrixOP.getRowEff(m); j++){
+                System.out.print("x" + (j+1) +" = ");
+                DecimalFormat df = new DecimalFormat("0.000");
+                System.out.println(df.format(sol[j][0]));
+            }
+        }
     }
 
-        // for(a = 0; a < getColEff(m)-1; a++){
-            
-        // }
-        // System.out.println();
-        // MatrixOutput.printMatrix(newM);
-        // System.out.println();
-        // MatrixOutput.printMatrix(replace(m, n));
-        // System.out.println();
-        // System.out.println(det_replace);
-        // System.out.println(det_pure);
-        
-        // return det;
-    }
+    // public static void solCramer(double[][] m){
+    //     System.out.println("Solusi SPL:");
+    //     if(MatrixOP.getColEff(m) != MatrixOP.getRowEff(m) + 1){
+    //         System.out.println("Solusi tidak ada.");
+    //     }
+    //     else if (MatrixOP.solTidakAda(m)){
+    //         System.out.println("Solusi tidak ada.");
+    //     }
+    //     else if (MatrixOP.solBanyak(m)){
+    //         System.out.println("Solusi banyak.");
+    //     }
+    //     else{
+    //         for(int j = 0; j < MatrixOP.getRowEff(m); j++){
+    //             System.out.print("x" + (j+1) +" = ");
+    //             DecimalFormat df = new DecimalFormat("0.000");
+    //             System.out.println(df.format(SPLCramer(m)[j][0]));
+    //         }
+    //     }
+    // }
 }

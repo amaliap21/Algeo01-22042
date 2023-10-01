@@ -55,16 +55,49 @@ public class Inverse {
 
         mGabung = GaussJordan.gaussJordan(mGabung);
 
-        // // Ngambil matriks balikan dari matriks mGabung
-        // double[][] mBalikan = new double[rowM][rowM];
-        // for (int i = 0; i < rowM; i++) {
-        // for (int j = rowM; j < rowM * 2; j++) {
-        // mBalikan[i][j - rowM] = mGabung[i][j];
-        // }
-        // }
-
-        // return mBalikan;
         return mGabung;
+    }
+
+    public static double[][] balikanGJReturn(double[][] m) {
+        int rowM = MatrixOP.getRowEff(m);
+
+        // Buat matriks identitas
+        double[][] mIdentitas = new double[rowM][rowM];
+        for (int i = 0; i < rowM; i++) {
+            for (int j = 0; j < rowM; j++) {
+                if (i == j) {
+                    mIdentitas[i][i] = 1;
+                } else {
+                    mIdentitas[i][j] = 0;
+                }
+            }
+        }
+
+        // Gabungin matriks identitas dengan matriks m
+        double[][] mGabung = new double[rowM][rowM * 2];
+        for (int i = 0; i < rowM; i++) {
+            // INI BEDA BARIS KOLOM KARENA A|I -> I|A^(-1)!!!
+            for (int j = 0; j < rowM * 2; j++) {
+                if (j < rowM) {
+                    mGabung[i][j] = m[i][j];
+                } else {
+                    mGabung[i][j] = mIdentitas[i][j - rowM];
+                }
+            }
+        }
+
+        mGabung = GaussJordan.gaussJordan(mGabung);
+
+        // Ngambil matriks balikan dari matriks mGabung
+        // A|I = I | A^-1
+        double[][] mBalikan = new double[rowM][rowM];
+        for (int i = 0; i < rowM; i++) {
+            for (int j = rowM; j < rowM * 2; j++) {
+                mBalikan[i][j - rowM] = mGabung[i][j];
+            }
+        }
+
+        return mBalikan;
     }
 
     // print matriks balikan (Gauss-Jordan)
