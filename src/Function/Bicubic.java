@@ -5,36 +5,93 @@ import java.io.*;
 import java.util.*;
 
 public class Bicubic {
-    public static void fillMatrix(double[][] matrix, int i, int j, int count) {
+    public static void fillMatrix(double[][] matrix, int i, int j, int k, int count) {
         int m, n;
+        double value = 1.0;
+        double x = 0, y = 0;
+
         for (m = 0; m < 4; m++) {
             for (n = 0; n < 4; n++) {
-                double value = 1.0;
+                /*
+                * f(x,y) = a_ij x^i y^j
+                * f_x(x,y) = a_ij i x^(i-1) y^j
+                * f_y(x,y) = a_ij j x^i j y^(j-1)
+                * f_xy(x,y) = a_ij ij x^(i-1) j y^(j-1)
+                */
+
+                // tackle kasus 0^0, 0^0 harus dibuat jadi 1
                 if (count == 0) {
-                    value = Math.pow(i, n) * Math.pow(j, m);
+                    x = Math.pow(i % 2, n);
+                    y = Math.pow(j % 2, m);
+                    // 0^0 harus dibuat jadi 1
+                    if (i % 2 == 0 && n == 0) {
+                        x = 1;
+                    }
+                    if (j % 2 == 0 && m == 0) {
+                        y = 1;
+                    }
+                    value = x * y;
                 } else if (count == 1) {
-                    value = Math.pow(i, n - 1) * Math.pow(j, m);
+                    x = Math.pow(i % 2, Math.abs(n - 1));
+                    y = Math.pow(j % 2, m);
+                    // 0^0 harus dibuat jadi 1
+                    if (i % 2 == 0 && n == 1) {
+                        x = 1;
+                    }
+                    if (j % 2 == 0 && m == 0) {
+                        y = 1;
+                    }
+                    value = n * x * y;
+
                 } else if (count == 2) {
-                    value = Math.pow(i, n) * Math.pow(j, m - 1);
+                    x = Math.pow(i % 2, n);
+                    y = Math.pow(j % 2, Math.abs(m - 1));
+                    // 0^0 harus dibuat jadi 1
+                    if (i % 2 == 0 && n == 0) {
+                        x = 1;
+                    }
+                    if (j % 2 == 0 && m == 1) {
+                        y = 1;
+                    }
+                    value = m * x * y;
                 } else if (count == 3) {
-                    value = Math.pow(i, n - 1) * Math.pow(j, m - 1);
+                    x = Math.pow(i % 2, Math.abs(n - 1));
+                    y = Math.pow(j % 2, Math.abs(m - 1));
+                    // 0^0 harus dibuat jadi 1
+                    if (i % 2 == 0 && n == 1) {
+                        x = 1;
+                    }
+                    if (j % 2 == 0 && m == 1) {
+                        y = 1;
+                    }
+                    value = n * m * x * y;
                 }
-                matrix[i][j] = value;
-                j++;
+                matrix[i][k] = value;
+                k++;
             }
         }
     }
 
-    public static double[][] matriksBicubicX(double[][] matrix) {
-        int rowCount = 16;
-        int colCount = 16;
-        double[][] matriksX = new double[rowCount][colCount];
+    public static double[][] matriksBicubicX() {
+        double[][] matriksX = new double[16][16];
         int count = 0;
+        int j = 0;
 
-        for (int i = 0; i < rowCount; i++) {
-            int j = 0;
-            fillMatrix(matriksX, i % 2, j % 2, count); // Menggunakan i % 2 dan j % 2
-            count++;
+        for (int i = 0; i < 16; i++) {
+            int k = 0;
+
+            if (i % 2 == 0 && (i != 0)) {
+                j = 1;
+            }
+            if ((i % 4 == 0) && (i != 0)) {
+                j = 0;
+            }
+
+            fillMatrix(matriksX, i, j, k, count);
+
+            if (i == 3 || i == 7 || i == 11) {
+                count++;
+            }
             if (count == 4) {
                 count = 0;
             }
@@ -42,31 +99,36 @@ public class Bicubic {
         return matriksX;
     }
 
-    public static double[][] matriksBicubicA(double[][] matrix) {
-        double[][] matriksX = Inverse.inverseMatriks(matriksBicubicX(matrix));
-        double[][] matriksA = MatrixOP.multiplyMatrix(matriksX, matrix);
+    public static double[][] matriksBicubicA(double[][] inputMatriks) {
+        double[][] matriksA = MatrixOP.multiplyMatrix(Inverse.balikanGJReturn(matriksBicubicX()), inputMatriks);
+        // MatrixOutput.printMatrix(matriksA);
         return matriksA;
     }
 
-    /*
-     * f(a,b) dengan a dan b merupakan input
-     * a dan b adalah nilai x dan y pada fungsi:
-     * f(x,y) = a_ij x^i y^j
-     * f_x(x,y) = a_ij x^(i-1) y^j
-     * f_y(x,y) = a_ij x^i j y^(j-1)
-     * f_xy(x,y) = a_ij x^(i-1) j y^(j-1)
-     */
-    public static double hasilFungsi(double[][] matrix, double matriksAB) {
-        double result = 0;
-        int count = 0;
-        for (int i = 0; i < 4; i++) {
-            double temp = 0;
-            for (int j = 0; j < 4; j++) {
-                temp += matrix[count][0] * Math.pow(j, i) * Math.pow(j, j);
-                count++;
+    // value f(A,B) = a_ij (A)^i (B)^j
+    // terdapat matriks 1x2 yang berisi nilai A dan B
+    // matriksA adalah matriks 16x1
+    public static double hasilBicubic(double[][] matriksA, double[][] matriksAB) {
+        double hasil = 0;
+        double x = 0, y = 0;
+        int i, j;
+
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                x = Math.pow(matriksAB[0][0], j);
+                y = Math.pow(matriksAB[0][1], i);
+
+                if (matriksAB[0][0] == 0 && j == 0) {
+                    x = 1;
+                }
+                if (matriksAB[0][1] == 0 && i == 0) {
+                    y = 1;
+                }
+                hasil += matriksA[i * 4 + j][0] * x * y;
             }
-            result += temp;
         }
-        return result;
+
+        return hasil;
     }
+
 }
