@@ -165,7 +165,8 @@ public class MatrixOutput {
             Date date = new Date();
             write = new FileWriter(path);
             write.write(dateform.format(date) + "\n");
-            write.write("Hasil Interpolasi F(" + a + ", " + b + ") = " + c);
+            write.write("Hasil Interpolasi Bicubic Spline : \n");
+            write.write("F(" + a + ", " + b + ") = " + c);
             write.close();
             System.out.println("Berhasil menulis pada file ini.");
         }
