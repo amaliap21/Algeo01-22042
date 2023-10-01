@@ -441,13 +441,13 @@ public class MatrixOP {
 
     // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
     // bernilai 0
-    public static boolean solBanyak(double[][] m){
+    public static boolean solBanyak(double[][] m) {
         boolean status = true;
-        if (isFullZeroRow(m, getLastIdxRow(m))){
+        if (isFullZeroRow(m, getLastIdxRow(m))) {
             status = true;
-        } else if (getRowEff(m)!=getColEff(m)-1) {
+        } else if (getRowEff(m) != getColEff(m) - 1) {
             status = true;
-        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m)==getColEff(m)-1)) {
+        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m) == getColEff(m) - 1)) {
             status = false;
         }
         return status;
@@ -456,10 +456,12 @@ public class MatrixOP {
     // Untuk swapping gauss jordan
     public static double[][] swapRow(double[][] m, int row1, int row2) {
         int j;
+        double temp;
         double[][] newM = MatrixOP.copyMatrix(m);
-        for (j = 0; j < MatrixOP.getColEff(newM); j++) {
-            newM[row1][j] = m[row2][j];
-            newM[row2][j] = m[row1][j];
+        for (j = 0; j < getColEff(newM); j++) {
+            temp = m[row1][j];
+            m[row1][j] = m[row2][j];
+            m[row2][j] = temp;
         }
         return newM;
     }
@@ -473,28 +475,28 @@ public class MatrixOP {
     }
 
     // Untuk pengurangan row di OBE
-    public static void kurangRow(double[][] m, int row1, int row2){
+    public static void kurangRow(double[][] m, int row1, int row2) {
         int j;
         for (j = 0; j < getColEff(m); j++) {
             m[row1][j] -= m[row2][j];
         }
     }
 
-    public static int CountRowZero(double[][] m){
+    public static int CountRowZero(double[][] m) {
         int count = 0;
-        for(int i=0; i<getRowEff(m); i++){
-            if(isFullZeroRow(m, i)){
-                count+=1;
+        for (int i = 0; i < getRowEff(m); i++) {
+            if (isFullZeroRow(m, i)) {
+                count += 1;
             }
         }
         return count;
     }
 
-    public static int getIdxColElNotZero(double[][] m, int row){
+    public static int getIdxColElNotZero(double[][] m, int row) {
         boolean status = true;
         int i = 0;
-        while(i<getColEff(m) && status){
-            if(getElmt(m, row, i)!=0){
+        while (i < getColEff(m) && status) {
+            if (getElmt(m, row, i) != 0) {
                 status = false;
             } else {
                 i++;
@@ -503,34 +505,35 @@ public class MatrixOP {
         return i;
     }
 
-    public static boolean oneNotZeroElCol (double[][] m, int row){
-        //mengecek jumlah elemen not zero kecuali kolom terakhir
+    public static boolean oneNotZeroElCol(double[][] m, int row) {
+        // mengecek jumlah elemen not zero kecuali kolom terakhir
         int count = 0;
-        for(int i=0; i<getLastIdxCol(m); i++){
-            if(getElmt(m, row, i) != 0){
+        for (int i = 0; i < getLastIdxCol(m); i++) {
+            if (getElmt(m, row, i) != 0) {
                 count += 1;
             }
         }
-        if(count==1){
+        if (count == 1) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static boolean isFullZeroCol (double[][] m, int col){
-        //mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon isinya 0 semua, assign alfabet lgsg sbg solusi
-        int i =0;
+    public static boolean isFullZeroCol(double[][] m, int col) {
+        // mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon
+        // isinya 0 semua, assign alfabet lgsg sbg solusi
+        int i = 0;
         boolean status = true;
-        while(i<getRowEff(m) && status){
-            if(getElmt(m, i, col) != 0){
+        while (i < getRowEff(m) && status) {
+            if (getElmt(m, i, col) != 0) {
                 status = false;
             } else {
                 i++;
             }
-        } 
-        
-        if (status){
+        }
+
+        if (status) {
             return true;
         } else {
             return false;

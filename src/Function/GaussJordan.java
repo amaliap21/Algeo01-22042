@@ -93,7 +93,6 @@ public class GaussJordan {
             System.out.println("Tidak ada");
         } else if (MatrixOP.solBanyak(matrix)) {
             System.out.println("Banyak");
-            Gauss.parametriksolution(m);
         } else {
             for (int i = 0; i < rowM; i++) {
                 System.out.print("x" + (i + 1) + " = ");
