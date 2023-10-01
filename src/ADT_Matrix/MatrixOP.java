@@ -494,4 +494,61 @@ public class MatrixOP {
         }
         return ext;
     }
+
+    public static int CountRowZero(double[][] m){
+        int count = 0;
+        for(int i=0; i<getRowEff(m); i++){
+            if(isFullZeroRow(m, i)){
+                count+=1;
+            }
+        }
+        return count;
+    }
+
+    public static int getIdxColElNotZero(double[][] m, int row){
+        boolean status = true;
+        int i = 0;
+        while(i<getColEff(m) && status){
+            if(getElmt(m, row, i)!=0){
+                status = false;
+            } else {
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public static boolean oneNotZeroElCol (double[][] m, int row){
+        //mengecek jumlah elemen not zero kecuali kolom terakhir
+        int count = 0;
+        for(int i=0; i<getLastIdxCol(m); i++){
+            if(getElmt(m, row, i) != 0){
+                count += 1;
+            }
+        }
+        if(count==1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isFullZeroCol (double[][] m, int col){
+        //mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon isinya 0 semua, assign alfabet lgsg sbg solusi
+        int i =0;
+        boolean status = true;
+        while(i<getRowEff(m) && status){
+            if(getElmt(m, i, col) != 0){
+                status = false;
+            } else {
+                i++;
+            }
+        } 
+        
+        if (status){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

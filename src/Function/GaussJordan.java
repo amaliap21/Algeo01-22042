@@ -7,26 +7,7 @@ import java.text.*;
 
 public class GaussJordan {
     // setelah melakukan forward OBE, lakukan backward OBE (baris eselon tereduksi)
-    public static double[][] backwardOBE(double[][] m) {
-        m = Gauss.forwardOBE(m);
-        double[][] matrix = MatrixOP.copyMatrix(m);
-
-        int rowM = MatrixOP.getRowEff(matrix);
-        int colM = MatrixOP.getColEff(matrix);
-
-        for (int i = 0; i < rowM; i++) {
-            for (int j = i + 1; j < rowM; j++) {
-                double multiplier = matrix[i][j];
-                for (int k = i; k < colM; k++) {
-                    matrix[i][k] -= multiplier * matrix[j][k];
-                }
-            }
-        }
-        return matrix;
-    }
-
-    public static double[][] gaussJordan(double[][] m) {
-        // OBE matriks gauss
+    public static double[][] doublewayOBE(double[][] m) {
         int row = MatrixOP.getRowEff(m);
         int col = MatrixOP.getColEff(m);
 
@@ -42,22 +23,12 @@ public class GaussJordan {
 
             if (k < row) {
                 // swap baris
-                /*
-                 * 08.24 30/09/2023
-                 */
                 MatrixOP.swapRow(m, i, k);
 
                 // membuat pivot menjadi 1
                 double pivot = m[i][j];
                 for (int l = j; l < col; l++) {
-                    /*
-                     * 20.58 29/09/2023
-                     */
-                    if (pivot == 0) {
-                        pivot = 1;
-                    } else {
-                        m[i][l] /= pivot;
-                    }
+                    m[i][l] /= pivot;
                 }
 
                 // membuat kolom menjadi 0
@@ -74,8 +45,11 @@ public class GaussJordan {
             }
             j++;
         }
-
         return m;
+    }
+
+    public static double[][] gaussJordan(double[][] m) {
+        return GaussJordan.doublewayOBE(m);
     }
 
     public static void matriksGaussJordan(double[][] m) {
@@ -93,6 +67,7 @@ public class GaussJordan {
             System.out.println("Tidak ada");
         } else if (MatrixOP.solBanyak(matrix)) {
             System.out.println("Banyak");
+            Gauss.parametriksolution(m);
         } else {
             for (int i = 0; i < rowM; i++) {
                 System.out.print("x" + (i + 1) + " = ");

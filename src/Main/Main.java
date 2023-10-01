@@ -14,7 +14,6 @@ import ADT_Matrix.*;
 import Function.*;
 
 public class Main {
-    int pilih;
 
     public static void main(String[] args) throws Exception {
         double[][] matrix;
@@ -22,6 +21,7 @@ public class Main {
         Scanner scan;
         int pilih;
         scan = new Scanner(System.in);
+        DecimalFormat df;
 
         while (program) {
             System.out.println("===== PILIHAN MENU =====");
@@ -68,6 +68,10 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
                             Gauss.matriksGauss(matrix);
                             System.out.println();
+                            double[][] fOBE = Gauss.forwardOBE(matrix);
+                            Gauss.xsolGauss(matrix);
+                            System.out.println();
+                            System.out.println();
                             break;
 
                         case 2:
@@ -80,10 +84,10 @@ public class Main {
 
                         case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
-                            Inverse.matriksInverseGJ(matrix);
-                            System.out.println();
-                            Inverse.matriksInverse(matrix);
-                            System.out.println();
+                            // Inverse.matriksInverseGJ(matrix);
+                            // System.out.println();
+                            // Inverse.matriksInverse(matrix);
+                            // System.out.println();
                             InverseSpl.solInverse(matrix);
                             System.out.println();
                             break;
@@ -132,7 +136,8 @@ public class Main {
                             double detU = Triangle.detUpperTriangular(matrix);
                             // MatrixOutput.printMatrix(upper);
                             System.out.println();
-                            System.out.println("Determinannya adalah " + detU);
+                            df = new DecimalFormat("0.000");
+                            System.out.println("Determinannya adalah " + df.format(detU));
                             System.out.println();
                             break;
 
@@ -141,7 +146,8 @@ public class Main {
                             double detL = Triangle.detLowerTriangular(matrix);
                             // MatrixOutput.printMatrix(upper);
                             System.out.println();
-                            System.out.println("Determinannya adalah " + detL);
+                            df = new DecimalFormat("0.000");
+                            System.out.println("Determinannya adalah " + df.format(detL));
                             System.out.println();
                             break;
 
@@ -153,7 +159,10 @@ public class Main {
                             System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                             int index = scan.nextInt();
                             double[][] cof = Cofactor.createMatrixCofactor(matrix);
+                            System.out.println();
+                            System.out.println("Matrix cofactornya: ");
                             MatrixOutput.printMatrix(cof);
+                            System.out.println();
                             Cofactor.detByCofactor(cof, matrix, index);
                             // double detC = Cofactor.valDetCofactor(cof, matrix, 2);
                             // System.out.println("Determinan matriks ini adalah " + detC);
@@ -234,7 +243,7 @@ public class Main {
                         System.out.print("x yang ingin dicari nilai taksirannya: ");
                         double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(newMx, x);
-                        DecimalFormat df = new DecimalFormat("0.0000");
+                        df = new DecimalFormat("0.0000");
                         System.out.println();
                         InterpolasiPolinom.printInterpolasi(newMx);
                         System.out.println();
@@ -256,7 +265,7 @@ public class Main {
                         // System.out.print("x yang ingin dicari nilai taksirannya: ");
                         // double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(InterpolasiPolinom.interpolasiMatrix(matrix), taksiran);
-                        DecimalFormat df = new DecimalFormat("0.0000");
+                        df = new DecimalFormat("0.0000");
                         System.out.println();
                         InterpolasiPolinom.printInterpolasi(matrix);
                         System.out.println();

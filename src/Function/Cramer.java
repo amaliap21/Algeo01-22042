@@ -50,10 +50,10 @@ public class Cramer {
         }
         System.out.println("Solusi SPL:");
         if(MatrixOP.getColEff(m) != MatrixOP.getRowEff(m) + 1){
-            System.out.println("Solusi tidak ada.");
+            System.out.println("Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
         }
         else if (det_pure == 0 && det_replace != 0){
-            System.out.println("Solusi tidak ada.");
+            System.out.println("Solusi tidak dapat dicari menggunakan metode Cramer karena determinan matriks A adalah 0.");
         }
         else if (MatrixOP.solTidakAda(m)){
             System.out.println("Solusi tidak ada.");

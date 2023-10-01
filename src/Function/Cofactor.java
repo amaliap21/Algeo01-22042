@@ -1,6 +1,7 @@
 package Function;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 import ADT_Matrix.*;
 
@@ -114,6 +115,7 @@ public class Cofactor {
             System.out.println("Matriks ini tidak memiliki determinan karena bukan berukuran nxn");
         }
         else{
+            DecimalFormat df = new DecimalFormat("0.000");
             System.out.println("Index merupakan baris/kolom?");
             System.out.println("Jika baris ketik '1'");
             System.out.println("Jika kolom ketik '2'");
@@ -134,7 +136,7 @@ public class Cofactor {
             else {
                 System.out.println("Input salah, silakan ulangi.");
             }
-            System.out.println("Determinan matriks ini adalah " + det);
+            System.out.println("Determinan matriks ini adalah " + df.format(det));
         }
     }
 

@@ -25,14 +25,18 @@ public class InverseSpl {
     }
 
     public static void solInverse(double[][] m) {
-        if (MatrixOP.determinant(m) != 0) {
+        if (MatrixOP.isSquare(m) == false){
+            System.out.println("Matriks tidak dapat diinverse karena ukuran matriks tidak n x n.");
+        }
+        else if (MatrixOP.determinant(m) != 0) {
             System.out.println("Solusi SPL:");
             for (int i = 0; i < MatrixOP.getRowEff(m); i++) {
                 System.out.print("x" + (i + 1) + " = ");
                 DecimalFormat df = new DecimalFormat("0.000");
                 System.out.println(df.format(inverseSpl(m)[i][0]));
             }
-        } else {
+        } 
+        else if(MatrixOP.determinant(m) == 0) {
             System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
         }
     }
