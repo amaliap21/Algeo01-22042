@@ -66,7 +66,7 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            Gauss.forwardOBE(matrix);
+                            Gauss.xsolGauss(matrix);
                             System.out.println();
                             break;
 
