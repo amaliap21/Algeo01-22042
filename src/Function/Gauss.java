@@ -172,29 +172,29 @@ public class Gauss {
 
 
     public static void uniqueSolGauss(double[][] matriks){
-        double[] arrayhasil = new double[MatrixOP.getColEff(matriks)-1];
+        double[][] m = Gauss.forwardOBE(matriks);
+        double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
 
-        int nRow = MatrixOP.getRowEff(matriks);
-        int nCol = MatrixOP.getColEff(matriks);
+        int nRow = MatrixOP.getRowEff(m);
+        int nCol = MatrixOP.getColEff(m);
 
         for(int a=0; a<nRow; a++){
             arrayhasil[a] = 0;
         }
 
-        for(int j=nCol-1; j>=0; j--){
-            int i = nRow-1;
-            if((j==nCol-1)){
-                arrayhasil[i] = MatrixOP.getElmt(matriks, i, j);
-                i--;
+        for(int i=nRow-1; i>=0; i--){
+            int j=nCol-1;
+            if((i==nRow-1)){
+                arrayhasil[i] = MatrixOP.getElmt(m, i, j);
             } else {
                 for(int k=j-1; k>=0; k--){
-                    matriks[i][j] = matriks[i][j] - (matriks[i][k]*arrayhasil[k]);
+                    m[i][j] = m[i][j] - (m[i][k]*arrayhasil[k]);
                 }
-                arrayhasil[i] = matriks[i][j];
-                i--;
+            arrayhasil[i] = m[i][j];
             }    
         }
 
+        System.out.println("Matriks Gauss:");
         for (int i = 0; i<nRow; i++) {
             System.out.print("x" + (i + 1) + " = ");
             DecimalFormat df = new DecimalFormat("0.000");                
@@ -214,8 +214,8 @@ public class Gauss {
         } else if (MatrixOP.solBanyak(matrix)) {
             System.out.println("Banyak");
             parametriksolution(m);
-        } else {
-            uniqueSolGauss(matrix);
+        } else{
+            uniqueSolGauss(m);
             // mencari solusi SPL tunggal
         }
     }
