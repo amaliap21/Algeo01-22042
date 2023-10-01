@@ -85,7 +85,7 @@ public class MatrixOutput {
         }
     }
 
-    public static void RegresiToFile(String res, double[] X, double regres){
+    public static void regresiToFile(String res, double[] X, double regres){
         try{
             createFile();
             Date date = new Date();
@@ -125,9 +125,9 @@ public class MatrixOutput {
         }
     }
 
-    public static void InverseToFile(double[][] M){
+    public static void inverseToFile(double[][] m){
         try{
-            String matrixStr = matrixToStr(M);
+            String matrixStr = matrixToStr(m);
             createFile();
             Date date = new Date();
             write = new FileWriter(path);
@@ -142,7 +142,7 @@ public class MatrixOutput {
         }
     }
 
-    public static void DetToFile(double res){
+    public static void determinanToFile(double res){
         try{
             String result = Double.toString(res);
             createFile();
@@ -155,6 +155,21 @@ public class MatrixOutput {
             System.out.println("Berhasil menulis pada file ini.");
         }
         catch(IOException e){
+            System.err.println("Error writing to the file: " + e.getMessage());
+        }
+    }
+
+    public static void bicubicToFile(double a, double b, double c){
+        try{
+            createFile();
+            Date date = new Date();
+            write = new FileWriter(path);
+            write.write(dateform.format(date) + "\n");
+            write.write("Hasil Interpolasi F(" + a + ", " + b + ") = " + c);
+            write.close();
+            System.out.println("Berhasil menulis pada file ini.");
+        }
+        catch (IOException e){
             System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
