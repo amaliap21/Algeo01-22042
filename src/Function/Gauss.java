@@ -24,14 +24,23 @@ public class Gauss {
 
             if (k < row) {
                 // swap baris
+                /*
+                 * 08.24 30/09/2023
+                 */
                 MatrixOP.swapRow(m, i, k);
 
                 // membuat pivot menjadi 1
                 double pivot = m[i][j];
                 for (int l = j; l < col; l++) {
-                    m[i][l] /= pivot;
+                    /*
+                     * 20.58 29/09/2023
+                     */
+                    if (pivot == 0) {
+                        pivot = 1;
+                    } else {
+                        m[i][l] /= pivot;
+                    }
                 }
-
                 // membuat kolom menjadi 0
                 for (int l = j+1; l < row; l++) {
                     if (l != i) {
@@ -73,7 +82,7 @@ public class Gauss {
             arrayhasil[a] = 999;
         }
 
-        double[][] OBEdmatrix = Gauss.forwardOBE(copyM);
+        double[][] OBEdmatrix = GaussJordan.gaussJordan(copyM);
         MatrixOutput.printMatrix(OBEdmatrix);
 
         int effRow = MatrixOP.getRowEff(OBEdmatrix)-MatrixOP.CountRowZero(OBEdmatrix); //jumlah row yang tidak full zero
