@@ -441,8 +441,16 @@ public class MatrixOP {
 
     // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
     // bernilai 0
-    public static boolean solBanyak(double[][] m) {
-        return isFullZeroRow(m, getLastIdxRow(m));
+    public static boolean solBanyak(double[][] m){
+        boolean status = true;
+        if (isFullZeroRow(m, getLastIdxRow(m))){
+            status = true;
+        } else if (getRowEff(m)!=getColEff(m)-1) {
+            status = true;
+        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m)==getColEff(m)-1)) {
+            status = false;
+        }
+        return status;
     }
 
     // Untuk swapping gauss jordan

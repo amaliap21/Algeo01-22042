@@ -68,7 +68,7 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS =====");
                             Gauss.matriksGauss(matrix);
                             System.out.println();
-                            double[][] fOBE = Gauss.forwardOBE(matrix);
+                            // double[][] fOBE = Gauss.forwardOBE(matrix);
                             Gauss.xsolGauss(matrix);
                             System.out.println();
                             System.out.println();
