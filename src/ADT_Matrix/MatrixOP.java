@@ -289,6 +289,23 @@ public class MatrixOP {
 
             return det;
         }
+
+        // double det;
+        // int tanda, j;
+
+        // det = 0;
+        // tanda = 1;
+        // if (getRowEff(m) == 1) {
+        // det = m[0][0];
+        // } else if (getRowEff(m) == 2) {
+        // det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+        // } else if (getRowEff(m) > 2) {
+        // for (j = 0; j < getColEff(m); j++) {
+        // det += tanda * m[0][j] * determinant(submatrix(m, 0, j));
+        // tanda = -tanda;
+        // }
+        // }
+        // return det;
     }
 
     public static double[][] transpose(double[][] m) {
@@ -425,7 +442,15 @@ public class MatrixOP {
     // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
     // bernilai 0
     public static boolean solBanyak(double[][] m) {
-        return isFullZeroRow(m, getLastIdxRow(m));
+        boolean status = true;
+        if (isFullZeroRow(m, getLastIdxRow(m))) {
+            status = true;
+        } else if (getRowEff(m) != getColEff(m) - 1) {
+            status = true;
+        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m) == getColEff(m) - 1)) {
+            status = false;
+        }
+        return status;
     }
 
     // Untuk swapping gauss jordan
@@ -457,7 +482,7 @@ public class MatrixOP {
         }
     }
 
-    public static double[][] extendMatrix(double[][] m1, double[][] m2) {
+    public static double[][] extendMatrix(double[][] m1, double[][] m2){
         double[][] ext;
         int row1, row2, col1, col2;
         row1 = getRowEff(m1);
@@ -465,15 +490,75 @@ public class MatrixOP {
         col1 = getColEff(m1);
         col2 = getColEff(m2);
         ext = new double[row1][col1 + col2];
-        for (int i = 0; i < getRowEff(ext); i++) {
-            for (int j = 0; j < getColEff(ext); j++) {
+        for(int i = 0; i < getRowEff(ext); i++) {
+            for(int j = 0; j < getColEff(ext); j++) {
                 if (j < col1) {
                     ext[i][j] = m1[i][j];
-                } else {
-                    ext[i][j] = m2[i][j - col1];
+                } 
+                else {
+                    ext[i][j] = m2[i][j-col1];
                 }
             }
         }
         return ext;
     }
+
+    public static int CountRowZero(double[][] m) {
+        int count = 0;
+        for (int i = 0; i < getRowEff(m); i++) {
+            if (isFullZeroRow(m, i)) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+    public static int getIdxColElNotZero(double[][] m, int row) {
+        boolean status = true;
+        int i = 0;
+        while (i < getColEff(m) && status) {
+            if (getElmt(m, row, i) != 0) {
+                status = false;
+            } else {
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public static boolean oneNotZeroElCol(double[][] m, int row) {
+        // mengecek jumlah elemen not zero kecuali kolom terakhir
+        int count = 0;
+        for (int i = 0; i < getLastIdxCol(m); i++) {
+            if (getElmt(m, row, i) != 0) {
+                count += 1;
+            }
+        }
+        if (count == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isFullZeroCol(double[][] m, int col) {
+        // mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon
+        // isinya 0 semua, assign alfabet lgsg sbg solusi
+        int i = 0;
+        boolean status = true;
+        while (i < getRowEff(m) && status) {
+            if (getElmt(m, i, col) != 0) {
+                status = false;
+            } else {
+                i++;
+            }
+        }
+
+        if (status) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

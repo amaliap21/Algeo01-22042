@@ -52,4 +52,16 @@ public class InterpolasiPolinom {
             }
         }
     }
+
+    public static double[] arrayResult(double[][] m){
+        double[][] mx = interpolasiMatrix(m);
+        double[] arraymx = new double[MatrixOP.getRowEff(m)];
+
+        DecimalFormat df = new DecimalFormat("0.000");
+
+        for(int i=0; i<MatrixOP.getRowEff(m); i++){
+            arraymx[i] = Double.valueOf(df.format(mx[i][0]));
+        }
+        return arraymx;
+    }
 }

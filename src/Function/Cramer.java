@@ -75,4 +75,18 @@ public class Cramer {
         
         // return det;
     }
+
+    public static String[] arrayResultUniqueSol(double[][] m){
+        String[] result = new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+
+        for(int i=0; i<MatrixOP.getColEff(m)-1; i++){
+            result[i] = String.valueOf(df.format(SPLCramer(m)[i][0]));
+        }
+        return result;
+    }
+
+    public static void fileOfResult(double[][] m){
+        MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+    }
 }

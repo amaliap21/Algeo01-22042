@@ -77,7 +77,7 @@ public class Inverse {
         // Gabungin matriks identitas dengan matriks m
         double[][] mGabung = new double[rowM][rowM * 2];
         for (int i = 0; i < rowM; i++) {
-            // INI BEDA BARIS KOLOM KARENA A|I -> I|A^(-1)!!!
+            // MARK BEDA!!!
             for (int j = 0; j < rowM * 2; j++) {
                 if (j < rowM) {
                     mGabung[i][j] = m[i][j];
@@ -109,5 +109,9 @@ public class Inverse {
         }
         System.out.println("Matriks Balikan Gauss-Jordan:");
         MatrixOutput.printMatrix(balikanGJ(m));
+    }
+
+    public static void fileOfResult(double[][] m){
+        
     }
 }

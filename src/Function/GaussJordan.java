@@ -114,4 +114,35 @@ public class GaussJordan {
         }
         return sol;
     }
+
+    public static String[] arrayResultUniqueSol(double[][] m){
+        double[][] matrix = GaussJordan.gaussJordan(m);
+        int rowM = MatrixOP.getRowEff(m);
+        int colM = MatrixOP.getColEff(m);
+
+        String[] result = new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+        
+        for(int i = 0; i<MatrixOP.getColEff(m)-1; i++){
+            result[i] = String.valueOf(df.format(matrix[i][colM - 1]));
+        }
+        return result;
+    }
+
+    public static void fileOfResult(double[][] m){
+        double[][] OBEdmatrix = gaussJordan(m);
+
+        if (MatrixOP.solTidakAda(OBEdmatrix)) {
+            String[] result = new String[1];
+            result[0] = "Tidak ada solusi";
+            MatrixOutput.SPLtoFile(result);
+        } else if (MatrixOP.solBanyak(OBEdmatrix)) {
+            String[] result = Gauss.parametrikGauss(m);
+            MatrixOutput.SPLtoFile(result);
+        } else{
+            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+            // mencari solusi SPL tunggal
+        }
+    }
 }
+
