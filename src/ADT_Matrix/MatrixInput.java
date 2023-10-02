@@ -18,10 +18,11 @@ public class MatrixInput {
             // System.out.println("Pilihan untuk to read matrix:");
             System.out.println("1. Input manual");
             System.out.println("2. Baca dari file .txt (Pastikan bahwa .txt sudah ada di folder yang sesuai)");
+            System.out.println("3. Matrix Hilbert");
             System.out.print("Cara input matriks: ");
             pilih = choice.nextInt();
 
-            if (pilih == 1 || pilih == 2) {
+            if (pilih == 1 || pilih == 2 || pilih == 3) {
                 program = false;
             } else {
                 System.out.println("Input pilihan salah, silakan input ulang.");
@@ -196,7 +197,8 @@ public class MatrixInput {
         int i, j;
         for(i = 0; i < ordo; i++){
             for(j = 0; j < ordo; j++){
-                hilbert[i][j] = 1/(i+j+1);
+                hilbert[i][j] = 1.0/(i+j+1);
+                // System.out.println(hilbert[i][j]);
             }
         }
         for(i = 0; i < ordo; i++){

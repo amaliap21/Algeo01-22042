@@ -25,19 +25,37 @@ public class InverseSpl {
     }
 
     public static void solInverse(double[][] m) {
-        if (MatrixOP.isSquare(m) == false){
-            System.out.println("Matriks tidak dapat diinverse karena ukuran matriks tidak n x n.");
-        }
-        else if (MatrixOP.determinant(m) != 0) {
+        if (MatrixOP.determinant(m) != 0) {
             System.out.println("Solusi SPL:");
             for (int i = 0; i < MatrixOP.getRowEff(m); i++) {
                 System.out.print("x" + (i + 1) + " = ");
                 DecimalFormat df = new DecimalFormat("0.000");
                 System.out.println(df.format(inverseSpl(m)[i][0]));
             }
-        } 
-        else if(MatrixOP.determinant(m) == 0) {
+        } else {
             System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
+        }
+    }
+
+    public static String[] arrayResultUniqueSol(double[][] m){
+        String[] arrayhasil = new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+
+        for (int i=0; i<MatrixOP.getColEff(m)-1; i++){
+            arrayhasil[i] = String.valueOf(df.format(inverseSpl(m)[i][0]));
+        }
+        return arrayhasil;
+    }
+
+    public static void fileOfResult(double[][] m){
+
+        if (MatrixOP.determinant(m) == 0) {
+            String[] result = new String[MatrixOP.getColEff(m)-1];
+            result[0] = "Tidak ada solusi";
+            MatrixOutput.SPLtoFile(result);
+        } else{
+            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+            // mencari solusi SPL tunggal
         }
     }
 }

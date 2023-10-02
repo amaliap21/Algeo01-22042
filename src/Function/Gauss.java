@@ -24,14 +24,23 @@ public class Gauss {
 
             if (k < row) {
                 // swap baris
+                /*
+                 * 08.24 30/09/2023
+                 */
                 MatrixOP.swapRow(m, i, k);
 
                 // membuat pivot menjadi 1
                 double pivot = m[i][j];
                 for (int l = j; l < col; l++) {
-                    m[i][l] /= pivot;
+                    /*
+                     * 20.58 29/09/2023
+                     */
+                    if (pivot == 0) {
+                        pivot = 1;
+                    } else {
+                        m[i][l] /= pivot;
+                    }
                 }
-
                 // membuat kolom menjadi 0
                 for (int l = j+1; l < row; l++) {
                     if (l != i) {
@@ -73,7 +82,7 @@ public class Gauss {
             arrayhasil[a] = 999;
         }
 
-        double[][] OBEdmatrix = Gauss.forwardOBE(copyM);
+        double[][] OBEdmatrix = GaussJordan.gaussJordan(copyM);
         MatrixOutput.printMatrix(OBEdmatrix);
 
         int effRow = MatrixOP.getRowEff(OBEdmatrix)-MatrixOP.CountRowZero(OBEdmatrix); //jumlah row yang tidak full zero
@@ -98,8 +107,6 @@ public class Gauss {
             }  
         }
 
-        // String[] temparrayhasil = new String[MatrixOP.getColEff(OBEdmatrix)-1];
-
         for(int i=0; i<MatrixOP.getColEff(OBEdmatrix)-1; i++){
             if(MatrixOP.isFullZeroCol(OBEdmatrix, i)){
                 arrayfinal[i] = String.valueOf(parameter[i]);
@@ -114,12 +121,6 @@ public class Gauss {
             }
         }
 
-        // for(int i =0; i<MatrixOP.getColEff(OBEdmatrix)-1; i++){
-        //     if(arrayhasil[i]!=999){
-        //         temparrayhasil[i] = String.valueOf(arrayhasil[i]);
-        //     }
-        // }
-
         for(int i=effRow-1; i>=0; i--){
             for(int j=nCol-1; j>MatrixOP.getIdxColElNotZero(OBEdmatrix, i); j--){
 
@@ -132,18 +133,18 @@ public class Gauss {
                 } else {
                     if(OBEdmatrix[i][j]>0){
                         if(OBEdmatrix[i][j]==1){
-                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " - " + String.valueOf(parameter[j]);
+                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "-" + String.valueOf(parameter[j]);
                         } else {
-                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " - " + String.valueOf(OBEdmatrix[i][j]) + String.valueOf(parameter[j]);
+                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "-" + String.valueOf(OBEdmatrix[i][j]) + String.valueOf(parameter[j]);
                         }
                     } else if(OBEdmatrix[i][j]<0){
                         if(arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)]==""){
                             arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += String.valueOf(Math.abs(OBEdmatrix[i][j])) + String.valueOf(parameter[j]);
                         } else {
                             if(OBEdmatrix[i][j]==-1){
-                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " + "+String.valueOf(parameter[j]);
+                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "+"+String.valueOf(parameter[j]);
                             } else {
-                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " + " + String.valueOf(Math.abs(OBEdmatrix[i][j])) + String.valueOf(parameter[j]);
+                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "+" + String.valueOf(Math.abs(OBEdmatrix[i][j])) + String.valueOf(parameter[j]);
                             }  
                         }
                     } else if(OBEdmatrix[i][j] == 0){
@@ -169,7 +170,6 @@ public class Gauss {
             System.out.println(a[i]);
         }
     }
-
 
     public static void uniqueSolGauss(double[][] matriks){
         double[][] m = Gauss.forwardOBE(matriks);
@@ -203,6 +203,37 @@ public class Gauss {
 
     }
 
+    public static String[] arrayResultUniqueSol(double[][] m){
+        double[][] matriks = Gauss.forwardOBE(m);
+        double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
+        String[] strarrayhasil = new String[MatrixOP.getColEff(m)-1];
+
+        int nRow = MatrixOP.getRowEff(matriks);
+        int nCol = MatrixOP.getColEff(matriks);
+
+        for(int a=0; a<nRow; a++){
+            arrayhasil[a] = 0;
+        }
+
+        for(int i=nRow-1; i>=0; i--){
+            int j=nCol-1;
+            if((i==nRow-1)){
+                arrayhasil[i] = MatrixOP.getElmt(matriks, i, j);
+            } else {
+                for(int k=j-1; k>=0; k--){
+                    m[i][j] = m[i][j] - (m[i][k]*arrayhasil[k]);
+                }
+            arrayhasil[i] = m[i][j];
+            }    
+        }
+
+        for(int i=0; i<MatrixOP.getColEff(m)-1; i++){
+            strarrayhasil[i] = String.valueOf(arrayhasil[i]);
+        }
+
+        return strarrayhasil;
+    }
+
     public static void xsolGauss(double[][] m) {
         double[][] matrix = forwardOBE(m);
         int rowM = MatrixOP.getRowEff(matrix);
@@ -220,18 +251,19 @@ public class Gauss {
         }
     }
 
-    // public static double[][] mxSolGauss(double[][] m) {
-    // double[][] matrix = forwardOBE(m);
-    // int rowM = MatrixOP.getRowEff(matrix);
-    // int colM = MatrixOP.getColEff(matrix);
+    public static void fileOfResult(double[][] m){
+        double[][] OBEdmatrix = forwardOBE(m);
 
-    // double[][] sol = new double[rowM][1];
-    // // System.out.println("Solusi SPL:");
-    // for (int i = 0; i < rowM; i++) {
-    // DecimalFormat df = new DecimalFormat("0.000");
-    // sol[i][0] = (matrix[i][colM - 1]);
-    // }
-    // return sol;
-    // }
-
+        if (MatrixOP.solTidakAda(OBEdmatrix)) {
+            String[] result = new String[1];
+            result[0] = "Tidak ada solusi";
+            MatrixOutput.SPLtoFile(result);
+        } else if (MatrixOP.solBanyak(OBEdmatrix)) {
+            String[] result = parametrikGauss(m);
+            MatrixOutput.SPLtoFile(result);
+        } else{
+            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+            // mencari solusi SPL tunggal
+        }
+    }
 }

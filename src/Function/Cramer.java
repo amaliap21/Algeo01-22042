@@ -69,6 +69,30 @@ public class Cramer {
             }
         }
     }
+    
+    public static double[][] uniqueCramer(double[][] m){
+        double det_pure, det_replace = 0;
+        int i, j;
+        double[][] newM = new double[MatrixOP.getRowEff(m)][MatrixOP.getRowEff(m)];
+        for(i = 0; i < MatrixOP.getRowEff(m); i++){
+            for(j = 0; j < MatrixOP.getRowEff(m); j++){
+                newM[i][j] = m[i][j];
+            }
+        }
+        
+        double[][] sol = new double[MatrixOP.getRowEff(newM)][1];
+        det_pure = MatrixOP.determinant(newM);
+        for(j = 0; j < MatrixOP.getColEff(newM); j++){
+            det_replace = MatrixOP.determinant(replace(m, j));
+            if(det_pure == 0.0 && det_replace == 0.0){
+                MatrixOP.setElmt(sol, j, 0, 0.0);
+            }
+            else{
+                MatrixOP.setElmt(sol, j, 0, det_replace/det_pure);
+            }
+        }
+        return sol;
+    }
 
     // public static void solCramer(double[][] m){
     //     System.out.println("Solusi SPL:");
@@ -89,4 +113,18 @@ public class Cramer {
     //         }
     //     }
     // }
+
+    public static String[] arrayResultUniqueSol(double[][] m){
+        String[] result = new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+
+        for(int i=0; i<MatrixOP.getColEff(m)-1; i++){
+            result[i] = String.valueOf(df.format(uniqueCramer(m)[i][0]));
+        }
+        return result;
+    }
+
+    public static void fileOfResult(double[][] m){
+        MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+    }
 }

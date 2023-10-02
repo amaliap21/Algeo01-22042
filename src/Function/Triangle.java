@@ -18,8 +18,8 @@ public class Triangle {
                     m1[i][j] = m[i][j];
                 }
             }
-            // MatrixOutput.printMatrix(m1);
-            // System.out.println(MatrixOP.getColEff(m1));
+            MatrixOutput.printMatrix(m1);
+            System.out.println(MatrixOP.getColEff(m1));
 
             for (i = 0; i < row; i++) {
                 int max = i;
@@ -50,13 +50,13 @@ public class Triangle {
                 }
             } 
             
-            // MatrixOutput.printMatrix(m1);
+            MatrixOutput.printMatrix(m1);
             double[][] newM = MatrixOP.copyMatrix(m1);
             for(i = 0; i < row; i++){
                 for(j = 0; j < row; j++){
                     if(i == j){
                         det *= newM[i][j]*Math.pow(-1,count);
-                        // System.out.println(det);
+                        System.out.println(det);
                     }
                 }
             }
@@ -77,7 +77,7 @@ public class Triangle {
                     count ++;
                 }
 
-                // System.out.println("count = "+ count);
+                System.out.println("count = "+ count);
                 // Swapping baris
                 double[] temp = matrix[i];
                 matrix[i] = matrix[max];
@@ -93,9 +93,9 @@ public class Triangle {
                         }
                     }
                 }
-                // MatrixOutput.printMatrix(matrix);
+                MatrixOutput.printMatrix(matrix);
             }
-            // MatrixOutput.printMatrix(matrix);
+            MatrixOutput.printMatrix(matrix);
             double[][] newM = MatrixOP.copyMatrix(matrix);
             for(i = 0; i < rowM; i++){
                 det*=MatrixOP.getElmtDiagonal(newM, i);

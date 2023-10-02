@@ -120,6 +120,48 @@ public class Regresi {
         MatrixOutput.printMatrix(taksir);
     }
 
+    public static String stringprintReg(double[][] m){
+        int n = MatrixOP.getRowEff(m);
+        int i;
+        String hasil = "f(x) = ";
+        for(i = 0; i < n; i++){
+            DecimalFormat df = new DecimalFormat("0.000");
+            if(i == 0){
+                hasil += df.format(m[i][0]);
+            }
+            else{
+                if(m[i][0] < 0){
+                    double el = Math.abs((m[i][0]));
+                    hasil += " - " + df.format(el) + "x" + i;
+                }
+                else{
+                    hasil += (" + " + df.format(m[i][0]) + "x" + i);
+                }
+            }
+        }
+        return hasil;
+    }
+
+    public static double[] arrayhasil(double[][] m){
+        double[] hasil = new double[MatrixOP.getRowEff(m)];
+
+        for(int i=0; i<MatrixOP.getRowEff(m); i++){
+            hasil[i] = m[i][0];
+        }
+        return hasil;
+    }
+
+    public static double hasilregresi(double[][] m, double[][] taksir){
+        int n = MatrixOP.getRowEff(m)-1;
+        double sol = m[0][0];
+        int i;
+        for(i = 1; i < n; i++){
+            Scanner scan = new Scanner(System.in);
+            sol += taksir[i-1][0]*m[i][0];
+        }
+        return sol;
+    }
+
     // public static double regresiLinear(double[][] fx){
     //     double sol = fx[0];
     //     int i, n = x.length;
