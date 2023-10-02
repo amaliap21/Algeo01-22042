@@ -44,11 +44,9 @@ public class Main {
 
                     if (pilih == 1) {
                         matrix = MatrixInput.matrixUser();
-                    } 
-                    else if (pilih == 2) {
+                    } else if (pilih == 2){
                         matrix = MatrixInput.matrixFile();
-                    }
-                    else{
+                    } else{
                         matrix = MatrixInput.matrixHilbert();
                     }
 
@@ -75,7 +73,6 @@ public class Main {
                             // double[][] fOBE = Gauss.forwardOBE(matrix);
                             Gauss.xsolGauss(matrix);
                             System.out.println();
-                            Gauss.fileOfResult(matrix);
                             System.out.println();
                             break;
 
@@ -84,8 +81,6 @@ public class Main {
                             GaussJordan.matriksGaussJordan(matrix);
                             System.out.println();
                             GaussJordan.solGaussJordan(matrix);
-                            System.out.println();
-                            GaussJordan.fileOfResult(matrix);
                             System.out.println();
                             break;
 
@@ -97,15 +92,11 @@ public class Main {
                             // System.out.println();
                             InverseSpl.solInverse(matrix);
                             System.out.println();
-                            InverseSpl.fileOfResult(matrix);
-                            System.out.println();
                             break;
 
                         case 4:
                             System.out.println("===== KAIDAH CRAMER =====");
                             Cramer.SPLCramer(matrix);
-                            System.out.println();
-                            Cramer.fileOfResult(matrix);
                             System.out.println();
                             break;
                         default:
@@ -150,8 +141,6 @@ public class Main {
                             df = new DecimalFormat("0.000");
                             System.out.println("Determinannya adalah " + df.format(detU));
                             System.out.println();
-                            MatrixOutput.determinanToFile(detU);
-                            System.out.println();
                             break;
 
                         case 2:
@@ -161,8 +150,6 @@ public class Main {
                             System.out.println();
                             df = new DecimalFormat("0.000");
                             System.out.println("Determinannya adalah " + df.format(detL));
-                            System.out.println();
-                            MatrixOutput.determinanToFile(detL);
                             System.out.println();
                             break;
 
@@ -181,8 +168,6 @@ public class Main {
                             Cofactor.detByCofactor(cof, matrix, index);
                             // double detC = Cofactor.valDetCofactor(cof, matrix, 2);
                             // System.out.println("Determinan matriks ini adalah " + detC);
-                            System.out.println();
-                            MatrixOutput.determinanToFile(Cofactor.valDetCofactor(cof, matrix, index));
                             System.out.println();
                             break;
 
@@ -223,14 +208,10 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             Inverse.matriksInverseGJ(matrix);
                             System.out.println();
-                            MatrixOutput.inverseToFile(Inverse.balikanGJReturn(matrix));
-                            System.out.println();
                             break;
                         case 2:
                             System.out.println("===== METODE KOFAKTOR =====");
                             Inverse.matriksInverse(matrix);
-                            System.out.println();
-                            MatrixOutput.inverseToFile(Inverse.inverseMatriks(matrix));
                             System.out.println();
                             break;
                         default:
@@ -270,8 +251,6 @@ public class Main {
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
-                        MatrixOutput.interpolasiToFile(InterpolasiPolinom.arrayResult(mx), x, sol);
-                        System.out.println();
                     } 
                     else {
                         scan = new Scanner(System.in);
@@ -293,8 +272,6 @@ public class Main {
                         InterpolasiPolinom.printInterpolasi(matrix);
                         System.out.println();
                         System.out.println("f(" + taksiran + ") = " + df.format(sol));
-                        System.out.println();
-                        MatrixOutput.interpolasiToFile(InterpolasiPolinom.arrayResult(matrix), taksiran, sol);
                         System.out.println();
                     }
                     break;
@@ -323,7 +300,6 @@ public class Main {
                     System.out.println();
                     double result = Bicubic.hasilBicubic(bicA, taksir);
                     System.out.println("f(" + taksir[0][0] + " , " + taksir[0][1] + ") = " + result);
-                    MatrixOutput.bicubicToFile(taksir[0][0], taksir[0][1], result);
                     break;
 
                 case 6:
@@ -363,8 +339,7 @@ public class Main {
                         taksir = Regresi.inputTaksiran(regSPL);
                         /*double sol = */ Regresi.solRegresiFX(regSPL, taksir);
                         System.out.println();
-                        MatrixOutput.regresiToFile(Regresi.stringprintReg(regSPL), Regresi.arrayhasil(regSPL), Regresi.hasilregresi(regSPL, taksir));
-                        System.out.println();
+
                         // Regresi.solRegresiFX(regSPL);
                         // double[] x = Regresi.inputTaksiran(newM);
                         // System.out.println(x);
@@ -406,9 +381,6 @@ public class Main {
                         System.out.println();
                         taksir = MatrixInput.regresiTaksiranFile(pathFile);
                         Regresi.solRegresiFX(regSPL, taksir);
-                        System.out.println();
-                        System.out.println();
-                        MatrixOutput.regresiToFile(Regresi.stringprintReg(regSPL), Regresi.arrayhasil(regSPL), Regresi.hasilregresi(regSPL, taksir));
                         System.out.println();
                         // double[][] x = Regresi.inputTaksiran(newM);
                         // // MatrixOutput.printMatrix(x);
