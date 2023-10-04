@@ -7,24 +7,6 @@ import java.text.*;
 
 public class GaussJordan {
     // setelah melakukan forward OBE, lakukan backward OBE (baris eselon tereduksi)
-    public static double[][] backwardOBE(double[][] m) {
-        m = Gauss.forwardOBE(m);
-        double[][] matrix = MatrixOP.copyMatrix(m);
-
-        int rowM = MatrixOP.getRowEff(matrix);
-        int colM = MatrixOP.getColEff(matrix);
-
-        for (int i = 0; i < rowM; i++) {
-            for (int j = i + 1; j < rowM; j++) {
-                double multiplier = matrix[i][j];
-                for (int k = i; k < colM; k++) {
-                    matrix[i][k] -= multiplier * matrix[j][k];
-                }
-            }
-        }
-        return matrix;
-    }
-
     public static double[][] gaussJordan(double[][] m) {
         // OBE matriks gauss
         int row = MatrixOP.getRowEff(m);
