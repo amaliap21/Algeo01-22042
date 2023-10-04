@@ -18,8 +18,8 @@ public class Triangle {
                     m1[i][j] = m[i][j];
                 }
             }
-            MatrixOutput.printMatrix(m1);
-            System.out.println(MatrixOP.getColEff(m1));
+            // MatrixOutput.printMatrix(m1);
+            // System.out.println(MatrixOP.getColEff(m1));
 
             for (i = 0; i < row; i++) {
                 int max = i;
@@ -56,7 +56,7 @@ public class Triangle {
                 for(j = 0; j < row; j++){
                     if(i == j){
                         det *= newM[i][j]*Math.pow(-1,count);
-                        System.out.println(det);
+                        // System.out.println(det);
                     }
                 }
             }
@@ -77,7 +77,7 @@ public class Triangle {
                     count ++;
                 }
 
-                System.out.println("count = "+ count);
+                // System.out.println("count = "+ count);
                 // Swapping baris
                 double[] temp = matrix[i];
                 matrix[i] = matrix[max];
@@ -93,9 +93,9 @@ public class Triangle {
                         }
                     }
                 }
-                MatrixOutput.printMatrix(matrix);
+                // MatrixOutput.printMatrix(matrix);
             }
-            MatrixOutput.printMatrix(matrix);
+            // MatrixOutput.printMatrix(matrix);
             double[][] newM = MatrixOP.copyMatrix(matrix);
             for(i = 0; i < rowM; i++){
                 det*=MatrixOP.getElmtDiagonal(newM, i);
@@ -118,10 +118,11 @@ public class Triangle {
 
     public static double detLowerTriangular(double[][] m){
         double det = 1;
-        int i, j;
         int count = 0;
+        double multDiv = 1;
         
         if(!MatrixOP.isSquare(m)){
+            int i, j;
             int row = MatrixOP.getRowEff(m);
             int col = row;
             double[][] m1 = new double[row][row];
@@ -133,85 +134,102 @@ public class Triangle {
             MatrixOutput.printMatrix(m1);
             System.out.println(MatrixOP.getColEff(m1));
 
-            for (i = 0; i < row; i++) {
-                int min = i;
-                
-                for (j = i + 1; j < row; j++) {
-                    if (Math.abs(m1[j][i]) < Math.abs(m1[min][i])) {
-                        min = j;
-                    }
-                    if(min != i){
-                        count ++;
-                    }
+            int rowm = MatrixOP.getRowEff(m);
+            int colm = MatrixOP.getColEff(m);
+
+            int a = rowm-1;
+            int b = colm-1;
+
+            while (a >=0 && b >= 0) {
+                // mencari pivot
+                int k = a;
+                while (k > row && m[k][b] == 0) {
+                    k--;
                 }
 
-                // Swapping baris
-                double[] temp = m1[i];
-                m1[i] = m1[min];
-                m1[min] = temp;
+                if(k!=a){
+                    count+=1;
+                }
 
-                // Ngurangin baris lain dengan baris yang sudah dikurangi
-                for (int a = 0; a < row; a++) {
-                    for (int b = a + 1; b < row; b++) {
-                        double multiplier = m1[b][a]/m1[a][a];
-                        for (int k = a; k < col; k++) {
-                            m1[a][k] -= multiplier * m1[b][k];
-                            if (m1[b][k] == -0){
-                                m1[b][k] = 0;
+                if (k >= 0) {
+                    // swap baris
+                    MatrixOP.swapRow(m, a, k);
+
+                    // membuat pivot menjadi 1
+                        double pivot = m[a][b];
+                        for (int l = b; l >= 0; l--) {
+                            if(pivot==0){
+                                pivot = 1;
+                            } else {
+                                m[i][l] /= pivot;
+                            }
+                        }
+                        multDiv *= pivot;
+
+                    // membuat kolom menjadi 0
+                    for (int l = a-1; l >= 0; l--) {
+                        if (l != a) {
+                            double factor = m[l][b];
+                            for (int n = b; n >= 0; n--) {
+                                m[l][n] -= factor * m[a][n];
                             }
                         }
                     }
+                    a--;
                 }
-            } 
-            
-            MatrixOutput.printMatrix(m1);
-            double[][] newM = MatrixOP.copyMatrix(m1);
-            for(i = 0; i < row; i++){
-                for(j = 0; j < row; j++){
-                    if(i == j){
-                        det *= newM[i][j]*Math.pow(-1,count);
-                        System.out.println(det);
-                    }
-                }
+                b--;
             }
         } else {
-            double[][] matrix = MatrixOP.copyMatrix(m);
-            int rowM = MatrixOP.getRowEff(matrix);
-            int colM = MatrixOP.getColEff(matrix);
-            for (i = 0; i < rowM; i++) {
-                int max = i;
-                for (j = i + 1; j < rowM; j++) {
-                    if (Math.abs(matrix[j][i]) > Math.abs(matrix[max][i])) {
-                        max = j;
+                int row = MatrixOP.getRowEff(m);
+                int col = MatrixOP.getColEff(m);
+
+                int a = row-1;
+                int b = col-1;
+
+                while (a >=0 && b >= 0) {
+                    // mencari pivot
+                    int k = a;
+                    while (k >=0 && m[k][b] == 0) {
+                        k--;
                     }
-                }
-                if(max != i){
-                    count ++;
-                }
 
-                System.out.println("count = "+ count);
-                // Swapping baris
-                double[] temp = matrix[i];
-                matrix[i] = matrix[max];
-                matrix[max] = temp;
+                    if(k!=a){
+                        count+=1;
+                    }
 
-                // Ngurangin baris lain dengan baris yang sudah dikurangi
-                for (int a = 0; a < rowM; a++) {
-                    for (int b = a + 1; b < rowM; b++) {
-                        double multiplier = matrix[b][a]/matrix[a][a];
-                        for (int k = a; k < colM; k++) {
-                            matrix[a][k] -= multiplier * matrix[b][k];
-                            if (matrix[b][k] == -0){
-                                matrix[b][k] = 0;
+                    if (k >= 0) {
+                        // swap baris
+                        MatrixOP.swapRow(m, a, k);
+
+                        // membuat pivot menjadi 1
+                        double pivot = m[a][b];
+                        for (int l = b; l >= 0; l--) {
+                            if(pivot==0){
+                                pivot = 1;
+                            } else {
+                                m[a][l] /= pivot;
                             }
                         }
+                        multDiv *= pivot;
+
+                        // membuat kolom menjadi 0
+                        for (int l = a-1; l >= 0; l--) {
+                            if (l != a) {
+                                double factor = m[l][b];
+                                for (int n = b; n >= 0; n--) {
+                                    m[l][n] -= factor * m[a][n];
+                                }
+                            }
+                        }
+                        a--;
                     }
+                    b--;
                 }
-                MatrixOutput.printMatrix(matrix);
             }
-            MatrixOutput.printMatrix(matrix);
-            double[][] newM = MatrixOP.copyMatrix(matrix);
-            for(i = 0; i < rowM; i++){
+
+            MatrixOutput.printMatrix(m);
+            double[][] newM = MatrixOP.copyMatrix(m);
+            for(int i = 0; i < MatrixOP.getRowEff(newM); i++){
                 det*=MatrixOP.getElmtDiagonal(newM, i);
                 // for(j = 0; j < colM; j++){
                 //     if(i == j){
@@ -219,15 +237,14 @@ public class Triangle {
                 //     }
                 // }
             } 
-            det = det*Math.pow(-1, count);
-        }
-        
-        if(det>0 && det<Math.pow(10, -3)){
+            det = det*Math.pow(-1, count)*multDiv;
+
+            if(det>0 && det<Math.pow(10, -3)){
             det = 0;
-        } 
-        if(det<0 && det>Math.pow(-10, -3)){
-            det = 0;
+            } 
+            if(det<0 && det>Math.pow(-10, -3)){
+                det = 0;
+            }
+            return det;
         }
-    return det;
-    }
 }

@@ -20,6 +20,7 @@ public class Main {
         boolean program = true;
         Scanner scan;
         int pilih;
+        String save;
         scan = new Scanner(System.in);
         DecimalFormat df;
 
@@ -60,7 +61,8 @@ public class Main {
                     System.out.println("2. Metode eliminasi Gauss-Jordan");
                     System.out.println("3. Metode matriks balikan");
                     System.out.println("4. Kaidah Cramer");
-
+                    
+                    scan.nextLine();
                     System.out.print("Memilih metode penyelesaian: ");
                     pilih = scan.nextInt();
                     System.out.println();
@@ -73,7 +75,24 @@ public class Main {
                             // double[][] fOBE = Gauss.forwardOBE(matrix);
                             Gauss.xsolGauss(matrix);
                             System.out.println();
+                            Gauss.fileOfResult(matrix);
                             System.out.println();
+                            // System.out.println();
+                            // System.out.println("Do you want to save the solution into file?");
+                            // System.out.println("Jika iya, ketik Yes.");
+                            // System.out.println("Jika tidak, ketik No");
+                            // save = scan.nextLine();
+                            // while (save != "Yes" || save != "No"){
+                            //     System.out.println("Input salah. Mohon hanya input Yes atau No.");
+                            //     System.out.println("Do you want to save the solution into file?");
+                            //     save = scan.nextLine();
+                            // }
+                            // if(save == "Yes"){
+                            //     break;
+                            // }
+                            // else if(save == "No"){
+                            //     continue;
+                            // }
                             break;
 
                         case 2:
@@ -96,7 +115,21 @@ public class Main {
 
                         case 4:
                             System.out.println("===== KAIDAH CRAMER =====");
-                            Cramer.SPLCramer(matrix);
+                            if(MatrixOP.getRowEff(matrix) >= MatrixOP.getColEff(matrix)){
+                                System.out.println("Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
+                            }
+                            else if(MatrixOP.getColEff(matrix) != MatrixOP.getRowEff(matrix) + 1){
+                                System.out.println("Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
+                            }
+                            else if (MatrixOP.solTidakAda(matrix)){
+                                System.out.println("Solusi tidak ada.");
+                            }
+                            else if (MatrixOP.solBanyak(matrix)){
+                                System.out.println("Solusi banyak. Namun tidak dapat dicari dengan metode Cramer.");
+                            }
+                            else{
+                                Cramer.SPLCramer(matrix);
+                            }
                             System.out.println();
                             break;
                         default:

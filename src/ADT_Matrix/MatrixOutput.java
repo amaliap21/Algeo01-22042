@@ -16,7 +16,7 @@ public class MatrixOutput {
     }
 
     public static Scanner scan;
-    public static FileWriter write;
+    public static FileWriter pf;
     public static String path = "";
     public static SimpleDateFormat dateform = new SimpleDateFormat("dd-MM-yyy HH-mm-ss");
 
@@ -37,10 +37,10 @@ public class MatrixOutput {
         dir = dir.substring(dir.lastIndexOf("\\")+1);
         String directory;
         if(dir.equals("bin")){
-            directory = "..\\test\\result\\";
+            directory = "..\\result\\";
         }
         else{
-            directory = "test\\reslut\\";
+            directory = "result\\";
         }
         return directory;
     }
@@ -65,18 +65,18 @@ public class MatrixOutput {
         int i;
         try{
             createFile();
-            write = new FileWriter(path);
+            pf = new FileWriter(path);
             Date date = new Date();
-            write.write(dateform.format(date) + "\n");
+            pf.write(dateform.format(date) + "\n");
             if(result[0].equals("Tidak ada solusi")){
-                write.write(result[0]);
-                write.close();
+                pf.write(result[0]);
+                pf.close();
             }
             else{
                 for(i = 0; i < result.length; i++){
-                    write.write("x" + (i+1) + " = " + result[i] + "\n");
+                    pf.write("x" + (i+1) + " = " + result[i] + "\n");
                 }
-                write.close();
+                pf.close();
             }
             System.out.println("Berhasil menulis pada file ini.");
         }
@@ -89,16 +89,16 @@ public class MatrixOutput {
         try{
             createFile();
             Date date = new Date();
-            write = new FileWriter(path);
-            write.write(dateform.format(date) + "\n");
-            write.write("Hasil Interpolasi: \n");
-            write.write(res);
-            write.write("\nNilai X: \n");
+            pf = new FileWriter(path);
+            pf.write(dateform.format(date) + "\n");
+            pf.write("Hasil Interpolasi: \n");
+            pf.write(res);
+            pf.write("\nNilai X: \n");
             for (int i = 0; i < X.length; i++){
-                write.write("X" + (i+1) + " = " + X[i] + " \n");
+                pf.write("X" + (i+1) + " = " + X[i] + " \n");
             }
-            write.write("Hasil Regresi : " + regres);
-            write.close();
+            pf.write("Hasil Regresi : " + regres);
+            pf.close();
             System.out.println("Berhasil menulis pada file ini.");
         }
         catch(IOException e){
@@ -110,14 +110,14 @@ public class MatrixOutput {
         try{
             createFile();
             Date date = new Date();
-            write = new FileWriter(path);
-            write.write(dateform.format(date) + "\n");
-            write.write("Hasil Interpolasi: \n");
+            pf = new FileWriter(path);
+            pf.write(dateform.format(date) + "\n");
+            pf.write("Hasil Interpolasi: \n");
             for (int i = 0; i < res.length; i++){
-                write.write("a" + i + " = " + res[i] + " \n");
+                pf.write("a" + i + " = " + res[i] + " \n");
             }
-            write.write("Hasil Interpolasi F(" + x + ") = " + y);
-            write.close();
+            pf.write("Hasil Interpolasi F(" + x + ") = " + y);
+            pf.close();
             System.out.println("Berhasil menulis pada file ini.");
         }
         catch(IOException e){
@@ -130,11 +130,11 @@ public class MatrixOutput {
             String matrixStr = matrixToStr(m);
             createFile();
             Date date = new Date();
-            write = new FileWriter(path);
-            write.write(dateform.format(date) + "\n");
-            write.write("Matriks Invers: \n");
-            write.write(matrixStr);
-            write.close();
+            pf = new FileWriter(path);
+            pf.write(dateform.format(date) + "\n");
+            pf.write("Matriks Invers: \n");
+            pf.write(matrixStr);
+            pf.close();
             System.out.println("Berhasil menulis pada file ini.");
         }
         catch(IOException e){
@@ -147,11 +147,11 @@ public class MatrixOutput {
             String result = Double.toString(res);
             createFile();
             Date date = new Date();
-            write = new FileWriter(path);
-            write.write(dateform.format(date) + "\n");
-            write.write("Determinan Matriks : \n");
-            write.write(result);
-            write.close();
+            pf = new FileWriter(path);
+            pf.write(dateform.format(date) + "\n");
+            pf.write("Determinan Matriks : \n");
+            pf.write(result);
+            pf.close();
             System.out.println("Berhasil menulis pada file ini.");
         }
         catch(IOException e){
@@ -163,15 +163,16 @@ public class MatrixOutput {
         try{
             createFile();
             Date date = new Date();
-            write = new FileWriter(path);
-            write.write(dateform.format(date) + "\n");
-            write.write("Hasil Interpolasi Bicubic Spline : \n");
-            write.write("F(" + a + ", " + b + ") = " + c);
-            write.close();
+            pf = new FileWriter(path);
+            pf.write(dateform.format(date) + "\n");
+            pf.write("Hasil Interpolasi Bicubic Spline : \n");
+            pf.write("F(" + a + ", " + b + ") = " + c);
+            pf.close();
             System.out.println("Berhasil menulis pada file ini.");
         }
         catch (IOException e){
             System.err.println("Error writing to the file: " + e.getMessage());
         }
+
     }
 }

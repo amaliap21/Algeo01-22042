@@ -24,25 +24,16 @@ public class Gauss {
 
             if (k < row) {
                 // swap baris
-                /*
-                 * 08.24 30/09/2023
-                 */
                 MatrixOP.swapRow(m, i, k);
 
                 // membuat pivot menjadi 1
                 double pivot = m[i][j];
                 for (int l = j; l < col; l++) {
-                    /*
-                     * 20.58 29/09/2023
-                     */
-                    if (pivot == 0) {
-                        pivot = 1;
-                    } else {
-                        m[i][l] /= pivot;
-                    }
+                    m[i][l] /= pivot;
                 }
+
                 // membuat kolom menjadi 0
-                for (int l = j+1; l < row; l++) {
+                for (int l = i+1; l < row; l++) {
                     if (l != i) {
                         double factor = m[l][j];
                         for (int n = j; n < col; n++) {
@@ -51,7 +42,6 @@ public class Gauss {
                     }
                 }
                 i++;
-
             }
             j++;
         }
@@ -83,7 +73,7 @@ public class Gauss {
         }
 
         double[][] OBEdmatrix = GaussJordan.gaussJordan(copyM);
-        MatrixOutput.printMatrix(OBEdmatrix);
+        // MatrixOutput.printMatrix(OBEdmatrix);
 
         int effRow = MatrixOP.getRowEff(OBEdmatrix)-MatrixOP.CountRowZero(OBEdmatrix); //jumlah row yang tidak full zero
 
@@ -107,6 +97,8 @@ public class Gauss {
             }  
         }
 
+        // String[] temparrayhasil = new String[MatrixOP.getColEff(OBEdmatrix)-1];
+
         for(int i=0; i<MatrixOP.getColEff(OBEdmatrix)-1; i++){
             if(MatrixOP.isFullZeroCol(OBEdmatrix, i)){
                 arrayfinal[i] = String.valueOf(parameter[i]);
@@ -121,6 +113,12 @@ public class Gauss {
             }
         }
 
+        // for(int i =0; i<MatrixOP.getColEff(OBEdmatrix)-1; i++){
+        //     if(arrayhasil[i]!=999){
+        //         temparrayhasil[i] = String.valueOf(arrayhasil[i]);
+        //     }
+        // }
+
         for(int i=effRow-1; i>=0; i--){
             for(int j=nCol-1; j>MatrixOP.getIdxColElNotZero(OBEdmatrix, i); j--){
 
@@ -133,18 +131,18 @@ public class Gauss {
                 } else {
                     if(OBEdmatrix[i][j]>0){
                         if(OBEdmatrix[i][j]==1){
-                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "-" + String.valueOf(parameter[j]);
+                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " - " + String.valueOf(parameter[j]);
                         } else {
-                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "-" + String.valueOf(OBEdmatrix[i][j]) + String.valueOf(parameter[j]);
+                            arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " - " + String.valueOf(OBEdmatrix[i][j]) + String.valueOf(parameter[j]);
                         }
                     } else if(OBEdmatrix[i][j]<0){
                         if(arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)]==""){
                             arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += String.valueOf(Math.abs(OBEdmatrix[i][j])) + String.valueOf(parameter[j]);
                         } else {
                             if(OBEdmatrix[i][j]==-1){
-                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "+"+String.valueOf(parameter[j]);
+                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " + "+String.valueOf(parameter[j]);
                             } else {
-                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += "+" + String.valueOf(Math.abs(OBEdmatrix[i][j])) + String.valueOf(parameter[j]);
+                                arrayfinal[MatrixOP.getIdxColElNotZero(OBEdmatrix, i)] += " + " + String.valueOf(Math.abs(OBEdmatrix[i][j])) + String.valueOf(parameter[j]);
                             }  
                         }
                     } else if(OBEdmatrix[i][j] == 0){
@@ -170,6 +168,7 @@ public class Gauss {
             System.out.println(a[i]);
         }
     }
+
 
     public static void uniqueSolGauss(double[][] matriks){
         double[][] m = Gauss.forwardOBE(matriks);
@@ -203,6 +202,22 @@ public class Gauss {
 
     }
 
+    public static void xsolGauss(double[][] m) {
+        double[][] matrix = forwardOBE(m);
+        int rowM = MatrixOP.getRowEff(matrix);
+        int colM = MatrixOP.getColEff(matrix);
+
+        System.out.println("Solusi SPL:");
+        if (MatrixOP.solTidakAda(matrix)) {
+            System.out.println("Tidak ada");
+        } else if (MatrixOP.solBanyak(matrix)) {
+            parametriksolution(m);
+        } else{
+            uniqueSolGauss(m);
+            // mencari solusi SPL tunggal
+        }
+    }
+
     public static String[] arrayResultUniqueSol(double[][] m){
         double[][] matriks = Gauss.forwardOBE(m);
         double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
@@ -234,23 +249,6 @@ public class Gauss {
         return strarrayhasil;
     }
 
-    public static void xsolGauss(double[][] m) {
-        double[][] matrix = forwardOBE(m);
-        int rowM = MatrixOP.getRowEff(matrix);
-        int colM = MatrixOP.getColEff(matrix);
-
-        System.out.println("Solusi SPL:");
-        if (MatrixOP.solTidakAda(matrix)) {
-            System.out.println("Tidak ada");
-        } else if (MatrixOP.solBanyak(matrix)) {
-            System.out.println("Banyak");
-            parametriksolution(m);
-        } else{
-            uniqueSolGauss(m);
-            // mencari solusi SPL tunggal
-        }
-    }
-
     public static void fileOfResult(double[][] m){
         double[][] OBEdmatrix = forwardOBE(m);
 
@@ -266,4 +264,19 @@ public class Gauss {
             // mencari solusi SPL tunggal
         }
     }
+
+    // public static double[][] mxSolGauss(double[][] m) {
+    // double[][] matrix = forwardOBE(m);
+    // int rowM = MatrixOP.getRowEff(matrix);
+    // int colM = MatrixOP.getColEff(matrix);
+
+    // double[][] sol = new double[rowM][1];
+    // // System.out.println("Solusi SPL:");
+    // for (int i = 0; i < rowM; i++) {
+    // DecimalFormat df = new DecimalFormat("0.000");
+    // sol[i][0] = (matrix[i][colM - 1]);
+    // }
+    // return sol;
+    // }
+
 }

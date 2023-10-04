@@ -7,24 +7,6 @@ import java.text.*;
 
 public class GaussJordan {
     // setelah melakukan forward OBE, lakukan backward OBE (baris eselon tereduksi)
-    public static double[][] backwardOBE(double[][] m) {
-        m = Gauss.forwardOBE(m);
-        double[][] matrix = MatrixOP.copyMatrix(m);
-
-        int rowM = MatrixOP.getRowEff(matrix);
-        int colM = MatrixOP.getColEff(matrix);
-
-        for (int i = 0; i < rowM; i++) {
-            for (int j = i + 1; j < rowM; j++) {
-                double multiplier = matrix[i][j];
-                for (int k = i; k < colM; k++) {
-                    matrix[i][k] -= multiplier * matrix[j][k];
-                }
-            }
-        }
-        return matrix;
-    }
-
     public static double[][] gaussJordan(double[][] m) {
         // OBE matriks gauss
         int row = MatrixOP.getRowEff(m);
@@ -92,7 +74,7 @@ public class GaussJordan {
         if (MatrixOP.solTidakAda(matrix)) {
             System.out.println("Tidak ada");
         } else if (MatrixOP.solBanyak(matrix)) {
-            System.out.println("Banyak");
+            Gauss.parametriksolution(matrix);
         } else {
             for (int i = 0; i < rowM; i++) {
                 System.out.print("x" + (i + 1) + " = ");
@@ -113,35 +95,5 @@ public class GaussJordan {
             sol[i][0] = (matrix[i][colM - 1]);
         }
         return sol;
-    }
-
-    public static String[] arrayResultUniqueSol(double[][] m){
-        double[][] matrix = GaussJordan.gaussJordan(m);
-        int rowM = MatrixOP.getRowEff(m);
-        int colM = MatrixOP.getColEff(m);
-
-        String[] result = new String[MatrixOP.getColEff(m)-1];
-        DecimalFormat df = new DecimalFormat("0.000");
-        
-        for(int i = 0; i<MatrixOP.getColEff(m)-1; i++){
-            result[i] = String.valueOf(df.format(matrix[i][colM - 1]));
-        }
-        return result;
-    }
-
-    public static void fileOfResult(double[][] m){
-        double[][] OBEdmatrix = gaussJordan(m);
-
-        if (MatrixOP.solTidakAda(OBEdmatrix)) {
-            String[] result = new String[1];
-            result[0] = "Tidak ada solusi";
-            MatrixOutput.SPLtoFile(result);
-        } else if (MatrixOP.solBanyak(OBEdmatrix)) {
-            String[] result = Gauss.parametrikGauss(m);
-            MatrixOutput.SPLtoFile(result);
-        } else{
-            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
-            // mencari solusi SPL tunggal
-        }
     }
 }
