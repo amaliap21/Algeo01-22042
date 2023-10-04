@@ -21,7 +21,7 @@ public class InverseSpl {
             matriksB[i][0] = m[i][MatrixOP.getColEff(m) - 1];
         }
 
-        return (MatrixOP.multiplyMatrix(Inverse.inverseMatriks(matriksA), matriksB));
+        return (MatrixOP.multiplyMatrix(Inverse.balikanGJReturn(matriksA), matriksB));
     }
 
     public static void solInverse(double[][] m) {
