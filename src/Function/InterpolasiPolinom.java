@@ -45,23 +45,52 @@ public class InterpolasiPolinom {
                 System.out.print(df.format(m[i][0]));
             }
             else if(i == 1){
-                System.out.print(" + " + df.format(m[i][0]) + "x");
+                if(m[i][0] < 0){
+                    System.out.print(" - " + df.format(Math.abs(m[i][0])) + "x");
+                }
+                else{
+                    System.out.print(" + " + df.format(m[i][0]) + "x");
+                }
             }
             else{
-                System.out.print(" + " + df.format(m[i][0]) + "x^" + i);
+                if(m[i][0] < 0){
+                    System.out.print(" - " + df.format(Math.abs(m[i][0])) + "x^" + i);
+                }
+                else{
+                    System.out.print(" + " + df.format(m[i][0]) + "x^" + i);
+                }
             }
         }
     }
 
-    public static double[] arrayResult(double[][] m){
-        double[][] mx = interpolasiMatrix(m);
-        double[] arraymx = new double[MatrixOP.getRowEff(m)];
-
-        DecimalFormat df = new DecimalFormat("0.000");
-
-        for(int i=0; i<MatrixOP.getRowEff(m); i++){
-            arraymx[i] = Double.valueOf(df.format(mx[i][0]));
+    public static String stringprintPol(double[][] m){
+        int n = MatrixOP.getRowEff(m);
+        int i;
+        String hasil = "P(x) = ";
+        for(i = 0; i < n; i++){
+            DecimalFormat df = new DecimalFormat("0.000");
+            if(i == 0){
+                hasil += df.format(m[i][0]);
+            }
+            else if(i == 1){
+                if(m[i][0] < 0){
+                    double el = Math.abs((m[i][0]));
+                    hasil += " - " + df.format(el) + "x";
+                }
+                else{
+                    hasil += " + " + df.format(m[i][0]) + "x";
+                }   
+            }
+            else{
+                if(m[i][0] < 0){
+                    double el = Math.abs((m[i][0]));
+                    hasil += " - " + df.format(el) + "x" + i;
+                }
+                else{
+                    hasil += (" + " + df.format(m[i][0]) + "x" + i);
+                }
+            }
         }
-        return arraymx;
+        return hasil;
     }
 }

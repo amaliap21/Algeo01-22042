@@ -155,7 +155,7 @@ public class Triangle {
                 }
             }
 
-            MatrixOutput.printMatrix(m);
+            // MatrixOutput.printMatrix(m);
             double[][] newM = MatrixOP.copyMatrix(m);
             for(int i = 0; i < MatrixOP.getRowEff(newM); i++){
                 det*=MatrixOP.getElmtDiagonal(newM, i);
@@ -167,10 +167,10 @@ public class Triangle {
             } 
             det = det*Math.pow(-1, count)*multDiv;
 
-            if(det>0 && det<Math.pow(10, -3)){
-            det = 0;
+            if(det>=0 && det<=Math.pow(10, -3)){
+                det = 0;
             } 
-            if(det<0 && det>Math.pow(-10, -3)){
+            if(det<=0 && det>=Math.pow(-10, -3)){
                 det = 0;
             }
             return det;

@@ -97,11 +97,12 @@ public class Regresi {
         int n = MatrixOP.getRowEff(m)-1;
         double sol = m[0][0];
         int i;
+        DecimalFormat df = new DecimalFormat("0.0000");
         for(i = 1; i < n; i++){
             Scanner scan = new Scanner(System.in);
             sol += taksir[i-1][0]*m[i][0];
         }
-        System.out.println("Hasil taksirannya adalah " + sol);
+        System.out.println("Hasil taksirannya adalah " + df.format(sol));
     }
 
     public static double[][] inputTaksiran(double[][] m){
@@ -138,15 +139,6 @@ public class Regresi {
                     hasil += (" + " + df.format(m[i][0]) + "x" + i);
                 }
             }
-        }
-        return hasil;
-    }
-
-    public static double[] arrayhasil(double[][] m){
-        double[] hasil = new double[MatrixOP.getRowEff(m)];
-
-        for(int i=0; i<MatrixOP.getRowEff(m); i++){
-            hasil[i] = m[i][0];
         }
         return hasil;
     }

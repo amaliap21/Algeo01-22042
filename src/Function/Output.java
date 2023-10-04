@@ -9,23 +9,6 @@ public class Output {
     public static File file;
     public static String fileName;
 
-    public static void createFile(){
-        try{
-            fileName = scan.nextLine();
-            file = new File(fileName);
-            if(file.createNewFile()){
-                System.out.println("File berhasil dibuat: " + file.getName());
-            }
-            else{
-                System.out.println("File already exists.");
-            }
-        }
-        catch(IOException e){
-            System.err.println("Error creating the file: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     public static String createPath(String fileName){
         String pathFile;
         String path;
@@ -46,41 +29,6 @@ public class Output {
             pathFile = path + "\\test\\result\\" + fileName;
         }
         return pathFile;
-    }
-
-    public static String matrixToStr(double[][] m){
-        String str = "";
-        int i, j;
-        for(i = 0; i < MatrixOP.getRowEff(m); i++){
-            for(j = 0; j < MatrixOP.getColEff(m); j++){
-                if(j == MatrixOP.getColEff(m)){
-                    str += m[i][j];
-                }
-                else{
-                    str += m[i][j] + " ";
-                }
-            }
-            str += "\n";
-        }
-        return str;
-    }
-
-    public static void determinanToFile(double[][] m, double det){
-        try{
-            System.out.println("Masukkan nama file baru dengan type txt (e.g.: SPL1a.txt): ");
-            String fileName = scan.nextLine();
-            BufferedWriter wr = new BufferedWriter(new FileWriter(createPath(fileName)));
-            wr.write("Determinan matriks\n");
-            wr.write(matrixToStr(m));
-            wr.write("\n");
-            wr.write("adalah " + det);
-            wr.close();
-            System.out.println("Berhasil menulis pada file ini.");
-        }
-        catch(IOException e){
-            System.err.println("Error writing to the file: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     public static void delFile(String fileName){
