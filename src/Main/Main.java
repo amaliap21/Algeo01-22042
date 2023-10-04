@@ -183,6 +183,7 @@ public class Main {
                                 System.out.println();
                                 printFile = Output.userPrintFile();
                                 if(printFile){
+                                    System.out.println();
                                     System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
                                     scan.nextLine();
                                     fileName = scan.nextLine();
@@ -193,6 +194,7 @@ public class Main {
                                     System.out.println();
                                 }
                                 else{
+                                    System.out.println();
                                     System.out.println("======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
                                     if(!MatrixOP.isSquare(matrix)){
                                         System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
@@ -203,12 +205,13 @@ public class Main {
                             else{
                                 detU = Triangle.detUpperTriangular(matrix);
                                 // MatrixOutput.printMatrix(upper);
-                                System.out.println();
+                                // System.out.println();
                                 df = new DecimalFormat("0.000");
                                 System.out.println("Determinannya adalah " + df.format(detU));
                                 System.out.println();
                                 printFile = Output.userPrintFile();
                                 if(printFile){
+                                    System.out.println();
                                     System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
                                     scan.nextLine();
                                     fileName = scan.nextLine();
@@ -220,6 +223,7 @@ public class Main {
                                     System.out.println();
                                 }
                                 else{
+                                    System.out.println();
                                     System.out.println("======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
                                     System.out.println("Determinan matriks ini adalah " + detU);
                                     System.out.println();
@@ -238,6 +242,7 @@ public class Main {
                                 System.out.println();
                                 printFile = Output.userPrintFile();
                                 if(printFile){
+                                    System.out.println();
                                     System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
                                     scan.nextLine();
                                     fileName = scan.nextLine();
@@ -248,6 +253,7 @@ public class Main {
                                     System.out.println();
                                 }
                                 else{
+                                    System.out.println();
                                     System.out.println("======= HASIL DETERMINAN METODE ELIMINASI LOWER-TRIANGULAR ======");
                                     if(!MatrixOP.isSquare(matrix)){
                                         System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
@@ -258,12 +264,13 @@ public class Main {
                             else{
                                 detL = Triangle.detLowerTriangular(matrix);
                                 // MatrixOutput.printMatrix(upper);
-                                System.out.println();
+                                // System.out.println();
                                 df = new DecimalFormat("0.000");
                                 System.out.println("Determinannya adalah " + df.format(detL));
                                 System.out.println();
                                 printFile = Output.userPrintFile();
                                 if(printFile){
+                                    System.out.println();
                                     System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
                                     scan.nextLine();
                                     fileName = scan.nextLine();
@@ -275,6 +282,7 @@ public class Main {
                                     System.out.println();
                                 }
                                 else{
+                                    System.out.println();
                                     System.out.println("======= HASIL DETERMINAN METODE ELIMINASI LOWER-TRIANGULAR ======");
                                     System.out.println("Determinan matriks ini adalah " + detL);
                                     System.out.println();
@@ -300,6 +308,7 @@ public class Main {
                                     System.out.println();
                                 }
                                 else{
+                                    System.out.println();
                                     System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
                                     if(!MatrixOP.isSquare(matrix)){
                                         System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
@@ -308,6 +317,7 @@ public class Main {
                                 }
                             }
                             else{
+                                // System.out.println();
                                 System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                                 int index = scan.nextInt();
                                 double[][] cof = Cofactor.createMatrixCofactor(matrix);
@@ -324,6 +334,7 @@ public class Main {
                                 detC = Cofactor.valDetCofactor(cof, matrix, 0);
                                 printFile = Output.userPrintFile();
                                 if(printFile){
+                                    System.out.println();
                                     System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
                                     scan.nextLine();
                                     fileName = scan.nextLine();
@@ -335,6 +346,7 @@ public class Main {
                                     System.out.println();
                                 }
                                 else{
+                                    System.out.println();
                                     System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
                                     System.out.println("Determinan matriks ini adalah "+ detC);
                                     System.out.println();

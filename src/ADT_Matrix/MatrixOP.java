@@ -430,14 +430,19 @@ public class MatrixOP {
     // bernilai 0 kecuali di kolom terakhir
     public static boolean solTidakAda(double[][] m) {
         int i;
+        int effrow;
+
+        effrow = getColEff(m) - CountRowZero(m);
+
         for (i = 0; i < getColEff(m) - 1; i++) {
             if (m[getLastIdxRow(m)][i] != 0) {
                 return false;
             }
         }
-
-        return m[getLastIdxRow(m)][getLastIdxCol(m)] != 0;
+        
+        return ((m[getLastIdxRow(m)][getLastIdxCol(m)] != 0)|| (m[effrow-1][getLastIdxCol(m)] != 0));
     }
+
 
     // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
     // bernilai 0

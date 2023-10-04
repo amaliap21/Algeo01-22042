@@ -1,0 +1,2 @@
+======= HASIL DETERMINAN METODE ELIMINASI LOWER-TRIANGULAR ======
+Matriks tidak memiliki determinan karena tidak berukuran n x n.

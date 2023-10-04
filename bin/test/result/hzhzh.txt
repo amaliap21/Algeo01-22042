@@ -1,0 +1,2 @@
+======= HASIL DETERMINAN METODE ELIMINASI LOWER-TRIANGULAR ======
+Determinan matriks ini adalah -2.000000000000001
