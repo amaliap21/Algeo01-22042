@@ -249,21 +249,21 @@ public class Gauss {
         return strarrayhasil;
     }
 
-    public static void fileOfResult(double[][] m){
-        double[][] OBEdmatrix = forwardOBE(m);
+    // public static void fileOfResult(double[][] m){
+    //     double[][] OBEdmatrix = forwardOBE(m);
 
-        if (MatrixOP.solTidakAda(OBEdmatrix)) {
-            String[] result = new String[1];
-            result[0] = "Tidak ada solusi";
-            MatrixOutput.SPLtoFile(result);
-        } else if (MatrixOP.solBanyak(OBEdmatrix)) {
-            String[] result = parametrikGauss(m);
-            MatrixOutput.SPLtoFile(result);
-        } else{
-            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
-            // mencari solusi SPL tunggal
-        }
-    }
+    //     if (MatrixOP.solTidakAda(OBEdmatrix)) {
+    //         String[] result = new String[1];
+    //         result[0] = "Tidak ada solusi";
+    //         MatrixOutput.SPLtoFile(result);
+    //     } else if (MatrixOP.solBanyak(OBEdmatrix)) {
+    //         String[] result = parametrikGauss(m);
+    //         MatrixOutput.SPLtoFile(result);
+    //     } else{
+    //         MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+    //         // mencari solusi SPL tunggal
+    //     }
+    // }
 
     // public static double[][] mxSolGauss(double[][] m) {
     // double[][] matrix = forwardOBE(m);

@@ -162,6 +162,8 @@ public class Regresi {
         return sol;
     }
 
+    
+
     // public static double regresiLinear(double[][] fx){
     //     double sol = fx[0];
     //     int i, n = x.length;
