@@ -5,44 +5,44 @@ import ADT_Matrix.*;
 
 public class Triangle {
     public static double detUpperTriangular(double[][] m) {
-            double[][] m2 = new double[MatrixOP.getRowEff(m)][MatrixOP.getColEff(m)];
-            int i, j, k;
-            double det = 1;
-            double temp;
-    
-            for (i = 0; i < MatrixOP.getRowEff(m); i++) {
-                for (j = 0; j < MatrixOP.getColEff(m); j++) {
-                    m2[i][j] = MatrixOP.getElmt(m, i, j);
-                }
+        double[][] m2 = new double[MatrixOP.getRowEff(m)][MatrixOP.getColEff(m)];
+        int i, j, k;
+        double det = 1;
+        double temp;
+
+        for (i = 0; i < MatrixOP.getRowEff(m); i++) {
+            for (j = 0; j < MatrixOP.getColEff(m); j++) {
+                m2[i][j] = MatrixOP.getElmt(m, i, j);
             }
-    
-            for (i = 0; i < MatrixOP.getRowEff(m2); i++) {
-                if (MatrixOP.getElmt(m2, i, i) == 0) {
-                    for (j = i + 1; j < MatrixOP.getRowEff(m2); j++) {
-                        if (MatrixOP.getElmt(m2, j, i) != 0) {
-                            m2 = MatrixOP.swapRow(m2, i, j);
-                            det *= -1;
-                            break;
-                        }
-                    }
-                }
-    
-                if (MatrixOP.getElmt(m2, i, i) != 0) {
-                    for (j = i + 1; j < MatrixOP.getRowEff(m2); j++) {
-                        temp = MatrixOP.getElmt(m2, j, i) / MatrixOP.getElmt(m2, i, i);
-                        for (k = 0; k < MatrixOP.getColEff(m2); k++) {
-                            m2[j][k] -= temp * MatrixOP.getElmt(m2, i, k);
-                        }
-                    }
-                }
-            }
-    
-            for (i = 0; i < MatrixOP.getRowEff(m2); i++) {
-                det *= MatrixOP.getElmt(m2, i, i);
-            }
-    
-            return det;
         }
+
+        for (i = 0; i < MatrixOP.getRowEff(m2); i++) {
+            if (MatrixOP.getElmt(m2, i, i) == 0) {
+                for (j = i + 1; j < MatrixOP.getRowEff(m2); j++) {
+                    if (MatrixOP.getElmt(m2, j, i) != 0) {
+                        m2 = MatrixOP.swapRow(m2, i, j);
+                        det *= -1;
+                        break;
+                    }
+                }
+            }
+
+            if (MatrixOP.getElmt(m2, i, i) != 0) {
+                for (j = i + 1; j < MatrixOP.getRowEff(m2); j++) {
+                    temp = MatrixOP.getElmt(m2, j, i) / MatrixOP.getElmt(m2, i, i);
+                    for (k = 0; k < MatrixOP.getColEff(m2); k++) {
+                        m2[j][k] -= temp * MatrixOP.getElmt(m2, i, k);
+                    }
+                }
+            }
+        }
+
+        for (i = 0; i < MatrixOP.getRowEff(m2); i++) {
+            det *= MatrixOP.getElmt(m2, i, i);
+        }
+
+        return det;
+    }
 
     public static double detLowerTriangular(double[][] m){
         double det = 1;

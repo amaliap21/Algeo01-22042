@@ -1,0 +1,2 @@
+======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======
+Matriks tidak memiliki determinan karena tidak berukuran n x n.

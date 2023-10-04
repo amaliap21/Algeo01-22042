@@ -178,34 +178,57 @@ public class Main {
                         case 1:
                             System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
                             // double [][] upper = Triangle.upperTriangular(m);
-                            detU = Triangle.detUpperTriangular(matrix);
-                            // MatrixOutput.printMatrix(upper);
-                            System.out.println();
-                            df = new DecimalFormat("0.000");
-                            System.out.println("Determinannya adalah " + df.format(detU));
-                            System.out.println();
-                            printFile = Output.userPrintFile();
-                            if(printFile){
-                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                                scan.nextLine();
-                                fileName = scan.nextLine();
-                                Output.delFile(fileName);
-                                resString = "Determinan : " + Double.toString(detU);
-                                Output.printFile(fileName, "======= HASIL DETERMINAN METODE KOFAKTOR ======");
-                                Output.printFile(fileName, resString);
+                            if(!MatrixOP.isSquare(matrix)){
+                                System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    Output.printFile(fileName, "Matriks tidak memiliki determinan karena tidak berukuran n x n.");
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    if(!MatrixOP.isSquare(matrix)){
+                                        System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
+                                    }
+                                }
                             }
-                            // else{
-                            //     System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
-                            //     System.out.println("Determinan : "+ detU);
-                            // }
-                            sprog2 = false;
-                            break;
+                            else{
+                                detU = Triangle.detUpperTriangular(matrix);
+                                // MatrixOutput.printMatrix(upper);
+                                System.out.println();
+                                df = new DecimalFormat("0.000");
+                                System.out.println("Determinannya adalah " + df.format(detU));
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    resString = "Determinan : " + Double.toString(detU);
+                                    Output.printFile(fileName, "======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    Output.printFile(fileName, resString);
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    System.out.println("Determinan : "+ detU);
+                                    }
+                                }
+                                sprog2 = false;
+                                break;
 
                         case 2:
                             System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
                             detL = Triangle.detLowerTriangular(matrix);
                             // MatrixOutput.printMatrix(upper);
-                            System.out.println();
+                            // System.out.println();
                             df = new DecimalFormat("0.000");
                             System.out.println("Determinannya adalah " + df.format(detL));
                             System.out.println();
@@ -218,11 +241,12 @@ public class Main {
                                 resString = "Determinan : " + Double.toString(detL);
                                 Output.printFile(fileName, "======= HASIL DETERMINAN METODE KOFAKTOR ======");
                                 Output.printFile(fileName, resString);
+                                System.out.println("Berhasil create dan write pada file ini.");
                             }
-                            // else{
-                            //     System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
-                            //     System.out.println("Determinan : "+ detL);
-                            // }
+                            else{
+                                System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
+                                System.out.println("Determinan : "+ detL);
+                            }
                             sprog2 = false;
                             break;
 
@@ -252,10 +276,10 @@ public class Main {
                                 Output.printFile(fileName, "======= HASIL DETERMINAN METODE KOFAKTOR ======");
                                 Output.printFile(fileName, resString);
                             }
-                            // else{
-                            //     System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
-                            //     System.out.println("Determinan : "+ detC);
-                            // }
+                            else{
+                                System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
+                                System.out.println("Determinan : "+ detC);
+                            }
                             sprog2 = false;
                             break;
 

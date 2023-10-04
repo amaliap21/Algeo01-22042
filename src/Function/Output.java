@@ -43,7 +43,7 @@ public class Output {
             path = path.replaceAll("src", "");
             pathFile = path + "test\\result\\" + fileName;
         } else {
-            pathFile = path + "test\\result\\" + fileName;
+            pathFile = path + "\\test\\result\\" + fileName;
         }
         return pathFile;
     }
@@ -99,6 +99,7 @@ public class Output {
 
         // Menentukan filePath tempat file output disimpan
         String filePath = createPath(fileName);
+        // System.out.println(filePath);
 
         File file = new File(filePath);
 
