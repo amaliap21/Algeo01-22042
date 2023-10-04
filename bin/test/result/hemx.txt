@@ -1,2 +1,0 @@
-======= HASIL DETERMINAN METODE KOFAKTOR ======
-Determinan matriks ini adalah -2.0
