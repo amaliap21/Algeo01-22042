@@ -41,7 +41,7 @@ Program yang dirancang memiliki beberapa fitur :
 │   │       InverseSpl.class
 │   │       Output.class
 │   │       Regresi.class
-│   │       SPLOutput.class
+│   │       Output.class
 │   │       Triangle.class
 │   │
 │   ├───Main                            # Main package
@@ -65,7 +65,7 @@ Program yang dirancang memiliki beberapa fitur :
 │   │       InverseSpl.java
 │   │       Output.java
 │   │       Regresi.java
-│   │       SPLOutput.java
+│   │       Output.java
 │   │       Triangle.java
 │   │
 │   ├───Main                            # Main package
@@ -81,9 +81,25 @@ Program yang dirancang memiliki beberapa fitur :
     │   case3b.txt
     │   case4.txt
     │   case5a.txt
+    │   case5aa.txt
+    │   case5ab.txt
+    │   case5ac.txt
+    │   case5ad.txt
     │   case5b.txt
-    │   case6c.txt
+    │   case5ba.txt
+    │   case5bb.txt
+    │   case5bc.txt
+    │   case5c.txt
+    │   case6.txt
     │   case6a.txt
+    │   case7.txt
+    │   case7a.txt
+    │   case7b.txt
+    │   case7c.txt
+    │   case7d.txt
+    │   case8a.txt
+    │   case8b.txt
+    │   case8c.txt
     │
     └───result                      # Result file directory
 ```
@@ -103,10 +119,12 @@ PENJELASAN
 1. Terlebih dahulu pindah ke folder src : `cd src`
 
 2. Jalankan :
-`javac -d ..\bin Matrix/*.java Functions/*.java Main/*.java`
+`javac -d ..\bin ADT_Matrix/*.java Main/*.java`
 
-3. Kemudian, pindah ke folder bin : `cd bin`
+3. Kemudian, ubah directory : `cd ..`
 
-4. Kemudian, jalankan : `java Main.Main`
+4. Kemudian, pindah ke folder bin : `cd bin`
 
-3. Folder `result` dipastikan keberadaannya di dalam folder `test`. Folder `result` ini digunakan untuk menyimpan hasil perhitungan yang disimpan dalam bentuk file.
+5. Kemudian, jalankan : `java Main.Main`
+
+6. Folder `result` dipastikan keberadaannya di dalam folder `test`. Folder `result` ini digunakan untuk menyimpan hasil perhitungan yang disimpan dalam bentuk file.
