@@ -236,9 +236,12 @@ public class Main {
 
                         case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
-                            if ((MatrixOP.getRowEff(matrix) != MatrixOP.getColEff(matrix) + 1)) {
-                                System.out.println("Matriks tidak memiliki solusi SPL.");
+                            if ((MatrixOP.solBanyak(GaussJordan.gaussJordan(matrix))) || InverseSpl.detEqual0(matrix)
+                                    || (MatrixOP.getRowEff(matrix) >= MatrixOP.getColEff(matrix))) {
+                                System.out.println(
+                                        "SPL tidak bisa diselesaikan karena antara determinan bernilai 0 atau tidak berbentuk persegi.");
                                 System.out.println();
+
                                 printFile = Output.userPrintFile();
                                 System.out.println();
                                 if (printFile) {
