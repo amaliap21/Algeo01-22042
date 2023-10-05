@@ -3,6 +3,7 @@ package Main;
 import java.text.DecimalFormat;
 // import ADT
 import java.util.*;
+import java.io.*;
 
 import ADT_Matrix.*;
 // import Function.Gauss;
@@ -20,8 +21,16 @@ public class Main {
         boolean program = true;
         Scanner scan;
         int pilih;
+        String save;
         scan = new Scanner(System.in);
         DecimalFormat df;
+        boolean sprog1 = false;
+        boolean sprog2 = false;
+        boolean sprog3 = false;
+        boolean printFile;
+        String fileName, resString;
+        double detC, detU, detL;
+        double[][] invGJ, invCof;
 
         while (program) {
             System.out.println("===== PILIHAN MENU =====");
@@ -36,16 +45,29 @@ public class Main {
             pilih = scan.nextInt();
             System.out.println();
 
+            if (pilih == 7) {
+                System.out.println("Keluar dari program. . .");
+                System.out.println();
+                program = false;
+            } 
+            else if (pilih > 7 || pilih < 1) {
+                System.out.println("Input pilihan salah, silakan input ulang.");
+                System.out.println();
+            }
+
             switch (pilih) {
                 case 1:
+                    sprog1 = true;
                     System.out.println("===== SISTEM PERSAMAAN LINEAR =====");
 
                     pilih = MatrixInput.choose();
 
                     if (pilih == 1) {
                         matrix = MatrixInput.matrixUser();
-                    } else {
+                    } else if (pilih == 2){
                         matrix = MatrixInput.matrixFile();
+                    } else{
+                        matrix = MatrixInput.matrixHilbert();
                     }
 
                     System.out.println();
@@ -58,31 +80,145 @@ public class Main {
                     System.out.println("2. Metode eliminasi Gauss-Jordan");
                     System.out.println("3. Metode matriks balikan");
                     System.out.println("4. Kaidah Cramer");
-
+                    
+                    scan.nextLine();
                     System.out.print("Memilih metode penyelesaian: ");
                     pilih = scan.nextInt();
                     System.out.println();
 
                     switch (pilih) {
                         case 1:
-                            System.out.println("===== METODE ELIMINASI GAUSS =====");
-                            Gauss.matriksGauss(matrix);
+                        Gauss.matriksGauss(matrix);
+                        System.out.println();
+                        sprog1 = false; 
+                        System.out.println("===== METODE ELIMINASI GAUSS =====");
+                        if(MatrixOP.solTidakAda(matrix)){
+                            System.out.println("Matriks tidak memiliki solusi.");
                             System.out.println();
-                            // double[][] fOBE = Gauss.forwardOBE(matrix);
-                            Gauss.xsolGauss(matrix);
-                            System.out.println();
-                            Gauss.fileOfResult(matrix);
-                            System.out.println();
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
+                                Output.printFile(fileName, "Matriks tidak memiliki solusi SPL.");
+                                System.out.println("Berhasil create dan write pada file ini.");
+                            }
+                            else {
+                                System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
+                                if(MatrixOP.solTidakAda(matrix)){
+                                    System.out.println("Matriks tidak memiliki solusi SPL.");
+                                }
+                            }
+                        } else if(MatrixOP.solBanyak(matrix)){
+                                System.out.println("Matriks memiliki banyak solusi SPL.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
+                                    Output.printFile(fileName, "Matriks memiliki banyak solusi SPL.");
+                                    Output.printFile(fileName, Gauss.strparametriksolution(matrix));
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
+                                    if(MatrixOP.solBanyak(matrix)){
+                                        System.out.println("Matriks memiliki banyak solusi SPL.");
+                                        Gauss.parametriksolution(matrix);
+                                        
+                                    }
+                                }
+                            } else {
+                                System.out.println("Matriks memiliki solusi tunggal.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
+                                    Output.printFile(fileName, "Matriks memiliki solusi tunggal.");
+                                    Output.printFile(fileName, Gauss.arrayResultUniqueSol(matrix));
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
+                                    if(MatrixOP.solBanyak(matrix)){
+                                        System.out.println("Matriks memiliki solusi tunggal.");
+                                        Gauss.displayuniqueSolGauss(matrix);
+                                    }
+                                }
+                            }
                             break;
 
                         case 2:
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             GaussJordan.matriksGaussJordan(matrix);
                             System.out.println();
-                            GaussJordan.solGaussJordan(matrix);
+                            if(MatrixOP.solTidakAda(matrix)){
+                            System.out.println("Matriks tidak memiliki solusi.");
                             System.out.println();
-                            GaussJordan.fileOfResult(matrix);
-                            System.out.println();
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
+                                Output.printFile(fileName, "Matriks tidak memiliki solusi SPL.");
+                                System.out.println("Berhasil create dan write pada file ini.");
+                            }
+                            else{
+                                System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
+                                if(MatrixOP.solTidakAda(matrix)){
+                                    System.out.println("Matriks tidak memiliki solusi SPL.");
+                                }
+                            }
+                        } else if(MatrixOP.solBanyak(matrix)){
+                                System.out.println("Matriks memiliki banyak solusi SPL.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
+                                    Output.printFile(fileName, "Matriks memiliki banyak solusi SPL.");
+                                    Output.printFile(fileName, Gauss.strparametriksolution(matrix));
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
+                                    if(MatrixOP.solBanyak(matrix)){
+                                        System.out.println("Matriks memiliki banyak solusi SPL.");
+                                        Gauss.parametriksolution(matrix);
+                                    }
+                                }
+                            } else {
+                                System.out.println("Matriks memiliki solusi tunggal.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
+                                    Output.printFile(fileName, "Matriks memiliki solusi tunggal.");
+                                    Output.printFile(fileName, GaussJordan.strResultUniqueSol(matrix));
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
+                                    if(MatrixOP.solBanyak(matrix)){
+                                        System.out.println("Matriks memiliki solusi tunggal.");
+                                        GaussJordan.solGaussJordan(matrix);
+                                    }
+                                }
+                            }
+                            sprog1 = false;
                             break;
 
                         case 3:
@@ -93,25 +229,68 @@ public class Main {
                             // System.out.println();
                             InverseSpl.solInverse(matrix);
                             System.out.println();
-                            InverseSpl.fileOfResult(matrix);
-                            System.out.println();
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                                Output.printFile(fileName, InverseSpl.strSol(matrix));
+                                System.out.println("Berhasil create dan write pada file ini.");
+                            }
+                            else{
+                                System.out.println("======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                                InverseSpl.solInverse(matrix);
+                                System.out.println();
+                            }
+                            sprog1 = false;
                             break;
 
                         case 4:
                             System.out.println("===== KAIDAH CRAMER =====");
-                            Cramer.SPLCramer(matrix);
+                            if(MatrixOP.getRowEff(matrix) >= MatrixOP.getColEff(matrix)){
+                                System.out.println("Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
+                            }
+                            else if(MatrixOP.getColEff(matrix) != MatrixOP.getRowEff(matrix) + 1){
+                                System.out.println("Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
+                            }
+                            else if (MatrixOP.solTidakAda(matrix)){
+                                System.out.println("Solusi tidak ada.");
+                            }
+                            else if (MatrixOP.solBanyak(matrix)){
+                                System.out.println("Solusi banyak. Namun tidak dapat dicari dengan metode Cramer.");
+                            }
+                            else{
+                                Cramer.solCramer(matrix);
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
+                                    Output.printFile(fileName, Cramer.strSol(matrix));
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
+                                    Cramer.solCramer(matrix);
+                                    System.out.println();
+                            }
+                            }
                             System.out.println();
-                            Cramer.fileOfResult(matrix);
-                            System.out.println();
+                            sprog1 = false;
                             break;
+
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
                             System.out.println();
+                            sprog1 = false;
                             break;
                     }
                     break;
 
                 case 2:
+                    sprog2 = true;
                     System.out.println("===== DETERMINAN =====");
 
                     pilih = MatrixInput.choose();
@@ -140,30 +319,77 @@ public class Main {
                         case 1:
                             System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
                             // double [][] upper = Triangle.upperTriangular(m);
-                            double detU = Triangle.detUpperTriangular(matrix);
-                            // MatrixOutput.printMatrix(upper);
-                            System.out.println();
-                            df = new DecimalFormat("0.000");
-                            System.out.println("Determinannya adalah " + df.format(detU));
-                            System.out.println();
-                            MatrixOutput.determinanToFile(detU);
-                            System.out.println();
-                            break;
+                            if(!MatrixOP.isSquare(matrix)){
+                                System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    Output.printFile(fileName, "Matriks tidak memiliki determinan karena tidak berukuran n x n.");
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    if(!MatrixOP.isSquare(matrix)){
+                                        System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
+                                    }
+                                }
+                            }
+                            else{
+                                detU = Triangle.detUpperTriangular(matrix);
+                                // MatrixOutput.printMatrix(upper);
+                                System.out.println();
+                                df = new DecimalFormat("0.000");
+                                System.out.println("Determinannya adalah " + df.format(detU));
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    resString = "Determinan : " + Double.toString(detU);
+                                    Output.printFile(fileName, "======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    Output.printFile(fileName, resString);
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                }
+                                else{
+                                    System.out.println("======= HASIL DETERMINAN METODE ELIMINASI UPPER-TRIANGULAR ======");
+                                    System.out.println("Determinan : "+ detU);
+                                    }
+                                }
+                                sprog2 = false;
+                                break;
 
                         case 2:
                             System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
-                            double detL = Triangle.detLowerTriangular(matrix);
+                            detL = Triangle.detLowerTriangular(matrix);
                             // MatrixOutput.printMatrix(upper);
-                            System.out.println();
+                            // System.out.println();
                             df = new DecimalFormat("0.000");
                             System.out.println("Determinannya adalah " + df.format(detL));
                             System.out.println();
-                            MatrixOutput.determinanToFile(detL);
-                            System.out.println();
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                scan.nextLine();
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                resString = "Determinan : " + Double.toString(detL);
+                                Output.printFile(fileName, "======= HASIL DETERMINAN METODE KOFAKTOR ======");
+                                Output.printFile(fileName, resString);
+                                System.out.println("Berhasil create dan write pada file ini.");
+                            }
+                            else{
+                                System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
+                                System.out.println("Determinan : "+ detL);
+                            }
+                            sprog2 = false;
                             break;
-
-                        // case 3 :
-                        // System.out.println("==== METODE MATRIKS BALIKAN ====");
 
                         case 3:
                             System.out.println("==== METODE KOFAKTOR ====");
@@ -178,8 +404,24 @@ public class Main {
                             // double detC = Cofactor.valDetCofactor(cof, matrix, 2);
                             // System.out.println("Determinan matriks ini adalah " + detC);
                             System.out.println();
-                            MatrixOutput.determinanToFile(Cofactor.detByCofactor(cof, matrix, index));
-                            System.out.println();
+                            // double detC = Cofactor.valDetCofactor(cof, matrix, 0); 
+                            // Output.determinanToFile(matrix, detC);
+                            detC = Cofactor.valDetCofactor(cof, matrix, 0);
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                scan.nextLine();
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                resString = "Determinan : " + Double.toString(detC);
+                                Output.printFile(fileName, "======= HASIL DETERMINAN METODE KOFAKTOR ======");
+                                Output.printFile(fileName, resString);
+                            }
+                            else{
+                                System.out.println("======= HASIL DETERMINAN METODE KOFAKTOR ======");
+                                System.out.println("Determinan : "+ detC);
+                            }
+                            sprog2 = false;
                             break;
 
                         default:
@@ -191,6 +433,7 @@ public class Main {
                     break;
 
                 case 3:
+                    sprog3 = true;
                     System.out.println("===== MATRIKS BALIKAN =====");
 
                     pilih = MatrixInput.choose();
@@ -208,7 +451,7 @@ public class Main {
 
                     System.out.println("===== PILIH METODE =====");
                     System.out.println("1. Metode eliminasi Gauss-Jordan");
-                    System.out.println("2. Metode eliminasi kofaktor");
+                    System.out.println("2. Metode kofaktor");
 
                     System.out.print("Memilih metode penyelesaian: ");
                     pilih = scan.nextInt();
@@ -219,16 +462,44 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             Inverse.matriksInverseGJ(matrix);
                             System.out.println();
-                            MatrixOutput.inverseToFile(Inverse.balikanGJReturn(matrix));
-                            System.out.println();
+                            invGJ = Inverse.balikanGJReturn(matrix);
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                scan.nextLine();
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                Output.printMatrixFile(fileName, invGJ);
+                                Output.printFile(fileName, "======= HASIL INVERSE METODE ELIMINASI GAUSS-JORDAN ======");
+                            }
+                            // else{
+                            //     System.out.println("======= HASIL INVERSE METODE ELIMINASI GAUSS-JORDAN ======");
+                            //     Output.printMatrix(invGJ);;
+                            // }
+                            sprog3 = false;
                             break;
+
                         case 2:
                             System.out.println("===== METODE KOFAKTOR =====");
                             Inverse.matriksInverse(matrix);
                             System.out.println();
-                            MatrixOutput.inverseToFile(Inverse.inverseMatriks(matrix));
-                            System.out.println();
+                            invCof = Inverse.balikanGJReturn(matrix);
+                            printFile = Output.userPrintFile();
+                            if(printFile){
+                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                scan.nextLine();
+                                fileName = scan.nextLine();
+                                Output.delFile(fileName);
+                                Output.printMatrixFile(fileName, invCof);
+                                Output.printFile(fileName, "======= HASIL INVERSE METODE ELIMINASI GAUSS-JORDAN ======");
+                            }
+                            // else{
+                            //     System.out.println("======= HASIL INVERSE METODE ELIMINASI GAUSS-JORDAN ======");
+                            //     Output.printMatrix(invCof);;
+                            // }
+                            sprog3 = false;
                             break;
+
                         default:
                             System.out.println("Input pilihan salah, silakan input ulang.");
                             System.out.println();
@@ -266,8 +537,21 @@ public class Main {
                         System.out.println();
                         System.out.println("f(" + x + ") = " + df.format(sol));
                         System.out.println();
-                        MatrixOutput.interpolasiToFile(InterpolasiPolinom.arrayResult(mx), x, sol);
-                        System.out.println();
+                        // invGJ = Inverse.balikanGJReturn(matrix);
+                        printFile = Output.userPrintFile();
+                        if(printFile){
+                            System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                            scan.nextLine();
+                            fileName = scan.nextLine();
+                            Output.delFile(fileName);
+                            Output.printFile(fileName, "====== FUNGSI INTERPOLASI POLINOM ======");
+                            Output.printFile(fileName, "f(" + x + ") = " + df.format(sol));
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("======= FUNGSI INTERPOLASI POLINOM ======");
+                            System.out.println("f(" + x + ") = " + df.format(sol));
+                        }
                     } 
                     else {
                         scan = new Scanner(System.in);
@@ -290,8 +574,20 @@ public class Main {
                         System.out.println();
                         System.out.println("f(" + taksiran + ") = " + df.format(sol));
                         System.out.println();
-                        MatrixOutput.interpolasiToFile(InterpolasiPolinom.arrayResult(matrix), taksiran, sol);
-                        System.out.println();
+                        printFile = Output.userPrintFile();
+                        if(printFile){
+                            System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                            scan.nextLine();
+                            fileName = scan.nextLine();
+                            Output.delFile(fileName);
+                            Output.printFile(fileName, "====== FUNGSI INTERPOLASI POLINOM ======");
+                            Output.printFile(fileName, "f(" + taksiran + ") = " + df.format(sol));
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("======= FUNGSI INTERPOLASI POLINOM ======");
+                            System.out.println("f(" + taksiran + ") = " + df.format(sol));
+                        }
                     }
                     break;
 
@@ -319,7 +615,20 @@ public class Main {
                     System.out.println();
                     double result = Bicubic.hasilBicubic(bicA, taksir);
                     System.out.println("f(" + taksir[0][0] + " , " + taksir[0][1] + ") = " + result);
-                    MatrixOutput.bicubicToFile(taksir[0][0], taksir[0][1], result);
+                    printFile = Output.userPrintFile();
+                    if(printFile){
+                        System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                        scan.nextLine();
+                        fileName = scan.nextLine();
+                        Output.delFile(fileName);
+                        Output.printFile(fileName, "====== FUNGSI INTERPOLASI BICUBIC ======");
+                        Output.printFile(fileName,"f(" + taksir[0][0] + " , " + taksir[0][1] + ") = " + result);
+                    }
+                    else{
+                        System.out.println();
+                        System.out.println("======= FUNGSI INTERPOLASI BICUBIC ======");
+                        System.out.println("f(" + taksir[0][0] + " , " + taksir[0][1] + ") = " + result);
+                    }
                     break;
 
                 case 6:
@@ -352,15 +661,32 @@ public class Main {
                         MatrixOutput.printMatrix(newM);
                         double[][] regSPL = Regresi.regresiMatrix(newM);
                         System.out.println();
-                        MatrixOutput.printMatrix(regSPL);
-                        System.out.println();
+                        // MatrixOutput.printMatrix(regSPL);
+                        // System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
                         taksir = Regresi.inputTaksiran(regSPL);
                         /*double sol = */ Regresi.solRegresiFX(regSPL, taksir);
                         System.out.println();
-                        MatrixOutput.regresiToFile(Regresi.stringprintReg(regSPL), Regresi.arrayhasil(regSPL), Regresi.hasilregresi(regSPL, taksir));
-                        System.out.println();
+                        printFile = Output.userPrintFile();
+                        if(printFile){
+                            System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                            scan.nextLine();
+                            fileName = scan.nextLine();
+                            Output.delFile(fileName);
+                            Output.printFile(fileName, "====== HASIL REGRESI ======");
+                            Output.printFile(fileName, Regresi.stringprintReg(regSPL));
+                            Output.printFile(fileName, "Hasil taksirannya adalah " + Regresi.hasilregresi(regSPL, taksir));
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("======= HASIL REGRESI ======");
+                            Regresi.printReg(regSPL);
+                            // taksir = Regresi.inputTaksiran(regSPL);
+                            Regresi.solRegresiFX(regSPL, taksir);
+                            System.out.println();
+                        }
+
                         // Regresi.solRegresiFX(regSPL);
                         // double[] x = Regresi.inputTaksiran(newM);
                         // System.out.println(x);
@@ -395,17 +721,33 @@ public class Main {
                         // System.out.println();
                         // System.out.println("f(" + x + ") = " + df.format(sol));
                         double[][] regSPL = Regresi.regresiMatrix(newM);
-                        System.out.println();
-                        MatrixOutput.printMatrix(regSPL);
+                        // System.out.println();
+                        // MatrixOutput.printMatrix(regSPL);
                         System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
                         taksir = MatrixInput.regresiTaksiranFile(pathFile);
                         Regresi.solRegresiFX(regSPL, taksir);
                         System.out.println();
-                        System.out.println();
-                        MatrixOutput.regresiToFile(Regresi.stringprintReg(regSPL), Regresi.arrayhasil(regSPL), Regresi.hasilregresi(regSPL, taksir));
-                        System.out.println();
+                        printFile = Output.userPrintFile();
+                        if(printFile){
+                            System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                            // scan.nextLine();
+                            fileName = scan.nextLine();
+                            Output.delFile(fileName);
+                            Output.printFile(fileName, "====== HASIL REGRESI ======");
+                            Output.printFile(fileName, Regresi.stringprintReg(regSPL));
+                            Output.printFile(fileName, "Hasil taksirannya adalah " + Regresi.hasilregresi(regSPL, taksir));
+                        }
+                        else{
+                            System.out.println();
+                            System.out.println("======= HASIL REGRESI ======");
+                            Regresi.printReg(regSPL);
+                            // taksir = Regresi.inputTaksiran(regSPL);
+                            System.out.println();
+                            Regresi.solRegresiFX(regSPL, taksir);
+                            System.out.println();
+                        }
                         // double[][] x = Regresi.inputTaksiran(newM);
                         // // MatrixOutput.printMatrix(x);
                         // // System.out.println();
@@ -425,16 +767,6 @@ public class Main {
 
                     break;
             }
-
-            if (pilih == 7) {
-                System.out.println("Keluar dari program. . .");
-                System.out.println();
-                program = false;
-            } else if (pilih > 7 || pilih < 1) {
-                System.out.println("Input pilihan salah, silakan input ulang.");
-                System.out.println();
-            }
-
         }
 
         // // getcof = Cofactor.getCofactor(m, 0, 0);

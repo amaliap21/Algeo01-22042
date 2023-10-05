@@ -37,27 +37,43 @@ public class InverseSpl {
         }
     }
 
-    public static String[] arrayResultUniqueSol(double[][] m){
-        String[] arrayhasil = new String[MatrixOP.getColEff(m)-1];
+    public static String strSol(double[][] m){
+        String strhasil = "";  //new String[MatrixOP.getColEff(m)-1];
         DecimalFormat df = new DecimalFormat("0.000");
+        double[][] matriksA = new double[MatrixOP.getRowEff(m)][MatrixOP.getColEff(m) - 1];
+        double[][] matriksB = new double[MatrixOP.getRowEff(m)][1];
+        double[][] matriksHasil = new double[MatrixOP.getRowEff(m)][1];
+        int i, j;
 
-        for (int i=0; i<MatrixOP.getColEff(m)-1; i++){
-            arrayhasil[i] = String.valueOf(df.format(inverseSpl(m)[i][0]));
+        for (i = 0; i < MatrixOP.getRowEff(m); i++) {
+            for (j = 0; j < MatrixOP.getColEff(m) - 1; j++) {
+                matriksA[i][j] = m[i][j];
+            }
         }
-        return arrayhasil;
+
+        for (i = 0; i < MatrixOP.getRowEff(m); i++) {
+            matriksB[i][0] = m[i][MatrixOP.getColEff(m) - 1];
+        }
+
+        matriksHasil = MatrixOP.multiplyMatrix(Inverse.inverseMatriks(matriksA), matriksB);
+        
+        for (i=0; i<MatrixOP.getColEff(m)-1; i++){
+            strhasil += "x"+(i+1)+" = "+df.format(inverseSpl(matriksHasil)[i][0]) +"\n";
+        }
+        return strhasil;
     }
 
-    public static void fileOfResult(double[][] m){
+    // public static void fileOfResult(double[][] m){
 
-        if (MatrixOP.determinant(m) == 0) {
-            String[] result = new String[MatrixOP.getColEff(m)-1];
-            result[0] = "Tidak ada solusi";
-            MatrixOutput.SPLtoFile(result);
-        } else{
-            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
-            // mencari solusi SPL tunggal
-        }
-    }
+    //     if (MatrixOP.determinant(m) == 0) {
+    //         String[] result = new String[MatrixOP.getColEff(m)-1];
+    //         result[0] = "Tidak ada solusi";
+    //         MatrixOutput.SPLtoFile(result);
+    //     } else{
+    //         MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+    //         // mencari solusi SPL tunggal
+    //     }
+    // }
 }
 
 // matriks m

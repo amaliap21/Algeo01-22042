@@ -41,10 +41,10 @@ public class MatrixOutput {
         dir = dir.substring(dir.lastIndexOf("\\")+1);
         String directory;
         if(dir.equals("bin")){
-            directory = "..\\test\\result\\";
+            directory = "..\\result\\";
         }
         else{
-            directory = "test\\reslut\\";
+            directory = "..\\result\\";
         }
         return directory;
     }
@@ -56,8 +56,8 @@ public class MatrixOutput {
         try {
             if(!file.exists()){
                 file.createNewFile();
-                path = file.getAbsolutePath();
             }
+            path = file.getAbsolutePath();
             System.out.println("File berhasil dibuat.");
         } 
         catch (IOException e) {

@@ -24,25 +24,16 @@ public class Gauss {
 
             if (k < row) {
                 // swap baris
-                /*
-                 * 08.24 30/09/2023
-                 */
                 MatrixOP.swapRow(m, i, k);
 
                 // membuat pivot menjadi 1
                 double pivot = m[i][j];
                 for (int l = j; l < col; l++) {
-                    /*
-                     * 20.58 29/09/2023
-                     */
-                    if (pivot == 0) {
-                        pivot = 1;
-                    } else {
-                        m[i][l] /= pivot;
-                    }
+                    m[i][l] /= pivot;
                 }
+
                 // membuat kolom menjadi 0
-                for (int l = j+1; l < row; l++) {
+                for (int l = i+1; l < row; l++) {
                     if (l != i) {
                         double factor = m[l][j];
                         for (int n = j; n < col; n++) {
@@ -51,7 +42,6 @@ public class Gauss {
                     }
                 }
                 i++;
-
             }
             j++;
         }
@@ -171,7 +161,48 @@ public class Gauss {
         }
     }
 
-    public static void uniqueSolGauss(double[][] matriks){
+    public static String strparametriksolution(double[][] m){
+        String[] a = parametrikGauss(m);
+        String hasil = ""; 
+        for (int i = 0; i<MatrixOP.getColEff(m)-1; i++) {
+            hasil += "x" + (i + 1) + " = " + a[i] + "\n";
+        }
+        return hasil;
+    }
+
+    public static String uniqueSolGauss(double[][] matriks){
+        double[][] m = Gauss.forwardOBE(matriks);
+        double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
+        String hasil = "";
+
+        int nRow = MatrixOP.getRowEff(m);
+        int nCol = MatrixOP.getColEff(m);
+
+        for(int a=0; a<nRow; a++){
+            arrayhasil[a] = 0;
+        }
+
+        for(int i=nRow-1; i>=0; i--){
+            int j=nCol-1;
+            if((i==nRow-1)){
+                arrayhasil[i] = MatrixOP.getElmt(m, i, j);
+            } else {
+                for(int k=j-1; k>=0; k--){
+                    m[i][j] = m[i][j] - (m[i][k]*arrayhasil[k]);
+                }
+            arrayhasil[i] = m[i][j];
+            }    
+        }
+
+        DecimalFormat df = new DecimalFormat("0.000");  
+        System.out.println("Matriks Gauss:");
+        for (int i = 0; i<nRow; i++) {
+            hasil += "x" + (i + 1) + " = " + df.format(arrayhasil[i])+"\n";
+        }
+        return hasil;
+    }
+
+    public static void displayuniqueSolGauss(double[][] matriks){
         double[][] m = Gauss.forwardOBE(matriks);
         double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
 
@@ -194,19 +225,18 @@ public class Gauss {
             }    
         }
 
+        DecimalFormat df = new DecimalFormat("0.000");  
         System.out.println("Matriks Gauss:");
         for (int i = 0; i<nRow; i++) {
-            System.out.print("x" + (i + 1) + " = ");
-            DecimalFormat df = new DecimalFormat("0.000");                
-            System.out.println(df.format(arrayhasil[i]));
+          System.out.println("x" + (i + 1) + " = " + df.format(arrayhasil[i]));
         }
-
     }
 
-    public static String[] arrayResultUniqueSol(double[][] m){
+    public static String arrayResultUniqueSol(double[][] m){
         double[][] matriks = Gauss.forwardOBE(m);
         double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
-        String[] strarrayhasil = new String[MatrixOP.getColEff(m)-1];
+        String strarrayhasil = "";//new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
 
         int nRow = MatrixOP.getRowEff(matriks);
         int nCol = MatrixOP.getColEff(matriks);
@@ -228,7 +258,7 @@ public class Gauss {
         }
 
         for(int i=0; i<MatrixOP.getColEff(m)-1; i++){
-            strarrayhasil[i] = String.valueOf(arrayhasil[i]);
+            strarrayhasil += "x"+ i + df.format(arrayhasil[i]);
         }
 
         return strarrayhasil;
@@ -262,7 +292,7 @@ public class Gauss {
             String[] result = parametrikGauss(m);
             MatrixOutput.SPLtoFile(result);
         } else{
-            MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
+            // MatrixOutput.SPLtoFile(arrayResultUniqueSol(m));
             // mencari solusi SPL tunggal
         }
     }

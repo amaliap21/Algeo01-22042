@@ -111,7 +111,4 @@ public class Inverse {
         MatrixOutput.printMatrix(balikanGJ(m));
     }
 
-    public static void fileOfResult(double[][] m){
-        
-    }
 }
