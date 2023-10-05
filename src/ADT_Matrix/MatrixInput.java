@@ -144,8 +144,8 @@ public class MatrixInput {
         String path;
 
         path = System.getProperty("user.dir");
-        if (path.contains("src")) {
-            path = path.replaceAll("src", "");
+        if (path.contains("bin")) {
+            path = path.replaceAll("bin", "");
             pathFile = path + "test\\" + namaFile;
         } else {
             pathFile = path + "\\test\\" + namaFile;

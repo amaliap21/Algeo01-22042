@@ -14,16 +14,8 @@ public class Output {
         String path;
 
         path = System.getProperty("user.dir");
-        // dir = dir.substring(dir.lastIndexOf("\\")+1);
-        // String directory;
-        // if(dir.equals("bin")){
-        //     directory = "..\\test\\result\\";
-        // }
-        // else{
-        //     directory = "test\\result\\";
-        // }   
-        if (path.contains("src")) {
-            path = path.replaceAll("src", "");
+        if (path.contains("bin")) {
+            path = path.replaceAll("bin", "");
             pathFile = path + "test\\result\\" + fileName;
         } else {
             pathFile = path + "\\test\\result\\" + fileName;
@@ -33,8 +25,8 @@ public class Output {
 
     public static void delFile(String fileName){
         String path = System.getProperty("user.dir");
-        path = path.replaceAll("src","");
-        String filePath = path + "test\\output\\"+ fileName;
+        path = path.replaceAll("bin","");
+        String filePath = path + "test\\result\\"+ fileName;
 
         File file = new File(filePath);
 
