@@ -87,10 +87,11 @@ public class Main {
 
                     switch (pilih) {
                         case 1:
+                            System.out.println("===== METODE ELIMINASI GAUSS =====");
                             Gauss.matriksGauss(matrix);
                             System.out.println();
                             sprog1 = false;
-                            System.out.println("===== METODE ELIMINASI GAUSS =====");
+
                             if (MatrixOP.solTidakAda(Gauss.forwardOBE(matrix))) {
                                 System.out.println("Matriks tidak memiliki solusi SPL.");
                                 System.out.println();
@@ -109,10 +110,8 @@ public class Main {
                                     System.out.println();
                                 } else {
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
-                                    if (MatrixOP.solTidakAda(matrix)) {
-                                        System.out.println("Matriks tidak memiliki solusi SPL.");
-                                        System.out.println();
-                                    }
+                                    System.out.println("Matriks tidak memiliki solusi SPL.");
+                                    System.out.println();
                                 }
                             } else if (MatrixOP.solBanyak(Gauss.forwardOBE(matrix))) {
                                 Gauss.parametriksolution(matrix);
@@ -132,10 +131,8 @@ public class Main {
                                     System.out.println();
                                 } else {
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
-                                    if (MatrixOP.solBanyak(matrix)) {
-                                        Gauss.parametriksolution(matrix);
-                                        System.out.println();
-                                    }
+                                    Gauss.parametriksolution(matrix);
+                                    System.out.println();
                                 }
                             } else {
                                 Gauss.displayuniqueSolGauss(matrix);
@@ -155,10 +152,8 @@ public class Main {
                                     System.out.println();
                                 } else {
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
-                                    if (MatrixOP.solBanyak(matrix)) {
-                                        Gauss.displayuniqueSolGauss(matrix);
-                                        System.out.println();
-                                    }
+                                    Gauss.displayuniqueSolGauss(matrix);
+                                    System.out.println();
                                 }
                             }
                             break;
@@ -167,6 +162,8 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             GaussJordan.matriksGaussJordan(matrix);
                             System.out.println();
+                            sprog1 = false;
+
                             if (MatrixOP.solTidakAda(GaussJordan.gaussJordan(matrix))) {
                                 System.out.println("Matriks tidak memiliki solusi.");
                                 System.out.println();
@@ -185,10 +182,8 @@ public class Main {
                                 } else {
                                     System.out
                                             .println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
-                                    // if(MatrixOP.solTidakAda(matrix)){
                                     System.out.println("Matriks tidak memiliki solusi SPL.");
                                     System.out.println();
-                                    // }
                                 }
                             } else if (MatrixOP.solBanyak(GaussJordan.gaussJordan(matrix))) {
                                 Gauss.parametriksolution(matrix);
@@ -216,6 +211,7 @@ public class Main {
                             } else {
                                 GaussJordan.solGaussJordan(matrix);
                                 System.out.println();
+
                                 printFile = Output.userPrintFile();
                                 System.out.println();
                                 if (printFile) {
@@ -236,15 +232,10 @@ public class Main {
                                     System.out.println();
                                 }
                             }
-                            sprog1 = false;
                             break;
 
                         case 3:
                             System.out.println("===== METODE MATRIKS BALIKAN =====");
-                            // Inverse.matriksInverseGJ(matrix);
-                            // System.out.println();
-                            // Inverse.matriksInverse(matrix);
-                            // System.out.println();
                             if ((MatrixOP.getRowEff(matrix) != MatrixOP.getColEff(matrix) + 1)) {
                                 System.out.println("Matriks tidak memiliki solusi SPL.");
                                 System.out.println();
@@ -492,7 +483,6 @@ public class Main {
                     switch (pilih) {
                         case 1:
                             System.out.println("==== METODE ELIMINASI UPPER-TRIANGULAR ====");
-                            // double [][] upper = Triangle.upperTriangular(m);
                             if (!MatrixOP.isSquare(matrix)) {
                                 System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
                                 System.out.println();
@@ -522,8 +512,6 @@ public class Main {
                                 }
                             } else {
                                 detU = Triangle.detUpperTriangular(matrix);
-                                // MatrixOutput.printMatrix(upper);
-                                // System.out.println();
                                 df = new DecimalFormat("0.000");
                                 System.out.println("Determinannya adalah " + df.format(detU));
                                 System.out.println();
@@ -554,9 +542,6 @@ public class Main {
 
                         case 2:
                             System.out.println("==== METODE ELIMINASI LOWER-TRIANGULAR ====");
-                            // detL = Triangle.detLowerTriangular(matrix);
-                            // MatrixOutput.printMatrix(upper);
-                            // System.out.println();
                             if (!MatrixOP.isSquare(matrix)) {
                                 System.out.println("Matriks tidak memiliki determinan karena tidak berukuran n x n.");
                                 System.out.println();
@@ -643,7 +628,6 @@ public class Main {
                                     }
                                 }
                             } else {
-                                // System.out.println();
                                 System.out.println("Pilih indeks baris/kolom yang ingin dihitung: ");
                                 int index = scan.nextInt();
                                 double[][] cof = Cofactor.createMatrixCofactor(matrix);
@@ -652,11 +636,7 @@ public class Main {
                                 MatrixOutput.printMatrix(cof);
                                 System.out.println();
                                 Cofactor.detByCofactor(cof, matrix, index);
-                                // double detC = Cofactor.valDetCofactor(cof, matrix, 2);
-                                // System.out.println("Determinan matriks ini adalah " + detC);
                                 System.out.println();
-                                // double detC = Cofactor.valDetCofactor(cof, matrix, 0);
-                                // Output.determinanToFile(matrix, detC);
                                 detC = Cofactor.valDetCofactor(cof, matrix, 0);
                                 printFile = Output.userPrintFile();
                                 if (printFile) {
@@ -888,9 +868,6 @@ public class Main {
                         MatrixOutput.printMatrix(mx);
                         System.out.println();
                         double[][] newMx = InterpolasiPolinom.interpolasiMatrix(mx);
-                        // System.out.println();
-                        // MatrixOutput.printMatrix(newMx);
-                        // System.out.println();
                         System.out.print("x yang ingin dicari nilai taksirannya: ");
                         double x = scan.nextDouble();
                         double sol = InterpolasiPolinom.interpolasiFX(newMx, x);
@@ -900,11 +877,9 @@ public class Main {
                         System.out.println();
                         System.out.println("P(" + x + ") = " + df.format(sol));
                         System.out.println();
-                        // invGJ = Inverse.balikanGJReturn(matrix);
                         printFile = Output.userPrintFile();
                         if (printFile) {
                             System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                            // scan.nextLine();
                             fileName = scan.nextLine();
                             Output.delFile(fileName);
                             Output.printFile(fileName, "====== FUNGSI INTERPOLASI POLINOM ======");
@@ -973,8 +948,6 @@ public class Main {
                             System.out.println();
                             System.out.print("Nilai x yang ditaksir: ");
                             System.out.println(taksiran);
-                            // System.out.print("x yang ingin dicari nilai taksirannya: ");
-                            // double x = scan.nextDouble();
                             double[][] newM = InterpolasiPolinom.interpolasiMatrix(matrix);
                             double sol = InterpolasiPolinom.interpolasiFX(newM, taksiran);
                             df = new DecimalFormat("0.0000");
@@ -1022,19 +995,12 @@ public class Main {
                     System.out.println("Taksiran: ");
                     MatrixOutput.printMatrix(taksir);
                     System.out.println();
-                    // System.out.println("Bic:");
-                    // MatrixOutput.printMatrix(bic);
                     double[][] bicA = Bicubic.matriksBicubicA(bic);
-                    // System.out.println();
-                    // System.out.println("Bic A:");
-                    // MatrixOutput.printMatrix(bicA);
-                    // System.out.println();
                     double result = Bicubic.hasilBicubic(bicA, taksir);
                     System.out.println("f(" + taksir[0][0] + " , " + taksir[0][1] + ") = " + result);
                     printFile = Output.userPrintFile();
                     if (printFile) {
                         System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                        // scan.nextLine();
                         fileName = scan.nextLine();
                         Output.delFile(fileName);
                         Output.printFile(fileName, "====== FUNGSI INTERPOLASI BICUBIC ======");
@@ -1069,22 +1035,14 @@ public class Main {
                         System.out.println();
                         System.out.println("Matriks persamaan regresi linearnya adalah");
                         double[][] newM = Regresi.normalEquation(mx);
-                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
-                        // double x = scan.nextDouble();
-                        // double sol = Regresi.regresiFX(newM, x);
                         df = new DecimalFormat("0.0000");
-                        // System.out.println();
-                        // System.out.println("f(" + x + ") = " + df.format(sol));
-                        // Regresi.printRegresi(newM);
                         MatrixOutput.printMatrix(newM);
                         double[][] regSPL = Regresi.regresiMatrix(newM);
                         System.out.println();
-                        // MatrixOutput.printMatrix(regSPL);
-                        // System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
                         taksir = Regresi.inputTaksiran(regSPL);
-                        /* double sol = */ Regresi.solRegresiFX(regSPL, taksir);
+                        Regresi.solRegresiFX(regSPL, taksir);
                         System.out.println();
                         printFile = Output.userPrintFile();
                         if (printFile) {
@@ -1102,24 +1060,10 @@ public class Main {
                             System.out.println();
                             System.out.println("======= HASIL REGRESI ======");
                             Regresi.printReg(regSPL);
-                            // taksir = Regresi.inputTaksiran(regSPL);
                             Regresi.solRegresiFX(regSPL, taksir);
                             System.out.println();
                         }
 
-                        // Regresi.solRegresiFX(regSPL);
-                        // double[] x = Regresi.inputTaksiran(newM);
-                        // System.out.println(x);
-                        // int count = MatrixOP.getRowEff(regSPL)-1;
-                        // double sol = regSPL[0][0];
-                        // int i;
-                        // double x;
-                        // for(i = 0; i < count; i++){
-                        // System.out.print("x" + (i+1) + ": ");
-                        // x = scan.nextDouble();
-                        // sol += regSPL[i+1][0]*x;
-                        // }
-                        // System.out.println("Hasil taksiran regresi ini adalah " + sol);
                     } else {
                         scan = new Scanner(System.in);
                         System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
@@ -1133,15 +1077,7 @@ public class Main {
                         System.out.println("Matriks persamaan regresi linearnya adalah");
                         double[][] newM = Regresi.normalEquation(matrix);
                         MatrixOutput.printMatrix(newM);
-                        // System.out.print("x yang ingin dicari nilai taksirannya: ");
-                        // double x = scan.nextDouble();
-                        // double sol = Regresi.regresiFX(newM, x);
-                        // DecimalFormat df = new DecimalFormat("0.0000");
-                        // System.out.println();
-                        // System.out.println("f(" + x + ") = " + df.format(sol));
                         double[][] regSPL = Regresi.regresiMatrix(newM);
-                        // System.out.println();
-                        // MatrixOutput.printMatrix(regSPL);
                         System.out.println();
                         Regresi.printReg(regSPL);
                         System.out.println();
@@ -1152,7 +1088,6 @@ public class Main {
                         printFile = Output.userPrintFile();
                         if (printFile) {
                             System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                            // scan.nextLine();
                             fileName = scan.nextLine();
                             Output.delFile(fileName);
                             Output.printFile(fileName, "====== HASIL REGRESI ======");
@@ -1165,151 +1100,15 @@ public class Main {
                             System.out.println();
                             System.out.println("======= HASIL REGRESI ======");
                             Regresi.printReg(regSPL);
-                            // taksir = Regresi.inputTaksiran(regSPL);
                             System.out.println();
                             Regresi.solRegresiFX(regSPL, taksir);
                             System.out.println();
                         }
-                        // double[][] x = Regresi.inputTaksiran(newM);
-                        // // MatrixOutput.printMatrix(x);
-                        // // System.out.println();
-                        // double sol = Regresi.solRegresiFX(newM, x);
-                        // System.out.println("Hasil taksiran regresi ini adalah " + sol);
-                        // int count = MatrixOP.getRowEff(regSPL)-1;
-                        // double sol = regSPL[0][0];
-                        // int i;
-                        // double x;
-                        // for(i = 0; i < count; i++){
-                        // System.out.print("x" + (i+1) + ": ");
-                        // x = scan.nextDouble();
-                        // sol += regSPL[i+1][0]*x;
-                        // }
-                        // System.out.println("Hasilnya adalah " + sol);
-                        // }
 
                         break;
                     }
             }
 
-            // // getcof = Cofactor.getCofactor(m, 0, 0);
-            // // cof = Cofactor.createMatrixCofactor(m);
-            // // Scanner input = new Scanner(System.in);
-            // // System.out.print("Indeks yang diambil: ");
-            // // n = input.nextInt();
-            // detcof = Cofactor.detByCofactor(cof, m, n);
-            // System.out.println();
-            // // MatrixOutput.printMatrix(cof);
-            // // System.out.println();
-            // // System.out.println("Determinannya adalah " + detcof);
-            // // System.out.println();
-            // // MatrixOutput.printMatrix(getcof);
-            // Cramer.solCramer(m);
-            // System.out.println();
-            // getInverse = Inverse.inverseMatriks(m);
-            // // getcof = Cofactor.getCofactor(m, 0, 0);
-            // // cof = Cofactor.createMatrixCofactor(m);
-            // // detcof = Cofactor.detByCofactor(cof, m, 2);
-            // // System.out.println();
-            // // MatrixOutput.printMatrix(cof);
-            // // System.out.println();
-            // // System.out.println(detcof);
-            // System.out.println();
-            // InverseSpl.solusiInverse(m);
-            // System.out.println();
-
-            // System.out.println();
-            // MatrixOutput.printMatrix(m);
-            // System.out.println();
-            // System.out.println(Cofactor.detByCofactor(Cofactor.createMatrixCofactor(m),
-            // m, 0));
-            // MatrixOutput.printMatrix(Gauss.swapRow(m, 1, 2));
-
-            // double [][] sol = gaussSPL
-
-            // MatrixOutput.printMatrix(getInverse);
         }
     }
 }
-
-/*
- * case 2:
- * System.out.println("===== DETERMINAN =====");
- * pilih = MatrixInput.choose();
- * 
- * if (pilih == 1) {
- * m = MatrixInput.matrixUser();
- * } else {
- * m = MatrixInput.matrixFile();
- * }
- * 
- * System.out.println("Matrix:");
- * MatrixOutput.printMatrix(m);
- * System.out.println();
- * 
- * System.out.println("===== PILIHAN MENU =====");
- * System.out.println("1. Metode eliminasi Gauss");
- * System.out.println("2. Metode eliminasi Gauss-Jordan");
- * System.out.println("3. Metode matriks balikan");
- * 
- * System.out.println("Choose menu (ketik angkanya saja 1, 2, 3, 4, atau 5): ");
- * pilih = scan.nextInt();
- * 
- * switch (pilih) {
- * case 1:
- * System.out.println("===== METODE ELIMINASI GAUSS =====");
- * Gauss.gauss(m);
- * break;
- * case 2:
- * System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
- * GaussJordan.gaussJordan(m);
- * break;
- * case 3:
- * System.out.println("===== METODE MATRIKS BALIKAN =====");
- * InverseSpl.solInverse(m);
- * break;
- * default:
- * System.out.println("Input pilihan salah, silakan input ulang.");
- * break;
- * }
- * break;
- */
-
-// double[][] m, cof, getcof;
-// double detcof;
-// String[] solcram;
-// double[][] m, cof, getcof;
-// double detcof;
-// double[][] getInverse;
-// if (pilih == 1) {
-// m = MatrixInput.matrixUser();
-// } else {
-// m = MatrixInput.matrixFile();
-// }
-// System.out.println();
-// MatrixOutput.printMatrix(m);
-// System.out.println();
-
-// getcof = Cofactor.getCofactor(m, 0, 0);
-// cof = Cofactor.createMatrixCofactor(m);
-// Scanner input = new Scanner(System.in);
-// System.out.print("Indeks yang diambil: ");
-// n = input.nextInt();
-// detcof = Cofactor.detByCofactor(cof, m, n);
-// System.out.println();
-// MatrixOutput.printMatrix(cof);
-// System.out.println();
-// System.out.println("Determinannya adalah " + detcof);
-// System.out.println();
-// MatrixOutput.printMatrix(getcof);
-// Cramer.solCramer(m);
-// System.out.println();
-// getInverse = Inverse.inverseMatriks(m);
-// getcof = Cofactor.getCofactor(m, 0, 0);
-// cof = Cofactor.createMatrixCofactor(m);
-// detcof = Cofactor.detByCofactor(cof, m, 2);
-// System.out.println();
-// MatrixOutput.printMatrix(cof);
-// System.out.println();
-// System.out.println(detcof);
-// System.out.println();
-// InverseSpl.solusiInverse(m);

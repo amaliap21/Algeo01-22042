@@ -282,7 +282,7 @@ public class Gauss {
         }
 
         DecimalFormat df = new DecimalFormat("0.000");  
-        System.out.println("Matriks Gauss:");
+        System.out.println("Solusi SPL:");
         for (int i = 0; i<nRow; i++) {
           System.out.println("x" + (i + 1) + " = " + df.format(arrayhasil[i]));
         }
