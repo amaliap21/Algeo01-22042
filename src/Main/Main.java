@@ -922,7 +922,7 @@ public class Main {
                             printFile = Output.userPrintFile();
                             if (printFile) {
                                 System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                                scan.nextLine();
+                                // scan.nextLine();
                                 fileName = scan.nextLine();
                                 Output.delFile(fileName);
                                 Output.printFile(fileName, "====== FUNGSI INTERPOLASI POLINOM ======");
@@ -940,7 +940,7 @@ public class Main {
                             }
                         } else if (jenisInput == 2) {
                             System.out.println("Nama file lengkap dengan type file (e.g.: case1a.txt): ");
-                            // scan.nextLine();
+                            scan.nextLine();
                             String namaFile = scan.nextLine();
                             String pathFile = MatrixInput.getPathInput(namaFile);
                             matrix = MatrixInput.PRBMatrixFile(pathFile);
@@ -962,7 +962,7 @@ public class Main {
                             printFile = Output.userPrintFile();
                             if (printFile) {
                                 System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                                scan.nextLine();
+                                // scan.nextLine();
                                 fileName = scan.nextLine();
                                 Output.delFile(fileName);
                                 Output.printFile(fileName, "====== FUNGSI INTERPOLASI POLINOM ======");
