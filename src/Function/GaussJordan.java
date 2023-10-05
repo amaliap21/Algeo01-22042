@@ -96,4 +96,18 @@ public class GaussJordan {
         }
         return sol;
     }
+
+    public static String strResultUniqueSol(double[][] m){
+        double[][] matrix = GaussJordan.gaussJordan(m);
+        int rowM = MatrixOP.getRowEff(m);
+        int colM = MatrixOP.getColEff(m);
+
+        String result = "";//new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+        
+        for(int i = 0; i<MatrixOP.getColEff(m)-1; i++){
+            result += "x"+(i+1)+" = "+df.format(matrix[i][colM - 1])+"\n";
+        }
+        return result;
+    }
 }

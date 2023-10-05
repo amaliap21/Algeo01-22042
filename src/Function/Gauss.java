@@ -249,6 +249,76 @@ public class Gauss {
         return strarrayhasil;
     }
 
+    public static String strparametriksolution(double[][] m){
+        String[] a = parametrikGauss(m);
+        String hasil = ""; 
+        for (int i = 0; i<MatrixOP.getColEff(m)-1; i++) {
+            hasil += "x" + (i + 1) + " = " + a[i] + "\n";
+        }
+        return hasil;
+    }
+
+    public static void displayuniqueSolGauss(double[][] matriks){
+        double[][] m = Gauss.forwardOBE(matriks);
+        double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
+
+        int nRow = MatrixOP.getRowEff(m);
+        int nCol = MatrixOP.getColEff(m);
+
+        for(int a=0; a<nRow; a++){
+            arrayhasil[a] = 0;
+        }
+
+        for(int i=nRow-1; i>=0; i--){
+            int j=nCol-1;
+            if((i==nRow-1)){
+                arrayhasil[i] = MatrixOP.getElmt(m, i, j);
+            } else {
+                for(int k=j-1; k>=0; k--){
+                    m[i][j] = m[i][j] - (m[i][k]*arrayhasil[k]);
+                }
+            arrayhasil[i] = m[i][j];
+            }    
+        }
+
+        DecimalFormat df = new DecimalFormat("0.000");  
+        System.out.println("Matriks Gauss:");
+        for (int i = 0; i<nRow; i++) {
+          System.out.println("x" + (i + 1) + " = " + df.format(arrayhasil[i]));
+        }
+    }
+
+    public static String strUniqueSol(double[][] m){
+        double[][] matriks = Gauss.forwardOBE(m);
+        double[] arrayhasil = new double[MatrixOP.getColEff(m)-1];
+        String strarrayhasil = "";//new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+
+        int nRow = MatrixOP.getRowEff(matriks);
+        int nCol = MatrixOP.getColEff(matriks);
+
+        for(int a=0; a<nRow; a++){
+            arrayhasil[a] = 0;
+        }
+
+        for(int i=nRow-1; i>=0; i--){
+            int j=nCol-1;
+            if((i==nRow-1)){
+                arrayhasil[i] = MatrixOP.getElmt(matriks, i, j);
+            } else {
+                for(int k=j-1; k>=0; k--){
+                    m[i][j] = m[i][j] - (m[i][k]*arrayhasil[k]);
+                }
+            arrayhasil[i] = m[i][j];
+            }    
+        }
+
+        for(int i=0; i<MatrixOP.getColEff(m)-1; i++){
+            strarrayhasil += "x"+ i + df.format(arrayhasil[i]);
+        }
+
+        return strarrayhasil;
+    }
     // public static void fileOfResult(double[][] m){
     //     double[][] OBEdmatrix = forwardOBE(m);
 
