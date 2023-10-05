@@ -3,6 +3,7 @@
 > Sistem Persamaan Linier, Determinan, dan Aplikasinya
 
 ## Kelompok 9 - Sembilan Ayam Naga
+![Alt text](image.png)
 | NIM | Nama |
 | :---: | :---: |
 | 13522042 | Amalia Putri |
