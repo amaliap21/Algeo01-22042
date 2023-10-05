@@ -348,27 +348,26 @@ public class MatrixOP {
         int i;
         int effrow;
 
-        effrow = getColEff(m) - CountRowZero(m);
+        effrow = getLastIdxRow(m) - CountRowZero(m);
 
         for (i = 0; i < getColEff(m) - 1; i++) {
-            if (m[getLastIdxRow(m)][i] != 0) {
+            if (m[effrow][i] != 0) {
                 return false;
             }
         }
-        
-        return ((m[getLastIdxRow(m)][getLastIdxCol(m)] != 0)|| (m[effrow-1][getLastIdxCol(m)] != 0));
-    }
 
+        return ((m[effrow][getLastIdxCol(m)] != 0) || (m[effrow - 1][getLastIdxCol(m)] != 0));
+    }
 
     // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
     // bernilai 0
-    public static boolean solBanyak(double[][] m){
+    public static boolean solBanyak(double[][] m) {
         boolean status = true;
-        if (isFullZeroRow(m, getLastIdxRow(m))){
+        if (isFullZeroRow(m, getLastIdxRow(m))) {
             status = true;
-        } else if (getRowEff(m)!=getColEff(m)-1) {
+        } else if (getRowEff(m) != getColEff(m) - 1) {
             status = true;
-        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m)==getColEff(m)-1)) {
+        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m) == getColEff(m) - 1)) {
             status = false;
         }
         return status;
@@ -396,14 +395,14 @@ public class MatrixOP {
     }
 
     // Untuk pengurangan row di OBE
-    public static void kurangRow(double[][] m, int row1, int row2){
+    public static void kurangRow(double[][] m, int row1, int row2) {
         int j;
         for (j = 0; j < getColEff(m); j++) {
             m[row1][j] -= m[row2][j];
         }
     }
 
-    public static double[][] extendMatrix(double[][] m1, double[][] m2){
+    public static double[][] extendMatrix(double[][] m1, double[][] m2) {
         double[][] ext;
         int row1, row2, col1, col2;
         row1 = getRowEff(m1);
@@ -411,34 +410,33 @@ public class MatrixOP {
         col1 = getColEff(m1);
         col2 = getColEff(m2);
         ext = new double[row1][col1 + col2];
-        for(int i = 0; i < getRowEff(ext); i++) {
-            for(int j = 0; j < getColEff(ext); j++) {
+        for (int i = 0; i < getRowEff(ext); i++) {
+            for (int j = 0; j < getColEff(ext); j++) {
                 if (j < col1) {
                     ext[i][j] = m1[i][j];
-                } 
-                else {
-                    ext[i][j] = m2[i][j-col1];
+                } else {
+                    ext[i][j] = m2[i][j - col1];
                 }
             }
         }
         return ext;
     }
 
-    public static int CountRowZero(double[][] m){
+    public static int CountRowZero(double[][] m) {
         int count = 0;
-        for(int i=0; i<getRowEff(m); i++){
-            if(isFullZeroRow(m, i)){
-                count+=1;
+        for (int i = 0; i < getRowEff(m); i++) {
+            if (isFullZeroRow(m, i)) {
+                count += 1;
             }
         }
         return count;
     }
 
-    public static int getIdxColElNotZero(double[][] m, int row){
+    public static int getIdxColElNotZero(double[][] m, int row) {
         boolean status = true;
         int i = 0;
-        while(i<getColEff(m) && status){
-            if(getElmt(m, row, i)!=0){
+        while (i < getColEff(m) && status) {
+            if (getElmt(m, row, i) != 0) {
                 status = false;
             } else {
                 i++;
@@ -447,34 +445,35 @@ public class MatrixOP {
         return i;
     }
 
-    public static boolean oneNotZeroElCol (double[][] m, int row){
-        //mengecek jumlah elemen not zero kecuali kolom terakhir
+    public static boolean oneNotZeroElCol(double[][] m, int row) {
+        // mengecek jumlah elemen not zero kecuali kolom terakhir
         int count = 0;
-        for(int i=0; i<getLastIdxCol(m); i++){
-            if(getElmt(m, row, i) != 0){
+        for (int i = 0; i < getLastIdxCol(m); i++) {
+            if (getElmt(m, row, i) != 0) {
                 count += 1;
             }
         }
-        if(count==1){
+        if (count == 1) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static boolean isFullZeroCol (double[][] m, int col){
-        //mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon isinya 0 semua, assign alfabet lgsg sbg solusi
-        int i =0;
+    public static boolean isFullZeroCol(double[][] m, int col) {
+        // mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon
+        // isinya 0 semua, assign alfabet lgsg sbg solusi
+        int i = 0;
         boolean status = true;
-        while(i<getRowEff(m) && status){
-            if(getElmt(m, i, col) != 0){
+        while (i < getRowEff(m) && status) {
+            if (getElmt(m, i, col) != 0) {
                 status = false;
             } else {
                 i++;
             }
-        } 
-        
-        if (status){
+        }
+
+        if (status) {
             return true;
         } else {
             return false;
