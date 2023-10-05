@@ -161,7 +161,7 @@ public class Main {
                             System.out.println("===== METODE ELIMINASI GAUSS-JORDAN =====");
                             GaussJordan.matriksGaussJordan(matrix);
                             System.out.println();
-                            if(MatrixOP.solTidakAda(matrix)){
+                        if(MatrixOP.solTidakAda(matrix) /*|| (MatrixOP.getRowEff(matrix) != MatrixOP.getColEff(matrix) + 1)*/){
                             System.out.println("Matriks tidak memiliki solusi.");
                             System.out.println();
                             printFile = Output.userPrintFile();
@@ -203,8 +203,10 @@ public class Main {
                                 }
                             } else {
                                 System.out.println("Matriks memiliki solusi tunggal.");
+                                GaussJordan.solGaussJordan(matrix);
                                 System.out.println();
                                 printFile = Output.userPrintFile();
+                                System.out.println();
                                 if(printFile){
                                     System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
                                     scan.nextLine();
@@ -217,10 +219,11 @@ public class Main {
                                 }
                                 else{
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
-                                    if(MatrixOP.solBanyak(matrix)){
+                                    // if(MatrixOP.solBanyak(matrix)){
                                         System.out.println("Matriks memiliki solusi tunggal.");
                                         GaussJordan.solGaussJordan(matrix);
-                                    }
+                                        System.out.println();
+                                    // }
                                 }
                             }
                             sprog1 = false;
@@ -232,22 +235,29 @@ public class Main {
                             // System.out.println();
                             // Inverse.matriksInverse(matrix);
                             // System.out.println();
-                            InverseSpl.solInverse(matrix);
-                            System.out.println();
-                            printFile = Output.userPrintFile();
-                            if(printFile){
-                                System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                                scan.nextLine();
-                                fileName = scan.nextLine();
-                                Output.delFile(fileName);
-                                Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
-                                Output.printFile(fileName, InverseSpl.strSol(matrix));
-                                System.out.println("Berhasil create dan write pada file ini.");
+                            if((MatrixOP.getRowEff(matrix) != MatrixOP.getColEff(matrix) + 1)){
+                                System.out.println("Matriks tidak memiliki solusi SPL.");
                             }
-                            else{
-                                System.out.println("======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                            else {
                                 InverseSpl.solInverse(matrix);
                                 System.out.println();
+                                printFile = Output.userPrintFile();
+                                System.out.println();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                                    Output.printFile(fileName, InverseSpl.strSol(matrix));
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                                    InverseSpl.solInverse(matrix);
+                                    System.out.println();
+                                }
                             }
                             sprog1 = false;
                             break;
