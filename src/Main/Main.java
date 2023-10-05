@@ -922,7 +922,7 @@ public class Main {
                             printFile = Output.userPrintFile();
                             if (printFile) {
                                 System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                                // scan.nextLine();
+                                scan.nextLine();
                                 fileName = scan.nextLine();
                                 Output.delFile(fileName);
                                 Output.printFile(fileName, "====== FUNGSI INTERPOLASI POLINOM ======");
