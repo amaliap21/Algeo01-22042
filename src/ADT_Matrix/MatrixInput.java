@@ -18,15 +18,15 @@ public class MatrixInput {
             // System.out.println("Pilihan untuk to read matrix:");
             System.out.println("1. Input manual");
             System.out.println("2. Baca dari file .txt (Pastikan bahwa .txt sudah ada di folder yang sesuai)");
-            System.out.println("3. Matrix Hilbert");
-            System.out.println("4. Matrix f(x) khusus polinom");
+            System.out.println("3. Matrix Hilbert (khusus SPL)");
             System.out.print("Cara input matriks: ");
             pilih = choice.nextInt();
 
-            if (pilih == 1 || pilih == 2 || pilih == 3 || pilih == 4) {
+            if (pilih == 1 || pilih == 2 || pilih == 3) {
                 program = false;
             } else {
                 System.out.println("Input pilihan salah, silakan input ulang.");
+                System.out.println();
             }
         }
 
@@ -389,37 +389,35 @@ public class MatrixInput {
         }
     }
 
-    public static void mFX(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Input selang [a,b]");
-        System.out.print("a: ");
-        int a = scan.nextInt();
-        System.out.print("b: ");
-        int b = scan.nextInt();
-        System.out.println("Input derajat polinom");
-        System.out.print("n: ");
-        int n = scan.nextInt();
-        int h = (b-a)/n;
-        int i;
-        int j;
-        int count = 0;
-        for(i = a; i < b; i+=h){
-            i += h;
-            count += 1;
-            System.out.println(i);
-            System.out.println(count);
-        }
-        // double[][] fx = new double[count][2];
-        // for(j = 0; j < count; j+=h){
-        //     fx[j][0] = a; 
-        //     System.out.println(fx[j][0]);
-        //     double temp1 = Math.pow(fx[j][0], 2) + Math.sqrt(fx[j][0]);
-        //     double temp2 = Math.exp(fx[j][0]) + fx[j][0];
-        //     fx[j][1] = temp1/temp2;
-        //     System.out.println(fx[j][1]);
-        // }   
-        return fx;
-    }
+    // public static void mFX(){
+    //     Scanner scan = new Scanner(System.in);
+    //     System.out.println("Input selang [a,b]");
+    //     System.out.print("a: ");
+    //     int a = scan.nextInt();
+    //     System.out.print("b: ");
+    //     int b = scan.nextInt();
+    //     System.out.println("Input derajat polinom");
+    //     System.out.print("n: ");
+    //     int n = scan.nextInt();
+    //     int h = (b-a)/n;
+    //     int i;
+    //     int j;
+    //     int count = 0;
+    //     for(i = a; i < b; i+=h){
+    //         count += 1;
+    //     }
+    //     // System.out.println(i);
+    //     System.out.println(count);
+    //     // double[][] fx = new double[count][2];
+    //     // for(j = 0; j < count; j+=h){
+    //     //     fx[j][0] = a; 
+    //     //     System.out.println(fx[j][0]);
+    //     //     double temp1 = Math.pow(fx[j][0], 2) + Math.sqrt(fx[j][0]);
+    //     //     double temp2 = Math.exp(fx[j][0]) + fx[j][0];
+    //     //     fx[j][1] = temp1/temp2;
+    //     //     System.out.println(fx[j][1]);
+    //     // }   
+    //     // return fx;
 }
 
 

@@ -104,11 +104,13 @@ public class Main {
                                 Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
                                 Output.printFile(fileName, "Matriks tidak memiliki solusi SPL.");
                                 System.out.println("Berhasil create dan write pada file ini.");
+                                System.out.println();
                             }
                             else {
                                 System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
                                 if(MatrixOP.solTidakAda(matrix)){
                                     System.out.println("Matriks tidak memiliki solusi SPL.");
+                                    System.out.println();
                                 }
                             }
                         } else if(MatrixOP.solBanyak(matrix)){
@@ -124,13 +126,14 @@ public class Main {
                                     Output.printFile(fileName, "Matriks memiliki banyak solusi SPL.");
                                     Output.printFile(fileName, Gauss.strparametriksolution(matrix));
                                     System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
                                 }
                                 else{
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
                                     if(MatrixOP.solBanyak(matrix)){
                                         System.out.println("Matriks memiliki banyak solusi SPL.");
                                         Gauss.parametriksolution(matrix);
-                                        
+                                        System.out.println();
                                     }
                                 }
                             } else {
@@ -146,12 +149,14 @@ public class Main {
                                     Output.printFile(fileName, "Matriks memiliki solusi tunggal.");
                                     Output.printFile(fileName, Gauss.strUniqueSol(matrix));
                                     System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
                                 }
                                 else{
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======");
                                     if(MatrixOP.solBanyak(matrix)){
                                         System.out.println("Matriks memiliki solusi tunggal.");
                                         Gauss.displayuniqueSolGauss(matrix);
+                                        System.out.println();
                                     }
                                 }
                             }
@@ -173,12 +178,14 @@ public class Main {
                                 Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
                                 Output.printFile(fileName, "Matriks tidak memiliki solusi SPL.");
                                 System.out.println("Berhasil create dan write pada file ini.");
+                                System.out.println();
                             }
                             else{
                                 System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
-                                if(MatrixOP.solTidakAda(matrix)){
+                                // if(MatrixOP.solTidakAda(matrix)){
                                     System.out.println("Matriks tidak memiliki solusi SPL.");
-                                }
+                                    System.out.println();
+                            // }
                             }
                         } else if(MatrixOP.solBanyak(matrix)){
                                 System.out.println("Matriks memiliki banyak solusi SPL.");
@@ -193,12 +200,14 @@ public class Main {
                                     Output.printFile(fileName, "Matriks memiliki banyak solusi SPL.");
                                     Output.printFile(fileName, Gauss.strparametriksolution(matrix));
                                     System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
                                 }
                                 else{
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
                                     if(MatrixOP.solBanyak(matrix)){
                                         System.out.println("Matriks memiliki banyak solusi SPL.");
                                         Gauss.parametriksolution(matrix);
+                                        System.out.println();
                                     }
                                 }
                             } else {
@@ -216,6 +225,7 @@ public class Main {
                                     Output.printFile(fileName, "Matriks memiliki solusi tunggal.");
                                     Output.printFile(fileName, GaussJordan.strResultUniqueSol(matrix));
                                     System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
                                 }
                                 else{
                                     System.out.println("======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS JORDAN ======");
@@ -237,6 +247,24 @@ public class Main {
                             // System.out.println();
                             if((MatrixOP.getRowEff(matrix) != MatrixOP.getColEff(matrix) + 1)){
                                 System.out.println("Matriks tidak memiliki solusi SPL.");
+                                System.out.println();
+                                printFile = Output.userPrintFile();
+                                System.out.println();
+                                if(printFile){
+                                    System.out.print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                                    Output.printFile(fileName, "Matriks tidak memiliki solusi SPL.");
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
+                                }
+                                else{
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE MATRIKS BALIKAN ======");
+                                    System.out.println("Matriks tidak memiliki solusi SPL.");
+                                    System.out.println();
+                                }
                             }
                             else {
                                 InverseSpl.solInverse(matrix);
@@ -866,11 +894,6 @@ public class Main {
                             System.out.println();
                         }
                     }  
-                    else if(pilih == 4){
-                        MatrixInput.mFX();
-                        // MatrixOutput.printMatrix(matrix);
-                        System.out.println();
-                    }
                     else if(pilih == 2) {
                         scan = new Scanner(System.in);
                         System.out.println();
