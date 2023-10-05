@@ -1,0 +1,2 @@
+======= SOLUSI SPL DENGAN METODE ELIMINASI GAUSS ======
+Matriks tidak memiliki solusi SPL.
