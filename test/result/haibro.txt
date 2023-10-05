@@ -1,2 +1,0 @@
-======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======
-Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.

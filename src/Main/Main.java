@@ -309,29 +309,6 @@ public class Main {
                                             "Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
                                     System.out.println();
                                 }
-                            } else if (MatrixOP.determinant(matrix) == 0) {
-                                System.out.println(
-                                        "Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.");
-                                printFile = Output.userPrintFile();
-                                if (printFile) {
-                                    System.out.println();
-                                    System.out
-                                            .print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
-                                    scan.nextLine();
-                                    fileName = scan.nextLine();
-                                    Output.delFile(fileName);
-                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
-                                    Output.printFile(fileName,
-                                            "Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.");
-                                    System.out.println("Berhasil create dan write pada file ini.");
-                                    System.out.println();
-                                } else {
-                                    System.out.println();
-                                    System.out.println("======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
-                                    System.out.println(
-                                            "Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.");
-                                    System.out.println();
-                                }
                             } else if (MatrixOP.getColEff(matrix) != MatrixOP.getRowEff(matrix) + 1) {
                                 System.out.println(
                                         "Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
@@ -353,6 +330,29 @@ public class Main {
                                     System.out.println("======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
                                     System.out.println(
                                             "Solusi tidak dapat dicari menggunakan metode Cramer karena ukuran matriks A tidak n x n.");
+                                    System.out.println();
+                                }
+                            } else if (MatrixOP.determinant(Cramer.matriksACramer(matrix)) == 0) {
+                                System.out.println(
+                                        "Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.");
+                                printFile = Output.userPrintFile();
+                                if (printFile) {
+                                    System.out.println();
+                                    System.out
+                                            .print("Masukkan nama file lengkap dengan format txt (e.g.: SPL1a.txt): ");
+                                    scan.nextLine();
+                                    fileName = scan.nextLine();
+                                    Output.delFile(fileName);
+                                    Output.printFile(fileName, "======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
+                                    Output.printFile(fileName,
+                                            "Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.");
+                                    System.out.println("Berhasil create dan write pada file ini.");
+                                    System.out.println();
+                                } else {
+                                    System.out.println();
+                                    System.out.println("======= SOLUSI SPL DENGAN METODE KAIDAH CRAMER ======");
+                                    System.out.println(
+                                            "Matriks ini tidak dapat diselesaikan dengan metode Cramer karena determinan matriksnya adalah 0.");
                                     System.out.println();
                                 }
                             } else if (MatrixOP.solTidakAda(matrix)) {
