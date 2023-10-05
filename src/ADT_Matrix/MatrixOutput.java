@@ -1,6 +1,7 @@
 package ADT_Matrix;
-
-import java.text.DecimalFormat;
+import java.util.*;
+import java.io.*;
+import java.text.*;
 
 public class MatrixOutput {
     public static void printMatrix(double[][] matrix) {

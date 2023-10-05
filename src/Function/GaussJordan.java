@@ -74,7 +74,7 @@ public class GaussJordan {
         if (MatrixOP.solTidakAda(matrix)) {
             System.out.println("Tidak ada");
         } else if (MatrixOP.solBanyak(matrix)) {
-            System.out.println("Banyak");
+            Gauss.parametriksolution(matrix);
         } else {
             for (int i = 0; i < rowM; i++) {
                 System.out.print("x" + (i + 1) + " = ");
@@ -95,5 +95,19 @@ public class GaussJordan {
             sol[i][0] = (matrix[i][colM - 1]);
         }
         return sol;
+    }
+
+    public static String strResultUniqueSol(double[][] m){
+        double[][] matrix = GaussJordan.gaussJordan(m);
+        int rowM = MatrixOP.getRowEff(m);
+        int colM = MatrixOP.getColEff(m);
+
+        String result = "";//new String[MatrixOP.getColEff(m)-1];
+        DecimalFormat df = new DecimalFormat("0.000");
+        
+        for(int i = 0; i<MatrixOP.getColEff(m)-1; i++){
+            result += "x"+(i+1)+" = "+df.format(matrix[i][colM - 1])+"\n";
+        }
+        return result;
     }
 }

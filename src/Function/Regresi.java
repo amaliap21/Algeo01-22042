@@ -79,19 +79,82 @@ public class Regresi {
         }
     }
 
-    public static void solRegresiFX(double[][] m){
+    // public static void solRegresiFX(double[][] m){
+    //     int n = MatrixOP.getRowEff(m)-1;
+    //     double sol = m[0][0];
+    //     int i;
+    //     double x;
+    //     for(i = 0; i < n; i++){
+    //         Scanner scan = new Scanner(System.in);
+    //         System.out.print("x" + (i+1) + ": ");
+    //         x = scan.nextDouble();
+    //         sol += m[i+1][0]*x;
+    //     }
+    //     System.out.println(sol);
+    // }
+
+    public static void solRegresiFX(double[][] m, double[][] taksir){
         int n = MatrixOP.getRowEff(m)-1;
         double sol = m[0][0];
         int i;
-        double x;
+        DecimalFormat df = new DecimalFormat("0.0000");
+        for(i = 1; i < n; i++){
+            Scanner scan = new Scanner(System.in);
+            sol += taksir[i-1][0]*m[i][0];
+        }
+        System.out.println("Hasil taksirannya adalah " + df.format(sol));
+    }
+
+    public static double[][] inputTaksiran(double[][] m){
+        int n = MatrixOP.getRowEff(m)-1;
+        int i;
+        double[][] x = new double[n][1];
         for(i = 0; i < n; i++){
             Scanner scan = new Scanner(System.in);
-            System.out.print("x" + (i+1) + ": ");
-            x = scan.nextDouble();
-            sol += m[i+1][0]*x;
-        }
-        System.out.println(sol);
+            System.out.print("Input x" + (i+1) + ": ");
+            x[i][0] = scan.nextDouble();
+        }   
+        return x;
     }
+
+    public static void printTaksir(double[][] taksir){
+        MatrixOutput.printMatrix(taksir);
+    }
+
+    public static String stringprintReg(double[][] m){
+        int n = MatrixOP.getRowEff(m);
+        int i;
+        String hasil = "f(x) = ";
+        for(i = 0; i < n; i++){
+            DecimalFormat df = new DecimalFormat("0.000");
+            if(i == 0){
+                hasil += df.format(m[i][0]);
+            }
+            else{
+                if(m[i][0] < 0){
+                    double el = Math.abs((m[i][0]));
+                    hasil += " - " + df.format(el) + "x" + i;
+                }
+                else{
+                    hasil += (" + " + df.format(m[i][0]) + "x" + i);
+                }
+            }
+        }
+        return hasil;
+    }
+
+    public static double hasilregresi(double[][] m, double[][] taksir){
+        int n = MatrixOP.getRowEff(m)-1;
+        double sol = m[0][0];
+        int i;
+        for(i = 1; i < n; i++){
+            Scanner scan = new Scanner(System.in);
+            sol += taksir[i-1][0]*m[i][0];
+        }
+        return sol;
+    }
+
+    
 
     // public static double regresiLinear(double[][] fx){
     //     double sol = fx[0];
@@ -104,3 +167,12 @@ public class Regresi {
     // }
 
 }
+    // public static double regresiLinear(double[][] fx){
+    //     double sol = fx[0];
+    //     int i, n = x.length;
+        
+    //     for(i = 0; i < n; i++){
+    //         sol += fx[i+1] * x[i];
+    //     }
+    //     return sol;
+    // }

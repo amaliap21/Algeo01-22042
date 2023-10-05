@@ -58,7 +58,6 @@ public class Inverse {
         return mGabung;
     }
 
-    // return matriks balikan (Gauss-Jordan)
     public static double[][] balikanGJReturn(double[][] m) {
         int rowM = MatrixOP.getRowEff(m);
 
@@ -105,9 +104,10 @@ public class Inverse {
     public static void matriksInverseGJ(double[][] m) {
         if (MatrixOP.determinant(m) == 0) {
             System.out.println("Determinan matriks 0, tidak bisa dibalikkan");
-        } else {
+        } 
+        else {
+            System.out.println("Matriks Balikan Gauss-Jordan:");
+            MatrixOutput.printMatrix(balikanGJ(m));
         }
-        System.out.println("Matriks Balikan Gauss-Jordan:");
-        MatrixOutput.printMatrix(balikanGJ(m));
     }
 }

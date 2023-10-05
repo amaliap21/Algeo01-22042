@@ -1,17 +1,6 @@
 package ADT_Matrix;
 
 public class MatrixOP {
-    // final static double MARK = -999;
-
-    // public static void createMatrix(int row, int col){
-    // int i, j;
-    // double[][] m = new double[row][col];
-    // for(i = 0; i < row; i++){
-    // for(j = 0; j < col; j++){
-    // m[i][j] = MARK;
-    // }
-    // }
-    // }
     public static int getRowEff(double[][] matrix) {
         return matrix.length;
     }
@@ -78,28 +67,6 @@ public class MatrixOP {
                     for (k = 0; k < getColEff(m1); k++) {
                         m3[i][j] += (getElmt(m1, i, k) * getElmt(m2, k, j));
                     }
-                }
-            }
-        }
-        return m3;
-    }
-
-    public static double[][] multiplyMatrixWithMod(double[][] m1, double[][] m2, int mod) {
-        double[][] m3 = new double[getRowEff(m1)][getColEff(m2)];
-        int i, j, k;
-
-        if (getColEff(m1) == getRowEff(m2)) {
-            for (i = 0; i < getRowEff(m1); i++) {
-                for (j = 0; j < getColEff(m2); j++) {
-                    for (k = 0; k < getColEff(m1); k++) {
-                        m3[i][j] += (getElmt(m1, i, k) * getElmt(m2, k, j));
-                    }
-                }
-            }
-
-            for (i = 0; i < getRowEff(m3); i++) {
-                for (j = 0; j < getColEff(m3); j++) {
-                    m3[i][j] = m3[i][j] % mod;
                 }
             }
         }
@@ -198,40 +165,6 @@ public class MatrixOP {
                 }
             }
             return true;
-        }
-    }
-
-    public static boolean isSparse(double[][] m) {
-        int count = 0, i, j;
-        for (i = 0; i < getRowEff(m); i++) {
-            for (j = 0; j < getColEff(m); j++) {
-                if (getElmt(m, i, j) != 0) {
-                    count++;
-                }
-            }
-        }
-        return (count <= countElmt(m) * 5 / 100);
-    }
-
-    public static double[][] negation(double[][] m) {
-        int i, j;
-        double[][] m2 = new double[getRowEff(m)][getColEff(m)];
-
-        for (i = 0; i < getRowEff(m); i++) {
-            for (j = 0; j < getColEff(m); j++) {
-                m2[i][j] = getElmt(m, i, j) * (-1);
-            }
-        }
-        return m2;
-    }
-
-    public static void pNegation(double[][] m) {
-        int i, j;
-
-        for (i = 0; i < getRowEff(m); i++) {
-            for (j = 0; j < getColEff(m); j++) {
-                m[i][j] = getElmt(m, i, j) * (-1);
-            }
         }
     }
 
@@ -413,19 +346,31 @@ public class MatrixOP {
     // bernilai 0 kecuali di kolom terakhir
     public static boolean solTidakAda(double[][] m) {
         int i;
+        int effrow;
+
+        effrow = getLastIdxRow(m) - CountRowZero(m);
+
         for (i = 0; i < getColEff(m) - 1; i++) {
-            if (m[getLastIdxRow(m)][i] != 0) {
+            if (m[effrow][i] != 0) {
                 return false;
             }
         }
 
-        return m[getLastIdxRow(m)][getLastIdxCol(m)] != 0;
+        return ((m[effrow][getLastIdxCol(m)] != 0) || (m[effrow - 1][getLastIdxCol(m)] != 0));
     }
 
     // solusi banyak, yakni dengan cek semua elemen di baris terakhir itu
     // bernilai 0
     public static boolean solBanyak(double[][] m) {
-        return isFullZeroRow(m, getLastIdxRow(m));
+        boolean status = true;
+        if (isFullZeroRow(m, getLastIdxRow(m))) {
+            status = true;
+        } else if (getRowEff(m) != getColEff(m) - 1) {
+            status = true;
+        } else if (!isFullZeroRow(m, getLastIdxRow(m)) && (getRowEff(m) == getColEff(m) - 1)) {
+            status = false;
+        }
+        return status;
     }
 
     // Untuk swapping gauss jordan
@@ -475,5 +420,63 @@ public class MatrixOP {
             }
         }
         return ext;
+    }
+
+    public static int CountRowZero(double[][] m) {
+        int count = 0;
+        for (int i = 0; i < getRowEff(m); i++) {
+            if (isFullZeroRow(m, i)) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+    public static int getIdxColElNotZero(double[][] m, int row) {
+        boolean status = true;
+        int i = 0;
+        while (i < getColEff(m) && status) {
+            if (getElmt(m, row, i) != 0) {
+                status = false;
+            } else {
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public static boolean oneNotZeroElCol(double[][] m, int row) {
+        // mengecek jumlah elemen not zero kecuali kolom terakhir
+        int count = 0;
+        for (int i = 0; i < getLastIdxCol(m); i++) {
+            if (getElmt(m, row, i) != 0) {
+                count += 1;
+            }
+        }
+        if (count == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isFullZeroCol(double[][] m, int col) {
+        // mengecek apakah 1 baris isinya 0 semua, kalau satu baris matriks eselon
+        // isinya 0 semua, assign alfabet lgsg sbg solusi
+        int i = 0;
+        boolean status = true;
+        while (i < getRowEff(m) && status) {
+            if (getElmt(m, i, col) != 0) {
+                status = false;
+            } else {
+                i++;
+            }
+        }
+
+        if (status) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
